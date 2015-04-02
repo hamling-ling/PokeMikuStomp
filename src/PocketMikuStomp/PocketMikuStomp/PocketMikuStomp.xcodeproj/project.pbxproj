@@ -1,0 +1,682 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C27EAB391ACD6B5B00148297 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C27EAB381ACD6B5B00148297 /* AppDelegate.m */; };
+		C27EAB3B1ACD6B5B00148297 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C27EAB3A1ACD6B5B00148297 /* main.m */; };
+		C27EAB3E1ACD6B5B00148297 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = C27EAB3D1ACD6B5B00148297 /* ViewController.mm */; };
+		C27EAB401ACD6B5B00148297 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C27EAB3F1ACD6B5B00148297 /* Images.xcassets */; };
+		C27EAB431ACD6B5B00148297 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C27EAB411ACD6B5B00148297 /* Main.storyboard */; };
+		C27EAB4F1ACD6B5B00148297 /* PocketMikuStompTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C27EAB4E1ACD6B5B00148297 /* PocketMikuStompTests.m */; };
+		C27EAB671ACD6BE300148297 /* libPocketMikuStompLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C27EAB5C1ACD6BE300148297 /* libPocketMikuStompLib.a */; };
+		C27EAC2D1ACD73FB00148297 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27EAC2C1ACD73FB00148297 /* OpenAL.framework */; };
+		C27EAC2E1ACD74EB00148297 /* libPokeMikuStompLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C27EAC261ACD730300148297 /* libPokeMikuStompLib.a */; };
+		C27EAC301ACD752000148297 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27EAC2F1ACD752000148297 /* CoreMIDI.framework */; };
+		C27EAC461ACD7FDA00148297 /* pm-char-map.txt in Resources */ = {isa = PBXBuildFile; fileRef = C27EAC451ACD7FDA00148297 /* pm-char-map.txt */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C27EAB491ACD6B5B00148297 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C27EAB2A1ACD6B5B00148297 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C27EAB311ACD6B5B00148297;
+			remoteInfo = PocketMikuStomp;
+		};
+		C27EAB681ACD6BE300148297 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C27EAB2A1ACD6B5B00148297 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C27EAB5B1ACD6BE300148297;
+			remoteInfo = PocketMikuStompLib;
+		};
+		C27EAC251ACD730300148297 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C27EAC1D1ACD730200148297 /* PokeMikuStompLib.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C27EABCF1ACD6E4700148297;
+			remoteInfo = PokeMikuStompLib;
+		};
+		C27EAC271ACD730300148297 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C27EAC1D1ACD730200148297 /* PokeMikuStompLib.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C27EABDA1ACD6E4700148297;
+			remoteInfo = PokeMikuStompLibTests;
+		};
+		C27EAC291ACD734900148297 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C27EAC1D1ACD730200148297 /* PokeMikuStompLib.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = C27EABCE1ACD6E4700148297;
+			remoteInfo = PokeMikuStompLib;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		C27EAB321ACD6B5B00148297 /* PocketMikuStomp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PocketMikuStomp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C27EAB361ACD6B5B00148297 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C27EAB371ACD6B5B00148297 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		C27EAB381ACD6B5B00148297 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		C27EAB3A1ACD6B5B00148297 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C27EAB3C1ACD6B5B00148297 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		C27EAB3D1ACD6B5B00148297 /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
+		C27EAB3F1ACD6B5B00148297 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		C27EAB421ACD6B5B00148297 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C27EAB481ACD6B5B00148297 /* PocketMikuStompTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PocketMikuStompTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C27EAB4D1ACD6B5B00148297 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C27EAB4E1ACD6B5B00148297 /* PocketMikuStompTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PocketMikuStompTests.m; sourceTree = "<group>"; };
+		C27EAB5C1ACD6BE300148297 /* libPocketMikuStompLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPocketMikuStompLib.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C27EAB661ACD6BE300148297 /* PocketMikuStompLibTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PocketMikuStompLibTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C27EAC1D1ACD730200148297 /* PokeMikuStompLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PokeMikuStompLib.xcodeproj; path = ../PokeMikuStompLib/PokeMikuStompLib.xcodeproj; sourceTree = "<group>"; };
+		C27EAC2C1ACD73FB00148297 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		C27EAC2F1ACD752000148297 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
+		C27EAC451ACD7FDA00148297 /* pm-char-map.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "pm-char-map.txt"; path = "../../PokeMikuStompLib/Pods/ObjCPokeMiku/Assets/pm-char-map.txt"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C27EAB2F1ACD6B5B00148297 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C27EAC301ACD752000148297 /* CoreMIDI.framework in Frameworks */,
+				C27EAC2E1ACD74EB00148297 /* libPokeMikuStompLib.a in Frameworks */,
+				C27EAC2D1ACD73FB00148297 /* OpenAL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C27EAB451ACD6B5B00148297 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C27EAB591ACD6BE300148297 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C27EAB631ACD6BE300148297 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C27EAB671ACD6BE300148297 /* libPocketMikuStompLib.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C27EAB291ACD6B5B00148297 = {
+			isa = PBXGroup;
+			children = (
+				C27EAC2F1ACD752000148297 /* CoreMIDI.framework */,
+				C27EAC2C1ACD73FB00148297 /* OpenAL.framework */,
+				C27EAC1D1ACD730200148297 /* PokeMikuStompLib.xcodeproj */,
+				C27EAB341ACD6B5B00148297 /* PocketMikuStomp */,
+				C27EAB4B1ACD6B5B00148297 /* PocketMikuStompTests */,
+				C27EAB331ACD6B5B00148297 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C27EAB331ACD6B5B00148297 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C27EAB321ACD6B5B00148297 /* PocketMikuStomp.app */,
+				C27EAB481ACD6B5B00148297 /* PocketMikuStompTests.xctest */,
+				C27EAB5C1ACD6BE300148297 /* libPocketMikuStompLib.a */,
+				C27EAB661ACD6BE300148297 /* PocketMikuStompLibTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C27EAB341ACD6B5B00148297 /* PocketMikuStomp */ = {
+			isa = PBXGroup;
+			children = (
+				C27EAC451ACD7FDA00148297 /* pm-char-map.txt */,
+				C27EAB371ACD6B5B00148297 /* AppDelegate.h */,
+				C27EAB381ACD6B5B00148297 /* AppDelegate.m */,
+				C27EAB3C1ACD6B5B00148297 /* ViewController.h */,
+				C27EAB3D1ACD6B5B00148297 /* ViewController.mm */,
+				C27EAB3F1ACD6B5B00148297 /* Images.xcassets */,
+				C27EAB411ACD6B5B00148297 /* Main.storyboard */,
+				C27EAB351ACD6B5B00148297 /* Supporting Files */,
+			);
+			path = PocketMikuStomp;
+			sourceTree = "<group>";
+		};
+		C27EAB351ACD6B5B00148297 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C27EAB361ACD6B5B00148297 /* Info.plist */,
+				C27EAB3A1ACD6B5B00148297 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C27EAB4B1ACD6B5B00148297 /* PocketMikuStompTests */ = {
+			isa = PBXGroup;
+			children = (
+				C27EAB4E1ACD6B5B00148297 /* PocketMikuStompTests.m */,
+				C27EAB4C1ACD6B5B00148297 /* Supporting Files */,
+			);
+			path = PocketMikuStompTests;
+			sourceTree = "<group>";
+		};
+		C27EAB4C1ACD6B5B00148297 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C27EAB4D1ACD6B5B00148297 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C27EAC1E1ACD730200148297 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C27EAC261ACD730300148297 /* libPokeMikuStompLib.a */,
+				C27EAC281ACD730300148297 /* PokeMikuStompLibTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		C27EAB5A1ACD6BE300148297 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		C27EAB311ACD6B5B00148297 /* PocketMikuStomp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C27EAB521ACD6B5B00148297 /* Build configuration list for PBXNativeTarget "PocketMikuStomp" */;
+			buildPhases = (
+				C27EAB2E1ACD6B5B00148297 /* Sources */,
+				C27EAB2F1ACD6B5B00148297 /* Frameworks */,
+				C27EAB301ACD6B5B00148297 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C27EAC2A1ACD734900148297 /* PBXTargetDependency */,
+			);
+			name = PocketMikuStomp;
+			productName = PocketMikuStomp;
+			productReference = C27EAB321ACD6B5B00148297 /* PocketMikuStomp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C27EAB471ACD6B5B00148297 /* PocketMikuStompTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C27EAB551ACD6B5B00148297 /* Build configuration list for PBXNativeTarget "PocketMikuStompTests" */;
+			buildPhases = (
+				C27EAB441ACD6B5B00148297 /* Sources */,
+				C27EAB451ACD6B5B00148297 /* Frameworks */,
+				C27EAB461ACD6B5B00148297 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C27EAB4A1ACD6B5B00148297 /* PBXTargetDependency */,
+			);
+			name = PocketMikuStompTests;
+			productName = PocketMikuStompTests;
+			productReference = C27EAB481ACD6B5B00148297 /* PocketMikuStompTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		C27EAB5B1ACD6BE300148297 /* PocketMikuStompLib */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C27EAB711ACD6BE300148297 /* Build configuration list for PBXNativeTarget "PocketMikuStompLib" */;
+			buildPhases = (
+				C27EAB581ACD6BE300148297 /* Sources */,
+				C27EAB591ACD6BE300148297 /* Frameworks */,
+				C27EAB5A1ACD6BE300148297 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PocketMikuStompLib;
+			productName = PocketMikuStompLib;
+			productReference = C27EAB5C1ACD6BE300148297 /* libPocketMikuStompLib.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		C27EAB651ACD6BE300148297 /* PocketMikuStompLibTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C27EAB721ACD6BE300148297 /* Build configuration list for PBXNativeTarget "PocketMikuStompLibTests" */;
+			buildPhases = (
+				C27EAB621ACD6BE300148297 /* Sources */,
+				C27EAB631ACD6BE300148297 /* Frameworks */,
+				C27EAB641ACD6BE300148297 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C27EAB691ACD6BE300148297 /* PBXTargetDependency */,
+			);
+			name = PocketMikuStompLibTests;
+			productName = PocketMikuStompLibTests;
+			productReference = C27EAB661ACD6BE300148297 /* PocketMikuStompLibTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C27EAB2A1ACD6B5B00148297 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0620;
+				ORGANIZATIONNAME = "Nobuhiro Kuroiwa";
+				TargetAttributes = {
+					C27EAB311ACD6B5B00148297 = {
+						CreatedOnToolsVersion = 6.2;
+					};
+					C27EAB471ACD6B5B00148297 = {
+						CreatedOnToolsVersion = 6.2;
+						TestTargetID = C27EAB311ACD6B5B00148297;
+					};
+					C27EAB5B1ACD6BE300148297 = {
+						CreatedOnToolsVersion = 6.2;
+					};
+					C27EAB651ACD6BE300148297 = {
+						CreatedOnToolsVersion = 6.2;
+					};
+				};
+			};
+			buildConfigurationList = C27EAB2D1ACD6B5B00148297 /* Build configuration list for PBXProject "PocketMikuStomp" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C27EAB291ACD6B5B00148297;
+			productRefGroup = C27EAB331ACD6B5B00148297 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = C27EAC1E1ACD730200148297 /* Products */;
+					ProjectRef = C27EAC1D1ACD730200148297 /* PokeMikuStompLib.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				C27EAB311ACD6B5B00148297 /* PocketMikuStomp */,
+				C27EAB471ACD6B5B00148297 /* PocketMikuStompTests */,
+				C27EAB5B1ACD6BE300148297 /* PocketMikuStompLib */,
+				C27EAB651ACD6BE300148297 /* PocketMikuStompLibTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		C27EAC261ACD730300148297 /* libPokeMikuStompLib.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libPokeMikuStompLib.a;
+			remoteRef = C27EAC251ACD730300148297 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C27EAC281ACD730300148297 /* PokeMikuStompLibTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = PokeMikuStompLibTests.xctest;
+			remoteRef = C27EAC271ACD730300148297 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C27EAB301ACD6B5B00148297 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C27EAB401ACD6B5B00148297 /* Images.xcassets in Resources */,
+				C27EAC461ACD7FDA00148297 /* pm-char-map.txt in Resources */,
+				C27EAB431ACD6B5B00148297 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C27EAB461ACD6B5B00148297 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C27EAB641ACD6BE300148297 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C27EAB2E1ACD6B5B00148297 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C27EAB3E1ACD6B5B00148297 /* ViewController.mm in Sources */,
+				C27EAB3B1ACD6B5B00148297 /* main.m in Sources */,
+				C27EAB391ACD6B5B00148297 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C27EAB441ACD6B5B00148297 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C27EAB4F1ACD6B5B00148297 /* PocketMikuStompTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C27EAB581ACD6BE300148297 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C27EAB621ACD6BE300148297 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C27EAB4A1ACD6B5B00148297 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C27EAB311ACD6B5B00148297 /* PocketMikuStomp */;
+			targetProxy = C27EAB491ACD6B5B00148297 /* PBXContainerItemProxy */;
+		};
+		C27EAB691ACD6BE300148297 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C27EAB5B1ACD6BE300148297 /* PocketMikuStompLib */;
+			targetProxy = C27EAB681ACD6BE300148297 /* PBXContainerItemProxy */;
+		};
+		C27EAC2A1ACD734900148297 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PokeMikuStompLib;
+			targetProxy = C27EAC291ACD734900148297 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		C27EAB411ACD6B5B00148297 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C27EAB421ACD6B5B00148297 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C27EAB501ACD6B5B00148297 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					../PokeMikuStompLib/PokeMikuStompLib,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		C27EAB511ACD6B5B00148297 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					../PokeMikuStompLib/PokeMikuStompLib,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		C27EAB531ACD6B5B00148297 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = PocketMikuStomp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C27EAB541ACD6B5B00148297 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = PocketMikuStomp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		C27EAB561ACD6B5B00148297 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = PocketMikuStompTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PocketMikuStomp.app/Contents/MacOS/PocketMikuStomp";
+			};
+			name = Debug;
+		};
+		C27EAB571ACD6B5B00148297 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = PocketMikuStompTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PocketMikuStomp.app/Contents/MacOS/PocketMikuStomp";
+			};
+			name = Release;
+		};
+		C27EAB6D1ACD6BE300148297 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C27EAB6E1ACD6BE300148297 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		C27EAB6F1ACD6BE300148297 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = PocketMikuStompLibTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C27EAB701ACD6BE300148297 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = PocketMikuStompLibTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C27EAB2D1ACD6B5B00148297 /* Build configuration list for PBXProject "PocketMikuStomp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C27EAB501ACD6B5B00148297 /* Debug */,
+				C27EAB511ACD6B5B00148297 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C27EAB521ACD6B5B00148297 /* Build configuration list for PBXNativeTarget "PocketMikuStomp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C27EAB531ACD6B5B00148297 /* Debug */,
+				C27EAB541ACD6B5B00148297 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C27EAB551ACD6B5B00148297 /* Build configuration list for PBXNativeTarget "PocketMikuStompTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C27EAB561ACD6B5B00148297 /* Debug */,
+				C27EAB571ACD6B5B00148297 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C27EAB711ACD6BE300148297 /* Build configuration list for PBXNativeTarget "PocketMikuStompLib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C27EAB6D1ACD6BE300148297 /* Debug */,
+				C27EAB6E1ACD6BE300148297 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C27EAB721ACD6BE300148297 /* Build configuration list for PBXNativeTarget "PocketMikuStompLibTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C27EAB6F1ACD6BE300148297 /* Debug */,
+				C27EAB701ACD6BE300148297 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C27EAB2A1ACD6B5B00148297 /* Project object */;
+}
