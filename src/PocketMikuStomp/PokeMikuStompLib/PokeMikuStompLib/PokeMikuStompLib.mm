@@ -7,9 +7,10 @@
 //
 
 #import "PokeMikuStompLib.h"
+#include <memory>
+#include <vector>
 #include <PitchDetector.h>
 #include <SoundCapture.h>
-#include <memory>
 #include <PMMiku.h>
 
 using namespace std;
@@ -85,7 +86,11 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
 - (int)setup {
     const int samplingRate = 22050;
     const int samplingSize = 1024;
-    
+	
+	if(_miku) {
+		return -1;
+	}
+	
     _miku = [[PMMiku alloc] init];
     _det = make_shared<PitchDetector>(samplingRate, samplingSize);
     if(!_det->Initialize()) {
@@ -103,6 +108,27 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
     }
     
     return 0;
+}
+
+- (int)teardown {
+	return 0;
+}
+
+- (NSArray*)devices {
+	vector<string> vec;
+	_cap->GetDevices(vec);
+	
+	NSMutableArray* m = [NSMutableArray array];
+	for(auto d:vec) {
+		NSString *deviceName = [NSString stringWithUTF8String:d->c_str()];
+		[m addObject:deviceName];
+	}
+	
+	return m;
+}
+
+- (int)selectDeviceWithId:(int)deviceId {
+	
 }
 
 - (int)start {

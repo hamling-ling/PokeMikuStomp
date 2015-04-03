@@ -6,26 +6,34 @@
 #include <thread>
 #include <mutex>
 
+#include "RunnableService.h"
+
 typedef enum _SoundCaptureError {
 	SoundCaptureErrorNoError,
 	SoundCaptureErrorAlreadyRunning,
+	SoundCaptureErrorNotInitialized,
 	SoundCaptureErrorNoDevice,
+	SoundCaptureErrorDeviceExist,
 	SoundCaptureErrorInternal,
 } SoundCaptureError;
 
 typedef enum _SoundCaptureNotificationType {
 	SoundCaptureNotificationTypeCaptured,
+	SoundCaptureNotificationTypeCaptureError,
 } SoundCaptureNotificationType;
 
 struct SoundCaptureNotification {
 	SoundCaptureNotificationType type;
+	SoundCaptureError err;
 	void* user;
 };
 
 class SoundCapture;
 typedef std::function < void(SoundCapture*, SoundCaptureNotification)> SoundCaptureCallback_t;
 
-class SoundCapture
+class CaptureDevice;
+
+class SoundCapture : public RunnableService
 {
 public:
 	SoundCapture(int sampleRate, int sampleNum);
@@ -36,7 +44,8 @@ public:
 	SoundCaptureError Stop();
 	SoundCaptureError GetDevices(std::vector<std::string>& vec);
 	SoundCaptureError SelectDevice(int index);
-
+	SoundCaptureError DeselectDevice();
+	
 	/**
 	 *	Get recording signal level.
 	 */
@@ -47,21 +56,18 @@ public:
 	 */
 	SoundCaptureError GetBuffer(float* out);
 
+protected:
+		void ServiceProc();
+	
 private:
-	const int _sampleRate;
-	const int _sampleNum;
 	int16_t* _sampleBuf;
-	int _selectedDeviceIndex;
-	std::thread _thread;
-	bool _isRunning;
-	bool _stopRunning;
-	std::recursive_mutex _apiMutex;
 	std::recursive_mutex _dataMutex;
 	uint16_t _level;
 	void* _user;
 	SoundCaptureCallback_t _callback;
-
-	void CaptureLoop();
+	std::shared_ptr<CaptureDevice> _device;  // never be NULL
+	
 	void ProcessData(int16_t* data, int dataNum);
+	void NotifyCaptureError(SoundCaptureError err);
 };
 

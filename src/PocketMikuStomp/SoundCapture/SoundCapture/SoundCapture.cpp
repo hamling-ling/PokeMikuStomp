@@ -1,11 +1,4 @@
 #include "SoundCapture.h"
-#if WIN32
-#include <al.h>
-#include <alc.h>
-#else
-#include <OpenAL/al.h>
-#include <OpenAL/alc.h>
-#endif
 
 #include <algorithm>
 
@@ -16,57 +9,65 @@
 #include <fstream>
 #endif
 
+#include "CaptureDevice.h"
+
 using namespace std;
 
 SoundCapture::SoundCapture(int sampleRate, int sampleNum)
-: _sampleRate(sampleRate), _sampleNum(sampleNum), _sampleBuf(NULL), _selectedDeviceIndex(-1), _isRunning(false), _stopRunning(false)
+: _sampleBuf(NULL), _device(make_shared<CaptureDevice>(sampleRate, sampleNum))
 {
 }
 
 SoundCapture::~SoundCapture()
 {
+	Stop();
+	if(_device) {
+		_device->DestroyDevice();
+	}
 	delete(_sampleBuf);
 }
 
 bool SoundCapture::Initialize(SoundCaptureCallback_t callback, void* user)
 {
+	if(!_sampleBuf) {
+		return true;
+	}
+	
 	_callback = callback;
-	_sampleBuf = new int16_t[_sampleNum];
+	_sampleBuf = new int16_t[_device->SampleNumber()];
 	_user = user;
 
+	if(!_sampleBuf) {
+		return false;
+	}
+	
 	return true;
 }
 
 SoundCaptureError SoundCapture::Start()
 {
-	std::lock_guard<std::recursive_mutex> lock(_apiMutex);
-
-	if (_isRunning) {
-		return SoundCaptureErrorAlreadyRunning;
+	if(!_sampleBuf) {
+		return SoundCaptureErrorNotInitialized;
 	}
-
-	_thread = thread(&SoundCapture::CaptureLoop, this);
-	_isRunning = true;
+	
+	if(_device->SelectedDevice() == -1) {
+		return SoundCaptureErrorNoDevice;
+	}
+	
+	ServiceStart();
 
 	return SoundCaptureErrorNoError;
 }
 
 SoundCaptureError SoundCapture::Stop()
 {
-	std::lock_guard<std::recursive_mutex> lock(_apiMutex);
-	if (_isRunning) {
-		_stopRunning = true;
-	}
-
-	if (_thread.joinable()) {
-		_thread.join();
-	}
-
+	ServiceStop();
 	return SoundCaptureErrorNoError;
 }
 
 SoundCaptureError SoundCapture::GetDevices(std::vector<std::string>& vec)
 {
+	_device->GetDevices(vec);
 	return SoundCaptureErrorNoError;
 }
 
@@ -78,6 +79,37 @@ int SoundCapture::Level()
 
 SoundCaptureError SoundCapture::SelectDevice(int index)
 {
+	if(IsRunning()) {
+		return SoundCaptureErrorAlreadyRunning;
+	}
+	
+	if(_device->SelectedDevice() != -1) {
+		return SoundCaptureErrorDeviceExist;
+	}
+	
+	CaptureDeviceError err = _device->CreateDevice(index);
+	if(CaptureDeviceErrorDeviceExist == err) {
+		return SoundCaptureErrorNoDevice;
+	}
+	
+	return SoundCaptureErrorNoError;
+}
+
+SoundCaptureError SoundCapture::DeselectDevice()
+{
+	if(IsRunning()) {
+		return SoundCaptureErrorAlreadyRunning;
+	}
+	
+	if(_device->SelectedDevice() == -1) {
+		return SoundCaptureErrorNoError;
+	}
+	
+	CaptureDeviceError err = _device->DestroyDevice();
+	if(CaptureDeviceErrorDeviceExist == err) {
+		return SoundCaptureErrorInternal;
+	}
+	
 	return SoundCaptureErrorNoError;
 }
 
@@ -85,66 +117,69 @@ SoundCaptureError SoundCapture::GetBuffer(float* out)
 {
 	if (out) {
 		std::lock_guard<std::recursive_mutex> lock(_dataMutex);
-		for (int i = 0; i < _sampleNum; i++) {
+		int N = _device->SampleNumber();
+		for (int i = 0; i < N; i++) {
 			out[i] = _sampleBuf[i] / 32768.0f;
 		}
 	}
 	return SoundCaptureErrorNoError;
 }
 
-void SoundCapture::CaptureLoop()
+void SoundCapture::ServiceProc()
 {
-	ALCdevice *dev = NULL;
-	ALCcontext *ctx = NULL;
+	const int N = _device->SampleNumber();
 	ALshort* data = static_cast<int16_t*>(_sampleBuf);
 
-	/* If you don't need 3D spatialization, this should help processing time */
-	alDistanceModel(AL_NONE);
-	dev = alcCaptureOpenDevice(NULL, _sampleRate, AL_FORMAT_MONO16, sizeof(ALshort)*_sampleNum);
+	if(!_sampleBuf) {
+		NotifyCaptureError(SoundCaptureErrorNotInitialized);
+		ProcFinished();
+		return;
+	}
+	
+	if(_device->SelectedDevice() == -1) {
+		NotifyCaptureError(SoundCaptureErrorNoDevice);
+		ProcFinished();
+		return;
+	}
+	
+	_device->CaptureStart();
 
-	ctx = alcCreateContext(dev, NULL);
-	alcMakeContextCurrent(ctx);
-
-	/* Start capture, and enter the audio loop */
-	alcCaptureStart(dev);    //starts ring buffer
-
-	while (!_stopRunning)
+	CaptureDeviceError err = CaptureDeviceErrorNoError;
+	while (!IsStopRequested())
 	{
-		/* Check how much audio data has been captured (note that 'val' is the
-		* number of frames, not bytes) */
-		ALint capturedFrameNum;
-		alcGetIntegerv(dev, ALC_CAPTURE_SAMPLES, 1, &capturedFrameNum);
-
-		if (capturedFrameNum <= _sampleNum) {
-			continue;
-		}
-
 		{
 			std::lock_guard<std::recursive_mutex> lock(_dataMutex);
-			/* Read the captured audio */
-			memset(data, 0, sizeof(ALshort) * _sampleNum);
-			alcCaptureSamples(dev, data, _sampleNum);
-
-			//***** Process/filter captured data here *****//
-			ProcessData(static_cast<int16_t*>(data), _sampleNum);
+			
+			// Read the captured audio
+			memset(data, 0, sizeof(ALshort) * N);
+			CaptureDeviceError err = _device->Sample(data);
+			if(CaptureDeviceErrorTooEarly == err) {
+				continue;
+			}
+			
+			if(CaptureDeviceErrorNoError == err) {
+				//  Process/filter captured data
+				ProcessData(static_cast<int16_t*>(data), N);
+			}
 		}
 
-		if (_callback) {
-			SoundCaptureNotification note;
+		if(!_callback) {
+			continue;
+		}
+		
+		SoundCaptureNotification note;
+		if(CaptureDeviceErrorNoError == err) {
 			note.type = SoundCaptureNotificationTypeCaptured;
 			note.user = _user;
+			note.err = SoundCaptureErrorNoError;
 			_callback(this, note);
+		} else {
+			NotifyCaptureError(SoundCaptureErrorInternal);
+			break;
 		}
 	}
 
-	/* Shutdown and cleanup */
-	alcCaptureStop(dev);
-	alcCaptureCloseDevice(dev);
-
-	alcMakeContextCurrent(NULL);
-	alcDestroyContext(ctx);
-
-	_isRunning = false;
+	_device->CaptureStop();
 }
 
 void SoundCapture::ProcessData(int16_t *data, int dataNum)
@@ -162,4 +197,14 @@ void SoundCapture::ProcessData(int16_t *data, int dataNum)
 	}
 
 	_level = maxValue;
+}
+
+void SoundCapture::NotifyCaptureError(SoundCaptureError err)
+{
+	SoundCaptureNotification note;
+	note.type = SoundCaptureNotificationTypeCaptureError;
+	note.err = err;
+	if(_callback) {
+		_callback(this, note);
+	}
 }

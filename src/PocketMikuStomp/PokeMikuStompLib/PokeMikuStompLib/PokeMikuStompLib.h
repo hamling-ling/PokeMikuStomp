@@ -9,7 +9,10 @@
 #import <Foundation/Foundation.h>
 
 @interface PokeMikuStompLib : NSObject
+- (NSArray*)devices;
+- (int)selectDeviceWithId:(int)deviceId;
 - (int)setup;
+- (int)teardown;
 - (int)start;
 - (void)stop;
 - (void)test;

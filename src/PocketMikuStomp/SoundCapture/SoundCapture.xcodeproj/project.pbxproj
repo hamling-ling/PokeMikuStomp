@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		67A6EDDB1ACE5BC300BBA775 /* RunnableService.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67A6EDD91ACE5BC300BBA775 /* RunnableService.cpp */; };
+		67A6EDDC1ACE5BC300BBA775 /* RunnableService.h in Headers */ = {isa = PBXBuildFile; fileRef = 67A6EDDA1ACE5BC300BBA775 /* RunnableService.h */; };
+		67A6EDDF1ACE63A400BBA775 /* CaptureDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67A6EDDD1ACE63A400BBA775 /* CaptureDevice.cpp */; };
+		67A6EDE01ACE63A400BBA775 /* CaptureDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 67A6EDDE1ACE63A400BBA775 /* CaptureDevice.h */; };
 		C27EABAC1ACD6D3400148297 /* SoundCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = C27EABAB1ACD6D3400148297 /* SoundCapture.h */; };
 		C27EABB41ACD6D3400148297 /* libSoundCapture.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C27EABA81ACD6D3400148297 /* libSoundCapture.a */; };
 		C27EABC31ACD6DB200148297 /* SoundCapture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C27EABC21ACD6DB200148297 /* SoundCapture.cpp */; };
@@ -24,6 +28,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		67A6EDD91ACE5BC300BBA775 /* RunnableService.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RunnableService.cpp; sourceTree = "<group>"; };
+		67A6EDDA1ACE5BC300BBA775 /* RunnableService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunnableService.h; sourceTree = "<group>"; };
+		67A6EDDD1ACE63A400BBA775 /* CaptureDevice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CaptureDevice.cpp; sourceTree = "<group>"; };
+		67A6EDDE1ACE63A400BBA775 /* CaptureDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureDevice.h; sourceTree = "<group>"; };
 		C27EABA81ACD6D3400148297 /* libSoundCapture.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSoundCapture.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C27EABAB1ACD6D3400148297 /* SoundCapture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SoundCapture.h; sourceTree = "<group>"; };
 		C27EABB31ACD6D3400148297 /* SoundCaptureTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SoundCaptureTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,6 +84,10 @@
 			children = (
 				C27EABC21ACD6DB200148297 /* SoundCapture.cpp */,
 				C27EABAB1ACD6D3400148297 /* SoundCapture.h */,
+				67A6EDD91ACE5BC300BBA775 /* RunnableService.cpp */,
+				67A6EDDA1ACE5BC300BBA775 /* RunnableService.h */,
+				67A6EDDD1ACE63A400BBA775 /* CaptureDevice.cpp */,
+				67A6EDDE1ACE63A400BBA775 /* CaptureDevice.h */,
 			);
 			path = SoundCapture;
 			sourceTree = "<group>";
@@ -104,6 +116,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C27EABAC1ACD6D3400148297 /* SoundCapture.h in Headers */,
+				67A6EDE01ACE63A400BBA775 /* CaptureDevice.h in Headers */,
+				67A6EDDC1ACE5BC300BBA775 /* RunnableService.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,6 +209,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67A6EDDB1ACE5BC300BBA775 /* RunnableService.cpp in Sources */,
+				67A6EDDF1ACE63A400BBA775 /* CaptureDevice.cpp in Sources */,
 				C27EABC31ACD6DB200148297 /* SoundCapture.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -358,6 +374,7 @@
 				C27EABBE1ACD6D3400148297 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C27EABBF1ACD6D3400148297 /* Build configuration list for PBXNativeTarget "SoundCaptureTests" */ = {
 			isa = XCConfigurationList;
@@ -366,6 +383,7 @@
 				C27EABC11ACD6D3400148297 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
