@@ -8,12 +8,23 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM (NSUInteger, PokeMikuStompLibError) {
+    kPokeMikuStompLibNoError,
+    kPokeMikuStompLibErrorPokeMikuNotFound,
+    kPokeMikuStompLibErrorNotInitialized,
+    kPokeMikuStompLibErrorNoCaptureDevice,
+    kPokeMikuStompLibErrorCaptureDeviceExist,
+    kPokeMikuStompLibErrorCaptureNotInitialized,
+    kPokeMikuStompLibErrorCaptureRunning,
+    kPokeMikuStompLibErrorInternalError,
+};
+
 @interface PokeMikuStompLib : NSObject
 - (NSArray*)devices;
-- (int)selectDeviceWithId:(int)deviceId;
-- (int)setup;
-- (int)teardown;
-- (int)start;
+- (PokeMikuStompLibError)selectDeviceWithId:(int)deviceId;
+- (PokeMikuStompLibError)setup;
+- (void)teardown;
+- (PokeMikuStompLibError)start;
 - (void)stop;
 - (void)test;
 @end

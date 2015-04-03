@@ -8,6 +8,8 @@
 
 #include "CaptureDevice.h"
 
+using namespace std;
+
 CaptureDevice::CaptureDevice(int sampleRate, int sampleNum)
 : _sampleRate(sampleRate), _sampleNum(sampleNum), _selectedDeviceIndex(-1),
 _dev(NULL), _ctx(NULL)
@@ -30,6 +32,17 @@ int CaptureDevice::SelectedDevice()
 
 CaptureDeviceError CaptureDevice::GetDevices(std::vector<std::string>& vec)
 {
+    const ALchar *pDeviceList = alcGetString(NULL, ALC_CAPTURE_DEVICE_SPECIFIER);
+    if (pDeviceList)
+    {
+        while (*pDeviceList)
+        {
+            string name(pDeviceList);
+            vec.push_back(name);
+            pDeviceList += strlen(pDeviceList) + 1;
+        }
+    }
+    
 	return CaptureDeviceErrorNoError;
 }
 

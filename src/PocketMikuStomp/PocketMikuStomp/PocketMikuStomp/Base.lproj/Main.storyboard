@@ -677,6 +677,9 @@
                                 <buttonCell key="cell" type="push" title="start" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="xK4-7D-khm">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
+                                    <connections>
+                                        <binding destination="XfG-lQ-9wD" name="enabled" keyPath="isDeviceReady" id="RBb-iq-ToH"/>
+                                    </connections>
                                 </buttonCell>
                                 <connections>
                                     <action selector="startButtonPressed:" target="XfG-lQ-9wD" id="KYA-FL-IgN"/>
@@ -692,10 +695,56 @@
                                     </connections>
                                 </buttonCell>
                             </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W5n-O4-Bfu">
+                                <rect key="frame" x="23" y="233" width="104" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Input Device :" id="boS-yz-P8e">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="thO-c2-VbG">
+                                <rect key="frame" x="23" y="181" width="434" height="42"/>
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Label" id="dqA-Nx-Axh">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <binding destination="XfG-lQ-9wD" name="value" keyPath="inlineError" id="STH-v2-d0B"/>
+                                </connections>
+                            </textField>
+                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BFT-hl-qRB">
+                                <rect key="frame" x="138" y="228" width="206" height="26"/>
+                                <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="3lw-v3-UR1" id="bSL-2j-Aq6">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="menu"/>
+                                    <menu key="menu" id="s2J-2A-kOg">
+                                        <items>
+                                            <menuItem title="Item 1" state="on" id="3lw-v3-UR1"/>
+                                            <menuItem title="Item 2" id="kd6-sc-tWP"/>
+                                            <menuItem title="Item 3" id="qh7-m8-VF4"/>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                                <connections>
+                                    <action selector="deviceSelected:" target="XfG-lQ-9wD" id="rWN-dW-SsP"/>
+                                    <binding destination="4ic-3C-YLd" name="content" keyPath="arrangedObjects" id="kb4-WT-qTa"/>
+                                    <binding destination="4ic-3C-YLd" name="contentValues" keyPath="arrangedObjects" previousBinding="kb4-WT-qTa" id="2mV-BU-xND"/>
+                                    <binding destination="XfG-lQ-9wD" name="enabled" keyPath="isPokeMikuReady" id="zLw-10-kKh"/>
+                                    <binding destination="XfG-lQ-9wD" name="selectedIndex" keyPath="selectedIndex" previousBinding="2mV-BU-xND" id="eK7-ui-1a9"/>
+                                </connections>
+                            </popUpButton>
                         </subviews>
                     </view>
+                    <connections>
+                        <outlet property="arrayController" destination="4ic-3C-YLd" id="vh3-Cy-AiI"/>
+                        <outlet property="deviceSelection" destination="BFT-hl-qRB" id="5xQ-jP-XBA"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <userDefaultsController representsSharedInstance="YES" id="2Fn-Dk-gKa"/>
+                <arrayController id="4ic-3C-YLd"/>
             </objects>
             <point key="canvasLocation" x="75" y="655"/>
         </scene>

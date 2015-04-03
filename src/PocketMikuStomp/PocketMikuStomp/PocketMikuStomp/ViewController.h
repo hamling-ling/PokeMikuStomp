@@ -9,7 +9,12 @@
 #import <Cocoa/Cocoa.h>
 
 @interface ViewController : NSViewController
-
+@property (nonatomic, readonly, assign) bool isPokeMikuReady;
+@property (nonatomic, readonly, assign) bool isDeviceReady;
+@property (strong) IBOutlet NSArrayController *arrayController;
+@property (nonatomic, assign) int selectedIndex;
+@property (weak) IBOutlet NSPopUpButton *deviceSelection;
+@property (nonatomic, readonly, strong) NSString* inlineError;
 
 @end
 

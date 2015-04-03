@@ -1,0 +1,11 @@
+/* 
+  localized.strings
+  PocketMikuStomp
+
+  Created by Nobuhiro Kuroiwa on 2015/04/04.
+  Copyright (c) 2015年 Nobuhiro Kuroiwa. All rights reserved.
+*/
+"PokeMikuNotFound" = "Pocket Miku not found";
+"NoCaptureDevice" = "Sound capture device not found";
+"InternalError" = "Internal Error";
+"ConnectAndReboot" = "Make sure connection of Pocket miku and recording device. Then reboot application";

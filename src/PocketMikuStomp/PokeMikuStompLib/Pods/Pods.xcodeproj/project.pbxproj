@@ -229,7 +229,7 @@
 		BDCBC8E999C6C786A91F2DA1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0620;
 			};
 			buildConfigurationList = F0A1E8A13E876BAE5EE7EE32 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -284,6 +284,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E7C4C61C28C378245618A62E /* Pods.debug.xcconfig */;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				EXECUTABLE_PREFIX = lib;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
@@ -301,6 +302,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6DF685A32CEE7F21F4CC553C /* Pods-ObjCPokeMiku-Private.xcconfig */;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				EXECUTABLE_PREFIX = lib;
@@ -318,6 +320,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6DF685A32CEE7F21F4CC553C /* Pods-ObjCPokeMiku-Private.xcconfig */;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				EXECUTABLE_PREFIX = lib;
 				GCC_PREFIX_HEADER = "Target Support Files/Pods-ObjCPokeMiku/Pods-ObjCPokeMiku-prefix.pch";
@@ -334,6 +337,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6062F90DBD0AD732D5B7D5C0 /* Pods.release.xcconfig */;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				EXECUTABLE_PREFIX = lib;

@@ -18,6 +18,7 @@
 		C27EAC2E1ACD74EB00148297 /* libPokeMikuStompLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C27EAC261ACD730300148297 /* libPokeMikuStompLib.a */; };
 		C27EAC301ACD752000148297 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27EAC2F1ACD752000148297 /* CoreMIDI.framework */; };
 		C27EAC461ACD7FDA00148297 /* pm-char-map.txt in Resources */ = {isa = PBXBuildFile; fileRef = C27EAC451ACD7FDA00148297 /* pm-char-map.txt */; };
+		C2D0AEE71ACEF52400BB13B1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C2D0AEE61ACEF52400BB13B1 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,7 @@
 		C27EAC2C1ACD73FB00148297 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		C27EAC2F1ACD752000148297 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = System/Library/Frameworks/CoreMIDI.framework; sourceTree = SDKROOT; };
 		C27EAC451ACD7FDA00148297 /* pm-char-map.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "pm-char-map.txt"; path = "../../PokeMikuStompLib/Pods/ObjCPokeMiku/Assets/pm-char-map.txt"; sourceTree = "<group>"; };
+		C2D0AEE61ACEF52400BB13B1 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +160,7 @@
 			children = (
 				C27EAB361ACD6B5B00148297 /* Info.plist */,
 				C27EAB3A1ACD6B5B00148297 /* main.m */,
+				C2D0AEE61ACEF52400BB13B1 /* Localizable.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -345,6 +348,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2D0AEE71ACEF52400BB13B1 /* Localizable.strings in Resources */,
 				C27EAB401ACD6B5B00148297 /* Images.xcassets in Resources */,
 				C27EAC461ACD7FDA00148297 /* pm-char-map.txt in Resources */,
 				C27EAB431ACD6B5B00148297 /* Main.storyboard in Resources */,

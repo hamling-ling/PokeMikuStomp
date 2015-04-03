@@ -8,7 +8,6 @@
 
 #import "PokeMikuStompLib.h"
 #include <memory>
-#include <vector>
 #include <PitchDetector.h>
 #include <SoundCapture.h>
 #include <PMMiku.h>
@@ -21,6 +20,9 @@ struct AppData {
     void* context;
     void* miku;
 };
+
+static const shared_ptr<PitchDetector> nullDet;
+static const shared_ptr<SoundCapture> nullCap;
 
 static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
 {
@@ -62,13 +64,18 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
 - (id)init {
     self = [super init];
     if(self) {
-        
+        _det = nullDet;
+        _cap = nullCap;
+        _app.det = nullDet;
+        _app.context = NULL;
+        _app.buf = NULL;
+        _app.miku = NULL;
     }
     return self;
 }
 
 - (void)dealloc {
-    delete(_app.buf);
+    [self teardown];
 }
 
 - (void)test {
@@ -83,64 +90,143 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
     [miku noteOff];
 }
 
-- (int)setup {
+- (PokeMikuStompLibError)setup {
     const int samplingRate = 22050;
     const int samplingSize = 1024;
 	
 	if(_miku) {
-		return -1;
+		return kPokeMikuStompLibNoError;
 	}
 	
-    _miku = [[PMMiku alloc] init];
-    _det = make_shared<PitchDetector>(samplingRate, samplingSize);
-    if(!_det->Initialize()) {
-        return -1;
+    shared_ptr<PitchDetector> det = make_shared<PitchDetector>(samplingRate, samplingSize);
+    if(!det->Initialize()) {
+        return kPokeMikuStompLibErrorInternalError;
+    }
+   
+    shared_ptr<SoundCapture> cap = make_shared<SoundCapture>(samplingRate, samplingSize);
+    if(!cap->Initialize(SoundCapEvent, static_cast<void*>(&_app))) {
+        return kPokeMikuStompLibErrorInternalError;
     }
     
-    _cap = make_shared<SoundCapture>(samplingRate, samplingSize);
+    _miku = [[PMMiku alloc] init];
+    if(!_miku) {
+        return kPokeMikuStompLibErrorPokeMikuNotFound;
+    }
+    
+    _det = det;
+    _cap = cap;
     _app.det = _det;
     _app.context = (__bridge void*)self;
     _app.buf = new float[samplingSize];
     _app.miku = (__bridge void*)_miku;
     
-    if(!_cap->Initialize(SoundCapEvent, static_cast<void*>(&_app))) {
-        return -1;
-    }
-    
-    return 0;
+    return kPokeMikuStompLibNoError;
 }
 
-- (int)teardown {
-	return 0;
+- (void)teardown {
+    
+    if(!_miku) {
+        return;
+    }
+    
+    [self stop];
+    
+    _miku = nil;
+    _cap->DeselectDevice();
+    _cap = nullCap;
+    _det = nullDet;
+    delete(_app.buf);
+    _app.buf = NULL;
+    _app.context = NULL;
+    _app.miku = NULL;
+    _app.det = nullDet;
 }
 
 - (NSArray*)devices {
 	vector<string> vec;
+    
+    if(!_cap) {
+        return @[];
+    }
+    
 	_cap->GetDevices(vec);
 	
 	NSMutableArray* m = [NSMutableArray array];
-	for(auto d:vec) {
-		NSString *deviceName = [NSString stringWithUTF8String:d->c_str()];
+	for(auto d : vec) {
+		NSString *deviceName = [NSString stringWithUTF8String:d.c_str()];
 		[m addObject:deviceName];
 	}
 	
 	return m;
 }
 
-- (int)selectDeviceWithId:(int)deviceId {
-	
+- (PokeMikuStompLibError)selectDeviceWithId:(int)deviceId {
+    
+    if(!_miku) {
+        return kPokeMikuStompLibErrorPokeMikuNotFound;
+    }
+    
+    if(_cap) {
+        SoundCaptureError err = _cap->SelectDevice(deviceId);
+        return [self PokeMikuErrorFromCaptureError:err];
+    }
+    return kPokeMikuStompLibErrorNotInitialized;
 }
 
-- (int)start {
+- (PokeMikuStompLibError)start {
 
-    _cap->Start();
+    if(!_miku) {
+        return kPokeMikuStompLibErrorPokeMikuNotFound;
+    }
     
-    return 0;
+    if(!_cap) {
+        return kPokeMikuStompLibErrorNotInitialized;
+    }
+    
+    if(_cap->SelectedDevice() == -1) {
+        return kPokeMikuStompLibErrorNoCaptureDevice;
+    }
+    
+    auto err = _cap->Start();
+    if(SoundCaptureErrorNoError != err) {
+        return [self PokeMikuErrorFromCaptureError:err];
+    }
+    return kPokeMikuStompLibNoError;
 }
 
 - (void)stop {
+    if(!_cap) {
+        return;
+    }
+    
     _cap->Stop();
     [_miku noteOff];
+}
+
+- (PokeMikuStompLibError)PokeMikuErrorFromCaptureError:(const SoundCaptureError) capErr {
+    PokeMikuStompLibError stompErr = kPokeMikuStompLibNoError;
+    switch(capErr) {
+        case SoundCaptureErrorNoError :
+            break;
+        case SoundCaptureErrorAlreadyRunning:
+            stompErr = kPokeMikuStompLibErrorCaptureRunning;
+            break;
+        case SoundCaptureErrorNotInitialized:
+            stompErr = kPokeMikuStompLibErrorCaptureNotInitialized;
+            break;
+        case SoundCaptureErrorNoDevice:
+            stompErr = kPokeMikuStompLibErrorNoCaptureDevice;
+            break;
+        case SoundCaptureErrorDeviceExist:
+            stompErr = kPokeMikuStompLibErrorCaptureDeviceExist;
+            break;
+        case SoundCaptureErrorInternal:
+        default:
+            stompErr = kPokeMikuStompLibErrorInternalError;
+            break;
+    }
+    return stompErr;
+    
 }
 
 @end

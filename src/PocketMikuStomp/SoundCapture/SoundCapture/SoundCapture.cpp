@@ -29,7 +29,7 @@ SoundCapture::~SoundCapture()
 
 bool SoundCapture::Initialize(SoundCaptureCallback_t callback, void* user)
 {
-	if(!_sampleBuf) {
+	if(_sampleBuf) {
 		return true;
 	}
 	
@@ -113,6 +113,11 @@ SoundCaptureError SoundCapture::DeselectDevice()
 	return SoundCaptureErrorNoError;
 }
 
+int SoundCapture::SelectedDevice()
+{
+    return _device->SelectedDevice();
+}
+
 SoundCaptureError SoundCapture::GetBuffer(float* out)
 {
 	if (out) {
@@ -180,6 +185,7 @@ void SoundCapture::ServiceProc()
 	}
 
 	_device->CaptureStop();
+    ProcFinished();
 }
 
 void SoundCapture::ProcessData(int16_t *data, int dataNum)

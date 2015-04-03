@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <string>
 #include <cstdint>
 #include <functional>
 #include <thread>
@@ -45,7 +46,8 @@ public:
 	SoundCaptureError GetDevices(std::vector<std::string>& vec);
 	SoundCaptureError SelectDevice(int index);
 	SoundCaptureError DeselectDevice();
-	
+    int SelectedDevice();
+    
 	/**
 	 *	Get recording signal level.
 	 */
