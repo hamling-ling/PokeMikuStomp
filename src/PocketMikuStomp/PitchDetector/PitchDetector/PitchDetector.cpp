@@ -10,9 +10,9 @@ using namespace osakanaengine;
 
 static const float kNoteConst = log10(pow(2.0f, 1.0f / 12.0f));
 const char* kNoteStrings[] {
-	"A", "Bes", "B", "C",
-	"Cis", "D", "Dis", "E",
-	"F", "Fis", "G", "Gis",
+	"A", "B♭", "B", "C",
+	"C#", "D", "D#", "E",
+	"F", "F#", "G", "G#",
 };
 
 PitchDetector::PitchDetector(int samplingRate, int samplingSize)

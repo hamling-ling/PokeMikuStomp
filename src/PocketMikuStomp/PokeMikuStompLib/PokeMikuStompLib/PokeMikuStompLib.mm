@@ -24,42 +24,39 @@ struct AppData {
 static const shared_ptr<PitchDetector> nullDet;
 static const shared_ptr<SoundCapture> nullCap;
 
-static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
-{
-    @autoreleasepool {
-        if(SoundCaptureNotificationTypeCaptured == note.type) {
-            int level = sc->Level();
-            if (level < 20) {
-                return;
-            }
-            
-            AppData* appData = static_cast<AppData*>(note.user);
-            sc->GetBuffer(appData->buf);
-            
-            if (appData->det->Detect(appData->buf)) {
-                PitchInfo pitch;
-                appData->det->GetPiatch(pitch);
-                
-                PokeMikuStompLib* lib = (__bridge id)appData->context;
-                PMMiku* miku = (__bridge id)appData->miku;
-                
-                [miku noteOnWithKey:pitch.midi velocity:100 pronunciation:@"にゃ"];
-                //cout << "level:" << level << ", pitch:" << pitch.noteStr << endl;
-                NSLog(@"level=%d, note=%d", level, pitch.midi);
-            }
-        }
-    }
-}
-
 @interface PokeMikuStompLib() {
     PMMiku* _miku;
     shared_ptr<PitchDetector> _det;
     shared_ptr<SoundCapture> _cap;
     AppData _app;
 }
+@property (atomic, readwrite, assign) int inputLevel;
+@property (atomic, readwrite, assign) int midiNote;
+- (void) captureEventNotifiedFrom:(SoundCapture*)sc notification:(SoundCaptureNotification&)note;
 @end
 
+static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
+{
+    @autoreleasepool {
+        AppData* appData = static_cast<AppData*>(note.user);
+        if(!appData) {
+            return;
+        }
+        
+        PokeMikuStompLib* lib = (__bridge id)appData->context;
+        if(!lib) {
+            return;
+        }
+        
+        if(SoundCaptureNotificationTypeCaptured == note.type) {
+            [lib captureEventNotifiedFrom:sc notification:note];
+        }
+    }
+}
+
 @implementation PokeMikuStompLib
+
+#pragma mark Life cycles
 
 - (id)init {
     self = [super init];
@@ -70,6 +67,7 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
         _app.context = NULL;
         _app.buf = NULL;
         _app.miku = NULL;
+        _levelThreshold = kDefaultLevelThreshold;
     }
     return self;
 }
@@ -77,6 +75,8 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
 - (void)dealloc {
     [self teardown];
 }
+
+#pragma Public Interface
 
 - (void)test {
     PMMiku *miku = [[PMMiku alloc] init];
@@ -203,6 +203,8 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
     [_miku noteOff];
 }
 
+#pragma mark Private methods
+
 - (PokeMikuStompLibError)PokeMikuErrorFromCaptureError:(const SoundCaptureError) capErr {
     PokeMikuStompLibError stompErr = kPokeMikuStompLibNoError;
     switch(capErr) {
@@ -227,6 +229,51 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
     }
     return stompErr;
     
+}
+
+#pragma Event Handlers
+
+- (void) captureEventNotifiedFrom:(SoundCapture*)sc notification:(SoundCaptureNotification&)note {
+    int level = sc->Level();
+    if(_inputLevel != level) {
+        self.inputLevel = level;
+    }
+    
+    if(!sc) {
+        [_miku noteOff];
+        self.midiNote = -1;
+        return;
+    }
+    
+    if(!_app.buf) {
+        [_miku noteOff];
+        return;
+    }
+    
+    if(!_app.det) {
+        [_miku noteOff];
+        return;
+    }
+    
+    sc->GetBuffer(_app.buf);
+    if(_det->Detect(_app.buf)) {
+        // do nothing when detection failed
+    }
+    
+    PitchInfo pitch;
+    _det->GetPiatch(pitch);
+    if (level < self.levelThreshold) {
+        [_miku noteOff];
+        self.midiNote = -1;
+        NSLog(@"level=%d, note=off", level);
+        return;
+    }
+    
+    if(_midiNote != pitch.midi) {
+        [_miku noteOnWithKey:pitch.midi velocity:100 pronunciation:@"にゃ"];
+        self.midiNote = pitch.midi;
+        NSLog(@"level=%d, note=%d", level, pitch.midi);
+    }
 }
 
 @end
