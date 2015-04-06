@@ -5,6 +5,11 @@
 #include "NsdfCompute/AutoCorrelation.h"
 #include "NsdfWalker/NsdfWalker.h"
 
+#define USE_VDSP
+#ifdef USE_VDSP
+#include <Accelerate/Accelerate.h>
+#endif
+
 using namespace std;
 using namespace osakanaengine;
 
@@ -25,11 +30,11 @@ _r(NULL), _m(NULL), _x(NULL), _x2(NULL), _nsdf(NULL)
 
 PitchDetector::~PitchDetector()
 {
-	delete(_r);
-	delete(_m);
-	delete(_x);
-	delete(_x2);
-	delete(_nsdf);
+	delete[] (_r);
+	delete[] (_m);
+	delete[] (_x);
+	delete[] (_x2);
+	delete[] (_nsdf);
 }
 
 bool PitchDetector::Initialize()
@@ -67,39 +72,21 @@ bool PitchDetector::Initialize()
 	return true;
 }
 
-bool PitchDetector::Detect(float* x)
+bool PitchDetector::Detect(const float* x)
 {
 	if (!_corr) {
 		return false;
 	}
 
+#ifdef USE_VDSP
+    vDSP_vmul(x, 1, x, 1, _x2, 1, _samplingSize);
+#else
 	for (int i = 0; i < _samplingSize; i++) {
 		_x2[i] = powf(x[i], 2.0);
 	}
-
+#endif
+    
 	if (!ComputeNsdf(x, _x2)) {
-		return false;
-	}
-
-	if (AnalyzeNsdf() == -1) {
-		return false;
-	}
-
-	return true;
-}
-
-bool PitchDetector::Detect(int16_t* x)
-{
-	if (!_corr) {
-		return false;
-	}
-
-	for (int i = 0; i < _samplingSize; i++) {
-		_x[i] = static_cast<float>(x[i]);
-		_x2[i] = powf(_x[i], 2.0);
-	}
-
-	if (!ComputeNsdf(_x, _x2)) {
 		return false;
 	}
 
@@ -115,7 +102,7 @@ void PitchDetector::GetPiatch(PitchInfo& pitch)
 	pitch = _pitch;
 }
 
-bool PitchDetector::ComputeNsdf(float* x, float* x2)
+bool PitchDetector::ComputeNsdf(const float* x, const float* x2)
 {
 	const int N = _samplingSize;
 
@@ -131,13 +118,19 @@ bool PitchDetector::ComputeNsdf(float* x, float* x2)
 	}
 
 	// nsdf
+#ifdef USE_VDSP
+    float two = 2.0f;
+    vDSP_vsmul(_r, 1, &two, _nsdf, 1, N);
+    vDSP_vdiv(_m, 1, _nsdf, 1, _nsdf, 1, N);
+#else
 	for (int t = 0; t < N; t++) {
 		_nsdf[t] = 2.0f * _r[t] / _m[t];
 
 		// debug
 		//std::cout << "nsdf[" << t << "]=" << _nsdf[t] << endl;
 	}
-
+#endif
+    
 	return true;
 }
 

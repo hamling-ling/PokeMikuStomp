@@ -11,6 +11,7 @@
 		67A6EDDC1ACE5BC300BBA775 /* RunnableService.h in Headers */ = {isa = PBXBuildFile; fileRef = 67A6EDDA1ACE5BC300BBA775 /* RunnableService.h */; };
 		67A6EDDF1ACE63A400BBA775 /* CaptureDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67A6EDDD1ACE63A400BBA775 /* CaptureDevice.cpp */; };
 		67A6EDE01ACE63A400BBA775 /* CaptureDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 67A6EDDE1ACE63A400BBA775 /* CaptureDevice.h */; };
+		C267C7251AD2E5B1003071E8 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C267C7241AD2E5B1003071E8 /* Accelerate.framework */; };
 		C27EABAC1ACD6D3400148297 /* SoundCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = C27EABAB1ACD6D3400148297 /* SoundCapture.h */; };
 		C27EABB41ACD6D3400148297 /* libSoundCapture.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C27EABA81ACD6D3400148297 /* libSoundCapture.a */; };
 		C27EABC31ACD6DB200148297 /* SoundCapture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C27EABC21ACD6DB200148297 /* SoundCapture.cpp */; };
@@ -32,6 +33,7 @@
 		67A6EDDA1ACE5BC300BBA775 /* RunnableService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RunnableService.h; sourceTree = "<group>"; };
 		67A6EDDD1ACE63A400BBA775 /* CaptureDevice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CaptureDevice.cpp; sourceTree = "<group>"; };
 		67A6EDDE1ACE63A400BBA775 /* CaptureDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureDevice.h; sourceTree = "<group>"; };
+		C267C7241AD2E5B1003071E8 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		C27EABA81ACD6D3400148297 /* libSoundCapture.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSoundCapture.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C27EABAB1ACD6D3400148297 /* SoundCapture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SoundCapture.h; sourceTree = "<group>"; };
 		C27EABB31ACD6D3400148297 /* SoundCaptureTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SoundCaptureTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -45,6 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C267C7251AD2E5B1003071E8 /* Accelerate.framework in Frameworks */,
 				C27EABC51ACD6DC900148297 /* OpenAL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -63,6 +66,7 @@
 		C27EAB9F1ACD6D3400148297 = {
 			isa = PBXGroup;
 			children = (
+				C267C7241AD2E5B1003071E8 /* Accelerate.framework */,
 				C27EABC41ACD6DC900148297 /* OpenAL.framework */,
 				C27EABAA1ACD6D3400148297 /* SoundCapture */,
 				C27EABB71ACD6D3400148297 /* SoundCaptureTests */,

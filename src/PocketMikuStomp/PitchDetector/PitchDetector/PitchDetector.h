@@ -34,8 +34,7 @@ public:
 	PitchDetector(int samplingRate, int samplingSize);
 	virtual ~PitchDetector();
 	bool Initialize();
-	bool Detect(float* x);
-	bool Detect(int16_t* x);
+	bool Detect(const float* x);
 	void GetPiatch(PitchInfo& pitch);
 
 private:
@@ -49,6 +48,6 @@ private:
 	float* _nsdf;
 	PitchInfo _pitch;
 
-	bool ComputeNsdf(float* x, float* x2);
+	bool ComputeNsdf(const float* x, const float* x2);
 	int AnalyzeNsdf();
 };

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C267C72D1AD2E5DD003071E8 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C267C72C1AD2E5DD003071E8 /* Accelerate.framework */; };
 		C27EAB391ACD6B5B00148297 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C27EAB381ACD6B5B00148297 /* AppDelegate.m */; };
 		C27EAB3B1ACD6B5B00148297 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C27EAB3A1ACD6B5B00148297 /* main.m */; };
 		C27EAB3E1ACD6B5B00148297 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = C27EAB3D1ACD6B5B00148297 /* ViewController.mm */; };
@@ -60,6 +61,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C267C72C1AD2E5DD003071E8 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		C27EAB321ACD6B5B00148297 /* PocketMikuStomp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PocketMikuStomp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C27EAB361ACD6B5B00148297 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C27EAB371ACD6B5B00148297 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C267C72D1AD2E5DD003071E8 /* Accelerate.framework in Frameworks */,
 				C27EAC301ACD752000148297 /* CoreMIDI.framework in Frameworks */,
 				C27EAC2E1ACD74EB00148297 /* libPokeMikuStompLib.a in Frameworks */,
 				C27EAC2D1ACD73FB00148297 /* OpenAL.framework in Frameworks */,
@@ -120,6 +123,7 @@
 		C27EAB291ACD6B5B00148297 = {
 			isa = PBXGroup;
 			children = (
+				C267C72C1AD2E5DD003071E8 /* Accelerate.framework */,
 				C27EAC2F1ACD752000148297 /* CoreMIDI.framework */,
 				C27EAC2C1ACD73FB00148297 /* OpenAL.framework */,
 				C27EAC1D1ACD730200148297 /* PokeMikuStompLib.xcodeproj */,

@@ -96,8 +96,7 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
     const int samplingSize = 1024;
 	
 	if(_miku) {
-		// for debug
-		//return kPokeMikuStompLibNoError;
+		return kPokeMikuStompLibNoError;
 	}
 	
     shared_ptr<PitchDetector> det = make_shared<PitchDetector>(samplingRate, samplingSize);
@@ -112,7 +111,7 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
     
     _miku = [[PMMiku alloc] init];
     if(!_miku) {
-        //return kPokeMikuStompLibErrorPokeMikuNotFound;
+        return kPokeMikuStompLibErrorPokeMikuNotFound;
     }
     
     _det = det;
@@ -165,7 +164,7 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
 - (PokeMikuStompLibError)selectDeviceWithId:(int)deviceId {
     
     if(!_miku) {
-        //return kPokeMikuStompLibErrorPokeMikuNotFound;
+        return kPokeMikuStompLibErrorPokeMikuNotFound;
     }
     
     if(_cap) {
@@ -178,7 +177,7 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
 - (PokeMikuStompLibError)start {
 
     if(!_miku) {
-        //return kPokeMikuStompLibErrorPokeMikuNotFound;
+        return kPokeMikuStompLibErrorPokeMikuNotFound;
     }
     
     if(!_cap) {
@@ -260,22 +259,19 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
 	
 	shared_ptr<StopWatch> _sw_getbuf;
 	shared_ptr<StopWatch> _sw_detect;
+    shared_ptr<StopWatch> _sw_send;
 	_sw_getbuf = make_shared<StopWatch>("getbuf");
 
-	
-	for(int i = 0; i < 1024; i++) {
-		sc->GetBuffer(_app.buf);
-		_sw_getbuf->CountUp();
-	}
-	NSLog(@"getbuf %llu", _sw_getbuf->Time());
+    //sc->GetBuffer(_app.buf);
+    //_sw_getbuf->CountUp();
+	//NSLog(@"getbuf %llu", _sw_getbuf->Time());
 	
 	_sw_detect = make_shared<StopWatch>("detect");
-	for(int i = 0; i < 1024; i++) {
-		if(_det->Detect(_app.buf)) {
-			// do nothing when detection failed
-		}
-		_sw_detect->CountUp();
-	}
+    if(_det->Detect(sc->GetRawBufferPointer())) {
+        // do nothing when detection failed
+    }
+    _sw_detect->CountUp();
+
 	NSLog(@"detect %llu", _sw_detect->Time());
 	
     PitchInfo pitch;
@@ -288,7 +284,9 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
     }
     
     if(_midiNote != pitch.midi) {
+        _sw_send = make_shared<StopWatch>("send");
         [_miku noteOnWithKey:pitch.midi velocity:100 pronunciation:@"にゃ"];
+        NSLog(@"send %llu", _sw_getbuf->Time());
         self.midiNote = pitch.midi;
         NSLog(@"level=%d, note=%d", level, pitch.midi);
     }

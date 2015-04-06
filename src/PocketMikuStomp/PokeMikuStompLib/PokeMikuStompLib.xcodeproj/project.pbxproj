@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C267C7271AD2E5CC003071E8 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C267C7261AD2E5CC003071E8 /* Accelerate.framework */; };
 		C27EABD31ACD6E4700148297 /* PokeMikuStompLib.h in Headers */ = {isa = PBXBuildFile; fileRef = C27EABD21ACD6E4700148297 /* PokeMikuStompLib.h */; };
 		C27EABD51ACD6E4700148297 /* PokeMikuStompLib.mm in Sources */ = {isa = PBXBuildFile; fileRef = C27EABD41ACD6E4700148297 /* PokeMikuStompLib.mm */; };
 		C27EABDB1ACD6E4700148297 /* libPokeMikuStompLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C27EABCF1ACD6E4700148297 /* libPokeMikuStompLib.a */; };
@@ -85,6 +86,7 @@
 /* Begin PBXFileReference section */
 		018275A5EC2222907D0CBF21 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		074A8FE93822D8D9A6850F21 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		C267C7261AD2E5CC003071E8 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		C27EABCF1ACD6E4700148297 /* libPokeMikuStompLib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPokeMikuStompLib.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C27EABD21ACD6E4700148297 /* PokeMikuStompLib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PokeMikuStompLib.h; sourceTree = "<group>"; };
 		C27EABD41ACD6E4700148297 /* PokeMikuStompLib.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PokeMikuStompLib.mm; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C267C7271AD2E5CC003071E8 /* Accelerate.framework in Frameworks */,
 				C27EAC011ACD6ECE00148297 /* libPitchDetector.a in Frameworks */,
 				C27EAC021ACD6ECE00148297 /* libSoundCapture.a in Frameworks */,
 				C27EAC001ACD6EC700148297 /* OpenAL.framework in Frameworks */,
@@ -208,6 +211,7 @@
 		FE4E56E9CFAC2F21E4C10743 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C267C7261AD2E5CC003071E8 /* Accelerate.framework */,
 				FE027E889037045845A8820A /* libPods.a */,
 			);
 			name = Frameworks;

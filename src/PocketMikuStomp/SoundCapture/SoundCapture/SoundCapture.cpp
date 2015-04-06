@@ -2,6 +2,11 @@
 
 #include <algorithm>
 
+//#define USE_VDSP
+#ifdef USE_VDSP
+#include <Accelerate/Accelerate.h>
+#endif
+
 //#define OUTPUT_TO_FILE
 
 #ifdef OUTPUT_TO_FILE
@@ -14,7 +19,7 @@
 using namespace std;
 
 SoundCapture::SoundCapture(int sampleRate, int sampleNum)
-: _sampleBuf(NULL), _device(make_shared<CaptureDevice>(sampleRate, sampleNum))
+: _unity(32768.0f), _sampleBuf(NULL), _sampleBufNrm(NULL), _device(make_shared<CaptureDevice>(sampleRate, sampleNum))
 {
 }
 
@@ -24,7 +29,8 @@ SoundCapture::~SoundCapture()
 	if(_device) {
 		_device->DestroyDevice();
 	}
-	delete(_sampleBuf);
+	delete[] (_sampleBuf);
+    delete[] (_sampleBufNrm);
 }
 
 bool SoundCapture::Initialize(SoundCaptureCallback_t callback, void* user)
@@ -41,6 +47,11 @@ bool SoundCapture::Initialize(SoundCaptureCallback_t callback, void* user)
 		return false;
 	}
 	
+    _sampleBufNrm = new float[_device->SampleNumber()];
+    if(!_sampleBufNrm) {
+        return false;
+    }
+    
 	return true;
 }
 
@@ -74,7 +85,7 @@ SoundCaptureError SoundCapture::GetDevices(std::vector<std::string>& vec)
 int SoundCapture::Level()
 {
 	std::lock_guard<std::recursive_mutex> lock(_dataMutex);
-	return static_cast<int>(_level / 32768.0f * 100);
+    return _level;
 }
 
 SoundCaptureError SoundCapture::SelectDevice(int index)
@@ -124,10 +135,15 @@ SoundCaptureError SoundCapture::GetBuffer(float* out)
 		std::lock_guard<std::recursive_mutex> lock(_dataMutex);
 		int N = _device->SampleNumber();
 		for (int i = 0; i < N; i++) {
-			out[i] = _sampleBuf[i] / 32768.0f;
+			out[i] = _sampleBufNrm[i];
 		}
 	}
 	return SoundCaptureErrorNoError;
+}
+
+float* SoundCapture::GetRawBufferPointer()
+{
+    return _sampleBufNrm;
 }
 
 void SoundCapture::ServiceProc()
@@ -192,17 +208,27 @@ void SoundCapture::ProcessData(int16_t *data, int dataNum)
 {
 #ifdef OUTPUT_TO_FILE
 	std::ofstream outfile("new.txt", std::ofstream::trunc);
-#endif
-
-	int16_t maxValue = 0;
 	for (int i = 0; i<dataNum; i++) {
-#ifdef OUTPUT_TO_FILE
 		outfile << int(data[i]) << endl;
-#endif
-		maxValue = max(data[i], maxValue);
 	}
-
-	_level = maxValue;
+#endif
+    
+    float maxNrmValue = 0;
+#ifdef USE_VDSP
+    // int16_t -> float
+    vDSP_vflt16(data, 1, _sampleBufNrm, 1, dataNum);
+    // float -> normalized float
+    vDSP_vsdiv(_sampleBufNrm, 1, &_unity, _sampleBufNrm, 1, dataNum);
+    // maximum
+    vDSP_maxv(_sampleBufNrm, 1, &maxNrmValue, dataNum);
+#else
+    for (int i = 0; i<dataNum; i++) {
+        _sampleBufNrm[i] = data[i] / _unity;
+        maxNrmValue = max(_sampleBufNrm[i], maxNrmValue);
+    }
+#endif
+    
+	_level = static_cast<int>(maxNrmValue*100.0f);
 }
 
 void SoundCapture::NotifyCaptureError(SoundCaptureError err)

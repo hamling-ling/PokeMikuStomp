@@ -19,7 +19,7 @@ AutoCorrelation::~AutoCorrelation()
 	fftwf_free(_ifft);
 }
 
-void AutoCorrelation::Compute(float* x, float *corr)
+void AutoCorrelation::Compute(const float* x, float *corr)
 {
 	memset(_src, 0, kFftSize);
 	memset(_fft, 0, sizeof(fftwf_complex) * kFftSize);

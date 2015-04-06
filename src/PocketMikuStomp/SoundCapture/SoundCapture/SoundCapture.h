@@ -54,17 +54,21 @@ public:
 	int Level();
 
 	/**
-	 *	
+	 *	safely obtain captured data. data is normalized.
 	 */
 	SoundCaptureError GetBuffer(float* out);
-
+    
+    float* GetRawBufferPointer();
+    
 protected:
 		void ServiceProc();
 	
 private:
+    const float _unity;
 	int16_t* _sampleBuf;
+    float* _sampleBufNrm;
 	std::recursive_mutex _dataMutex;
-	uint16_t _level;
+	int _level;
 	void* _user;
 	SoundCaptureCallback_t _callback;
 	std::shared_ptr<CaptureDevice> _device;  // never be NULL
