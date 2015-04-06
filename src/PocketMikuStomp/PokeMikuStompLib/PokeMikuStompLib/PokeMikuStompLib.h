@@ -26,6 +26,7 @@ typedef NS_ENUM (NSUInteger, PokeMikuStompLibError) {
 @property (atomic, readwrite, assign) int levelThreshold;
 @property (atomic, readonly, assign) int inputLevel;
 @property (atomic, readonly, assign) int midiNote;
+@property (atomic, readonly, strong) NSString* noteString;
 
 - (NSArray*)devices;
 - (PokeMikuStompLibError)selectDeviceWithId:(int)deviceId;

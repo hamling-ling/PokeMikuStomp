@@ -15,6 +15,6 @@
 @property (nonatomic, assign) int selectedIndex;
 @property (weak) IBOutlet NSPopUpButton *deviceSelection;
 @property (nonatomic, readonly, strong) NSString* inlineError;
-
+@property (nonatomic, readonly, strong) NSString* noteString;
 @end
 

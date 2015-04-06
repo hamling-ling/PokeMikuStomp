@@ -729,12 +729,33 @@
                                 </popUpButtonCell>
                                 <connections>
                                     <action selector="deviceSelected:" target="XfG-lQ-9wD" id="rWN-dW-SsP"/>
-                                    <binding destination="4ic-3C-YLd" name="content" keyPath="arrangedObjects" id="kb4-WT-qTa"/>
                                     <binding destination="4ic-3C-YLd" name="contentValues" keyPath="arrangedObjects" previousBinding="kb4-WT-qTa" id="2mV-BU-xND"/>
+                                    <binding destination="4ic-3C-YLd" name="content" keyPath="arrangedObjects" id="kb4-WT-qTa"/>
                                     <binding destination="XfG-lQ-9wD" name="enabled" keyPath="isPokeMikuReady" id="zLw-10-kKh"/>
                                     <binding destination="XfG-lQ-9wD" name="selectedIndex" keyPath="selectedIndex" previousBinding="2mV-BU-xND" id="eK7-ui-1a9"/>
                                 </connections>
                             </popUpButton>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5aa-Tt-AX6">
+                                <rect key="frame" x="83" y="35" width="70" height="69"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="A#" id="o8R-9V-FTb">
+                                    <font key="font" metaFont="system" size="44"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <binding destination="XfG-lQ-9wD" name="value" keyPath="noteString" id="BlN-rd-6Ty"/>
+                                </connections>
+                            </textField>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vUh-Ax-Max">
+                                <rect key="frame" x="199" y="28" width="82" height="32"/>
+                                <buttonCell key="cell" type="push" title="test" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Qfs-xV-eCd">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="testButtonPressed:" target="XfG-lQ-9wD" id="EcK-12-43h"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <connections>

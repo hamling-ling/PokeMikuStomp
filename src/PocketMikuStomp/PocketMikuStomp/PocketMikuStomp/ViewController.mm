@@ -15,6 +15,7 @@
 @property (nonatomic, readwrite, assign) bool isDeviceReady;
 @property (nonatomic, readwrite, assign) bool isPokeMikuReady;
 @property (nonatomic, readwrite, strong) NSString* inlineError;
+@property (nonatomic, readwrite, strong) NSString* noteString;
 @end
 
 @implementation ViewController
@@ -46,6 +47,8 @@
         }
         self.isDeviceReady = YES;
     }
+    
+    [_miku addObserver:self forKeyPath:@"noteString" options:NSKeyValueObservingOptionNew context:nil];
 }
 
 - (void)setRepresentedObject:(id)representedObject {
@@ -70,6 +73,10 @@
         return;
     }
     self.isDeviceReady = YES;
+}
+
+- (IBAction)testButtonPressed:(id)sender {
+    [_miku test];
 }
 
 - (void)alertForPokeMikuError:(const PokeMikuStompLibError)err {
@@ -109,6 +116,13 @@
     }
     
     return NSLocalizedString(key,nil);
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([keyPath isEqual:@"noteString"]) {
+        self.noteString = _miku.noteString;
+    }
 }
 
 @end

@@ -29,9 +29,14 @@ static const shared_ptr<SoundCapture> nullCap;
     shared_ptr<PitchDetector> _det;
     shared_ptr<SoundCapture> _cap;
     AppData _app;
+    NSArray* _pronounciations;
+    NSUInteger _currentProIndex;
 }
+
 @property (atomic, readwrite, assign) int inputLevel;
 @property (atomic, readwrite, assign) int midiNote;
+@property (atomic, readwrite, strong) NSString* noteString;
+
 - (void) captureEventNotifiedFrom:(SoundCapture*)sc notification:(SoundCaptureNotification&)note;
 @end
 
@@ -68,6 +73,9 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
         _app.buf = NULL;
         _app.miku = NULL;
         _levelThreshold = kDefaultLevelThreshold;
+        
+        _pronounciations = @[@"た", @"ら", @"り", @"ら"];
+        _currentProIndex = 0;
     }
     return self;
 }
@@ -79,15 +87,24 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
 #pragma Public Interface
 
 - (void)test {
-    PMMiku *miku = [[PMMiku alloc] init];
-    
-    NSArray* arr = @[@"あ", @"い", @"う", @"え", @"お"];
-    for(int i = 0; i < arr.count; i++) {
-        [miku noteOnWithKey:64+i velocity:100 pronunciation:arr[i]];
-        sleep(1);
+    if(!_miku) {
+        return;
     }
     
-    [miku noteOff];
+    NSArray* arr = @[@"ど", @"み", @"そ", @"ど"];
+    [_miku noteOnWithKey:48+12 velocity:100 pronunciation:arr[0]];
+    usleep(0.25 * 1000 * 1000);
+    
+    [_miku noteOnWithKey:52+12 velocity:100 pronunciation:arr[1]];
+    usleep(0.25 * 1000 * 1000);
+    
+    [_miku noteOnWithKey:55+12 velocity:100 pronunciation:arr[2]];
+    usleep(0.25 * 1000 * 1000);
+    
+    [_miku noteOnWithKey:60+12 velocity:100 pronunciation:arr[3]];
+    usleep(0.25 * 1000 * 1000);
+    
+    [_miku noteOff];
 }
 
 - (PokeMikuStompLibError)setup {
@@ -231,6 +248,12 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
     
 }
 
+- (void)noteOff {
+    [_miku noteOff];
+    self.midiNote = -1;
+    self.noteString = @"";
+}
+
 #pragma Event Handlers
 
 - (void) captureEventNotifiedFrom:(SoundCapture*)sc notification:(SoundCaptureNotification&)note {
@@ -240,18 +263,17 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
     }
     
     if(!sc) {
-        [_miku noteOff];
-        self.midiNote = -1;
+        [self noteOff];
         return;
     }
     
     if(!_app.buf) {
-        [_miku noteOff];
+        [self noteOff];
         return;
     }
     
     if(!_app.det) {
-        [_miku noteOff];
+        [self noteOff];
         return;
     }
     
@@ -263,16 +285,19 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
     PitchInfo pitch;
     _det->GetPiatch(pitch);
     if (level < self.levelThreshold) {
-        [_miku noteOff];
-        self.midiNote = -1;
+        [self noteOff];
         NSLog(@"level=%d, note=off", level);
         return;
     }
     
     if(_midiNote != pitch.midi) {
-        [_miku noteOnWithKey:pitch.midi velocity:100 pronunciation:@"にゃ"];
+        NSString* pro = _pronounciations[_currentProIndex];
+        _currentProIndex++;
+        _currentProIndex %= _pronounciations.count;
+        [_miku noteOnWithKey:pitch.midi velocity:level pronunciation:pro];
         self.midiNote = pitch.midi;
         NSLog(@"level=%d, note=%d", level, pitch.midi);
+        self.noteString = [NSString stringWithUTF8String:pitch.noteStr];
     }
 }
 
