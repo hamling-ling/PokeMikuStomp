@@ -11,6 +11,7 @@
 #include <PitchDetector.h>
 #include <SoundCapture.h>
 #include <PMMiku.h>
+#include "StopWatch.h"
 
 using namespace std;
 
@@ -95,7 +96,8 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
     const int samplingSize = 1024;
 	
 	if(_miku) {
-		return kPokeMikuStompLibNoError;
+		// for debug
+		//return kPokeMikuStompLibNoError;
 	}
 	
     shared_ptr<PitchDetector> det = make_shared<PitchDetector>(samplingRate, samplingSize);
@@ -110,7 +112,7 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
     
     _miku = [[PMMiku alloc] init];
     if(!_miku) {
-        return kPokeMikuStompLibErrorPokeMikuNotFound;
+        //return kPokeMikuStompLibErrorPokeMikuNotFound;
     }
     
     _det = det;
@@ -163,7 +165,7 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
 - (PokeMikuStompLibError)selectDeviceWithId:(int)deviceId {
     
     if(!_miku) {
-        return kPokeMikuStompLibErrorPokeMikuNotFound;
+        //return kPokeMikuStompLibErrorPokeMikuNotFound;
     }
     
     if(_cap) {
@@ -176,7 +178,7 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
 - (PokeMikuStompLibError)start {
 
     if(!_miku) {
-        return kPokeMikuStompLibErrorPokeMikuNotFound;
+        //return kPokeMikuStompLibErrorPokeMikuNotFound;
     }
     
     if(!_cap) {
@@ -254,12 +256,28 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
         [_miku noteOff];
         return;
     }
-    
-    sc->GetBuffer(_app.buf);
-    if(_det->Detect(_app.buf)) {
-        // do nothing when detection failed
-    }
-    
+	
+	
+	shared_ptr<StopWatch> _sw_getbuf;
+	shared_ptr<StopWatch> _sw_detect;
+	_sw_getbuf = make_shared<StopWatch>("getbuf");
+
+	
+	for(int i = 0; i < 1024; i++) {
+		sc->GetBuffer(_app.buf);
+		_sw_getbuf->CountUp();
+	}
+	NSLog(@"getbuf %llu", _sw_getbuf->Time());
+	
+	_sw_detect = make_shared<StopWatch>("detect");
+	for(int i = 0; i < 1024; i++) {
+		if(_det->Detect(_app.buf)) {
+			// do nothing when detection failed
+		}
+		_sw_detect->CountUp();
+	}
+	NSLog(@"detect %llu", _sw_detect->Time());
+	
     PitchInfo pitch;
     _det->GetPiatch(pitch);
     if (level < self.levelThreshold) {

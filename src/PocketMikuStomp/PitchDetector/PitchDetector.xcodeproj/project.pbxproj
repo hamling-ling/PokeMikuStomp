@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		67677FC51AD26AC900A91434 /* StopWatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67677FC31AD26AC900A91434 /* StopWatch.cpp */; };
+		67677FC61AD26AC900A91434 /* StopWatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 67677FC41AD26AC900A91434 /* StopWatch.h */; };
 		C27EAB801ACD6CFC00148297 /* PitchDetector.h in Headers */ = {isa = PBXBuildFile; fileRef = C27EAB7F1ACD6CFC00148297 /* PitchDetector.h */; };
 		C27EAB881ACD6CFC00148297 /* libPitchDetector.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C27EAB7C1ACD6CFC00148297 /* libPitchDetector.a */; };
 		C27EAC071ACD702400148297 /* PitchDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C27EAC061ACD702400148297 /* PitchDetector.cpp */; };
@@ -32,6 +34,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		67677FC31AD26AC900A91434 /* StopWatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StopWatch.cpp; sourceTree = "<group>"; };
+		67677FC41AD26AC900A91434 /* StopWatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopWatch.h; sourceTree = "<group>"; };
 		C27EAB7C1ACD6CFC00148297 /* libPitchDetector.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPitchDetector.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C27EAB7F1ACD6CFC00148297 /* PitchDetector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PitchDetector.h; sourceTree = "<group>"; };
 		C27EAB871ACD6CFC00148297 /* PitchDetectorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PitchDetectorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -90,6 +94,8 @@
 		C27EAB7E1ACD6CFC00148297 /* PitchDetector */ = {
 			isa = PBXGroup;
 			children = (
+				67677FC31AD26AC900A91434 /* StopWatch.cpp */,
+				67677FC41AD26AC900A91434 /* StopWatch.h */,
 				C27EAC311ACD7E4200148297 /* NsdfCompute */,
 				C27EAC341ACD7E4200148297 /* NsdfWalker */,
 				C27EAC061ACD702400148297 /* PitchDetector.cpp */,
@@ -143,6 +149,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67677FC61AD26AC900A91434 /* StopWatch.h in Headers */,
 				C27EAC421ACD7E4200148297 /* PeakDetectMsm.h in Headers */,
 				C27EAC3C1ACD7E4200148297 /* AutoCorrelation.h in Headers */,
 				C27EAC3E1ACD7E4200148297 /* NsdfPeakDetectMachine.h in Headers */,
@@ -241,6 +248,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C27EAC3F1ACD7E4200148297 /* NsdfWalker.cpp in Sources */,
+				67677FC51AD26AC900A91434 /* StopWatch.cpp in Sources */,
 				C27EAC3D1ACD7E4200148297 /* NsdfPeakDetectMachine.cpp in Sources */,
 				C27EAC071ACD702400148297 /* PitchDetector.cpp in Sources */,
 				C27EAC3B1ACD7E4200148297 /* AutoCorrelation.cpp in Sources */,
