@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		67677FC51AD26AC900A91434 /* StopWatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67677FC31AD26AC900A91434 /* StopWatch.cpp */; };
 		67677FC61AD26AC900A91434 /* StopWatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 67677FC41AD26AC900A91434 /* StopWatch.h */; };
+		67B9BEEB1AD4C0E300834753 /* file_orig.csv in Resources */ = {isa = PBXBuildFile; fileRef = 67B9BEEA1AD4C0E300834753 /* file_orig.csv */; };
+		67B9BEED1AD4C17600834753 /* PitchDetectionTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67B9BEEC1AD4C17600834753 /* PitchDetectionTest.mm */; };
+		67B9BEFD1AD4D5D500834753 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C267C72F1AD2F297003071E8 /* Accelerate.framework */; };
 		C267C7301AD2F297003071E8 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C267C72F1AD2F297003071E8 /* Accelerate.framework */; };
 		C27EAB801ACD6CFC00148297 /* PitchDetector.h in Headers */ = {isa = PBXBuildFile; fileRef = C27EAB7F1ACD6CFC00148297 /* PitchDetector.h */; };
 		C27EAB881ACD6CFC00148297 /* libPitchDetector.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C27EAB7C1ACD6CFC00148297 /* libPitchDetector.a */; };
@@ -37,6 +40,8 @@
 /* Begin PBXFileReference section */
 		67677FC31AD26AC900A91434 /* StopWatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StopWatch.cpp; sourceTree = "<group>"; };
 		67677FC41AD26AC900A91434 /* StopWatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopWatch.h; sourceTree = "<group>"; };
+		67B9BEEA1AD4C0E300834753 /* file_orig.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = file_orig.csv; sourceTree = "<group>"; };
+		67B9BEEC1AD4C17600834753 /* PitchDetectionTest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PitchDetectionTest.mm; sourceTree = "<group>"; };
 		C267C72F1AD2F297003071E8 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		C27EAB7C1ACD6CFC00148297 /* libPitchDetector.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPitchDetector.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C27EAB7F1ACD6CFC00148297 /* PitchDetector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PitchDetector.h; sourceTree = "<group>"; };
@@ -68,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67B9BEFD1AD4D5D500834753 /* Accelerate.framework in Frameworks */,
 				C27EAB881ACD6CFC00148297 /* libPitchDetector.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -112,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				C27EAB8C1ACD6CFC00148297 /* Supporting Files */,
+				67B9BEEC1AD4C17600834753 /* PitchDetectionTest.mm */,
 			);
 			path = PitchDetectorTests;
 			sourceTree = "<group>";
@@ -119,6 +126,7 @@
 		C27EAB8C1ACD6CFC00148297 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				67B9BEEA1AD4C0E300834753 /* file_orig.csv */,
 				C27EAB8D1ACD6CFC00148297 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -241,6 +249,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67B9BEEB1AD4C0E300834753 /* file_orig.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,6 +272,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				67B9BEED1AD4C17600834753 /* PitchDetectionTest.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
