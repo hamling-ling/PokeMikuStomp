@@ -2,7 +2,8 @@
 
 #include <memory>
 
-class AutoCorrelation;
+class IAutoCorrelation;
+class AutoCorrealtionV;
 
 typedef enum Note_ {
 	A,
@@ -40,7 +41,7 @@ public:
 private:
 	const int _samplingRate;
 	const int _samplingSize;
-	std::shared_ptr<AutoCorrelation> _corr;
+	std::shared_ptr<IAutoCorrelation> _corr;
 	float* _r;
 	float* _m;
 	float* _x;

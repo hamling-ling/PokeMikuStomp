@@ -13,7 +13,7 @@
 #include <fstream>
 #include "PitchDetector.h"
 
-static const int dataNum = 1024;
+static const int dataNum = 512;
 static float data[dataNum] = {0.0f};
 
 using namespace std;

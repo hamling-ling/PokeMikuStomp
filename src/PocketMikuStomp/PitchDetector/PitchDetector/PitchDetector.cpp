@@ -2,7 +2,8 @@
 
 #include <iostream>
 #include <cmath>
-#include "NsdfCompute/AutoCorrelation.h"
+#include "NsdfCompute/IAutoCorrelation.h"
+#include "NsdfCompute/AutoCorrelationV.h"
 #include "NsdfWalker/NsdfWalker.h"
 
 #define USE_VDSP
@@ -43,7 +44,8 @@ bool PitchDetector::Initialize()
 		return true;
 	}
 
-	_corr = std::make_shared<AutoCorrelation>(_samplingSize);
+    std::shared_ptr<AutoCorrelationV> ptr = std::make_shared<AutoCorrelationV>(_samplingSize);
+    _corr = std::dynamic_pointer_cast<IAutoCorrelation>(ptr);
 	_r = new float[_samplingSize];
 	if (_r == NULL) {
 		return false;
@@ -79,7 +81,8 @@ bool PitchDetector::Detect(const float* x)
 	}
 
 #ifdef USE_VDSP
-    vDSP_vmul(x, 1, x, 1, _x2, 1, _samplingSize);
+    //vDSP_vmul(x, 1, x, 1, _x2, 1, _samplingSize);
+    vDSP_vsq(x, 1, _x2, 1, _samplingSize);
 #else
 	for (int i = 0; i < _samplingSize; i++) {
 		_x2[i] = powf(x[i], 2.0);
