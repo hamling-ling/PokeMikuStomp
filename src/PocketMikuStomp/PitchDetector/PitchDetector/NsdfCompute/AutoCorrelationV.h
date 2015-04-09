@@ -24,7 +24,8 @@ private:
     fftwf_complex* _fft;
     fftwf_complex* _powspec;
     float* _ifft;
-    
+	float* _temp;
+	
     const unsigned int _log2n;
     DSPSplitComplex _fftv;
     DSPSplitComplex _ifftv;

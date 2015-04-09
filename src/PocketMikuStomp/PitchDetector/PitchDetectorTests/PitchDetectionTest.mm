@@ -69,6 +69,10 @@ using namespace std;
 	
 	PitchInfo pitch = { 0 };
 	detector.GetPiatch(pitch);
+	if(pitch.error) {
+		XCTAssertFalse(pitch.error);
+		return;
+	}
 	
 	cout << "result---" << endl;
 	cout << "freq    :" << pitch.freq << endl;

@@ -81,8 +81,8 @@ bool PitchDetector::Detect(const float* x)
 	}
 
 #ifdef USE_VDSP
-    //vDSP_vmul(x, 1, x, 1, _x2, 1, _samplingSize);
-    vDSP_vsq(x, 1, _x2, 1, _samplingSize);
+    vDSP_vmul(x, 1, x, 1, _x2, 1, _samplingSize);
+    //vDSP_vsq(x, 1, _x2, 1, _samplingSize);
 #else
 	for (int i = 0; i < _samplingSize; i++) {
 		_x2[i] = powf(x[i], 2.0);
@@ -148,10 +148,12 @@ int PitchDetector::AnalyzeNsdf()
 	vector<NsdfPoint> keyMaxs;
 	walker.GetKeyMaximums(keyMaxs);
 	if (keyMaxs.empty()) {
+		_pitch.error = true;
 		return -1;
 	}
 
 	if (keyMaxs[0].index == 0.0) {
+		_pitch.error = true;
 		return -1;
 	}
 
@@ -160,6 +162,7 @@ int PitchDetector::AnalyzeNsdf()
 	float dnote = log10(freq / 27.5f) / kNoteConst;
 	int inote = static_cast<int>(0.5f + dnote);
 	if (inote < 0) {
+		_pitch.error = true;
 		return -1;
 	}
 
@@ -168,6 +171,7 @@ int PitchDetector::AnalyzeNsdf()
 	_pitch.octave = inote / 12;
 	_pitch.freq = freq;
     _pitch.midi = inote+21;
-    
+	_pitch.error = false;
+	
 	return inote;
 }

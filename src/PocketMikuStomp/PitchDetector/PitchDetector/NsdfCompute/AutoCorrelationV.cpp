@@ -25,7 +25,9 @@ _log2n(log2(windowSize))
     _fft = static_cast<fftwf_complex*>(fftwf_malloc(sizeof(fftwf_complex) * kFftSize));
     _powspec = static_cast<fftwf_complex*>(fftwf_malloc(sizeof(fftwf_complex) * kFftSize));
     _ifft = static_cast<float*>(fftwf_malloc(sizeof(float) * kFftSize));
-    
+	
+	_temp = new float[kFftSize];
+	
     _srcv.realp = new float[kFftSize];
     _srcv.imagp = new float[kFftSize];
     _fftv.realp = new float[kFftSize];
@@ -36,7 +38,9 @@ _log2n(log2(windowSize))
     _powspv.imagp = new float[kFftSize];
     _tempv.realp = new float[kFftSize];
     _tempv.imagp = new float[kFftSize];
-    
+	
+	memset(_temp, 0, sizeof(float)*kFftSize);
+	
     memset(_srcv.realp, 0, sizeof(float)*kFftSize);
     memset(_srcv.imagp, 0, sizeof(float)*kFftSize);
     memset(_fftv.realp, 0, sizeof(float)*kFftSize);
@@ -55,7 +59,9 @@ AutoCorrelationV::~AutoCorrelationV()
     fftwf_free(_fft);
     fftwf_free(_powspec);
     fftwf_free(_ifft);
-    
+	
+	delete[] _temp;
+	
     delete[] (_srcv.realp);
     delete[] (_srcv.imagp);
     delete[] (_fftv.realp);
@@ -135,28 +141,30 @@ void AutoCorrelationV::Compute(const float* x, float *corr)
         //    << " + " << _fftv.imagp[i] << "i" << endl;
     }
     
-    //vDSP_vsq(_fftv.realp, 1, _tempv.realp, 1, kFftSize);
-    //vDSP_vsq(_fftv.imagp, 1, _tempv.imagp, 1, kFftSize);
-    //vDSP_vadd(_tempv.realp, 1, _tempv.imagp, 1, _powspv.realp, 1, kFftSize);
     vDSP_zvmags(&_fftv, 1, _powspv.realp, 1, kFftSize);
-    
+	float oneOv1024 = 1.0f/1024.0f;
+	vDSP_vsmul(_powspv.realp, 1, &oneOv1024, _powspv.realp, 1, kFftSize);
+	
     // debug
     for(int i = 0; i < 5; i++) {
         cout << "pow[" << i << "] = " << _powspv.realp[i]
             << " + " << _powspv.imagp[i] << "i" << endl;
     }
-    
-    vDSP_fft_zop(setup, &_powspv, 1, &_ifftv, 1, _log2n+1, FFT_INVERSE);
-    vDSP_zvabs(&_powspv, 1, corr, 1, kWinSize);
-    float freq = 1.0/kFftSize;
-    vDSP_vsmul(corr, 1, &freq, corr, 1, kWinSize);
+	
+	DSPSplitComplex ifftv;
+	ifftv.realp = _temp;
+	ifftv.imagp = _ifftv.imagp;
+    vDSP_fft_zop(setup, &_powspv, 1, &ifftv, 1, _log2n+1, FFT_INVERSE);
+	for(int i = 5; i < 10; i++) {
+		cout << "ifft[" << i << "]=" << corr[i] << ", ifftv[" << i << "] = " << ifftv.realp[i] << " + " << ifftv.imagp[i] << "i" << endl;
+	}
 
-    for(int i = 0; i < 5; i++) {
-        //cout << "ifftv[" << i << "] = " << _ifftv.realp[i]
-        //<< " + " << _ifftv.imagp[i] << "i" << endl;
-        cout << "|ifft|[" << i << "] = " << corr[i] << endl;
+    for(int i = 0; i < kFftSize/2; i++) {
+        cout << "ifft[" << i << "]=" << corr[i] << ", ifftv[" << i << "] = " << _temp[i] << endl;
     }
-    
+	
+	memcpy(corr, _temp, kWinSize);
+	
     vDSP_destroy_fftsetup(setup);
 }
 
