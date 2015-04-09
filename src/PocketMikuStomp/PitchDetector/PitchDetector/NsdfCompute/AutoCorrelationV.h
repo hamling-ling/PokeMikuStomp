@@ -20,18 +20,17 @@ public:
     virtual ~AutoCorrelationV();
     void Compute(const float* x, float *corr);
 private:
-    float* _src;
-    fftwf_complex* _fft;
-    fftwf_complex* _powspec;
-    float* _ifft;
-	float* _temp;
-	
-    const unsigned int _log2n;
+    const unsigned int kLog2n;
+	const float kOneOv1024;
     DSPSplitComplex _fftv;
     DSPSplitComplex _ifftv;
     DSPSplitComplex _srcv;
     DSPSplitComplex _powspv;
     DSPSplitComplex _tempv;
+	FFTSetup _setup;
+	
+	bool AllocateComplexBuf(DSPSplitComplex& c, int len);
+	void DestroyComplexBuf(DSPSplitComplex& c);
 };
 
 #endif /* defined(__PitchDetector__AutoCorrelationV__) */
