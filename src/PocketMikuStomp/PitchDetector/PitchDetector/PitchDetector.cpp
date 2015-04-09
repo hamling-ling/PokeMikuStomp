@@ -81,8 +81,7 @@ bool PitchDetector::Detect(const float* x)
 	}
 
 #ifdef USE_VDSP
-    vDSP_vmul(x, 1, x, 1, _x2, 1, _samplingSize);
-    //vDSP_vsq(x, 1, _x2, 1, _samplingSize);
+    vDSP_vsq(x, 1, _x2, 1, _samplingSize);
 #else
 	for (int i = 0; i < _samplingSize; i++) {
 		_x2[i] = powf(x[i], 2.0);
@@ -113,16 +112,27 @@ bool PitchDetector::ComputeNsdf(const float* x, const float* x2)
 	_corr->Compute(x, _r);
 
 	// m(t)
-	memset(_m, 0, sizeof(float)* N);
+#ifdef USE_VDSP
+    float sum_x2j = 0;
+    float sum_x2jt = 0;
+    for (int t = 0; t < N; t++) {
+        vDSP_sve(x2, 1, &sum_x2j, N-t);
+        vDSP_sve(&(x2[t]), 1, &sum_x2jt, N-t);
+        _m[t] = sum_x2j + sum_x2jt;
+    }
+#else
 	for (int t = 0; t < N; t++) {
+        float sum = 0;
 		for (int j = 0; j < N - t; j++) {
-			_m[t] = _m[t] + x2[j] + x2[j + t];
+            sum += x2[j] + x2[j+t];
 		}
+        _m[t] = sum;
 	}
-
+#endif
+    
 	// nsdf
 #ifdef USE_VDSP
-    float two = 2.0f;
+    const float two = 2.0f;
     vDSP_vsmul(_r, 1, &two, _nsdf, 1, N);
     vDSP_vdiv(_m, 1, _nsdf, 1, _nsdf, 1, N);
 #else
