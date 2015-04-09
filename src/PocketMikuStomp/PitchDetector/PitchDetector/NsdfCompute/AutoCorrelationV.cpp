@@ -7,7 +7,6 @@
 //
 
 #include "AutoCorrelationV.h"
-#include <fftw3.h>
 #include <memory>
 #include <iostream>
 
@@ -45,8 +44,8 @@ void AutoCorrelationV::Compute(const float* x, float *corr)
     vDSP_fft_zop(_setup, &_srcv, 1, &_fftv, 1, kLog2n+1, FFT_FORWARD);
 	
 	// power spectrum
-    vDSP_zvmags(&_fftv, 1, _powspv.realp, 1, kFftSize);
-	vDSP_vsmul(_powspv.realp, 1, &kOneOv1024, _powspv.realp, 1, kFftSize);
+    vDSP_zvmags(&_fftv, 1, _tempv.realp, 1, kFftSize);
+	vDSP_vsmul(_tempv.realp, 1, &kOneOv1024, _powspv.realp, 1, kFftSize);
 	
 	// inverse fft of powerspectrum
     vDSP_fft_zop(_setup, &_powspv, 1, &_ifftv, 1, kLog2n+1, FFT_INVERSE);

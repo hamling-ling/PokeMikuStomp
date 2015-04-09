@@ -11,7 +11,6 @@
 
 #include "IAutoCorrelation.h"
 #include <Accelerate/Accelerate.h>
-#include <fftw3.h>// remove later
 
 class AutoCorrelationV : public IAutoCorrelation
 {
