@@ -24,15 +24,15 @@
 		C27EAC411ACD7E4200148297 /* NsdfWalkerDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = C27EAC391ACD7E4200148297 /* NsdfWalkerDefs.h */; };
 		C27EAC421ACD7E4200148297 /* PeakDetectMsm.h in Headers */ = {isa = PBXBuildFile; fileRef = C27EAC3A1ACD7E4200148297 /* PeakDetectMsm.h */; };
 		C27EAC441ACD7EBF00148297 /* libfftw3f.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C27EAC431ACD7EBF00148297 /* libfftw3f.a */; };
-		C2A7FB8E1AD6C7580030234A /* PitchDetectorImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2A7FB8C1AD6C7580030234A /* PitchDetectorImpl.cpp */; };
-		C2A7FB8F1AD6C7580030234A /* PitchDetectorImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = C2A7FB8D1AD6C7580030234A /* PitchDetectorImpl.h */; };
 		C2A7FB911AD6C7BD0030234A /* PitchDetectorDefs.h in Headers */ = {isa = PBXBuildFile; fileRef = C2A7FB901AD6C7BD0030234A /* PitchDetectorDefs.h */; };
-		C2A7FB941AD6C9080030234A /* PitchDetectorNullImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2A7FB921AD6C9080030234A /* PitchDetectorNullImpl.cpp */; };
-		C2A7FB951AD6C9080030234A /* PitchDetectorNullImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = C2A7FB931AD6C9080030234A /* PitchDetectorNullImpl.h */; };
-		C2A7FB981AD6C9C20030234A /* PitchDetectorVDspImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2A7FB961AD6C9C20030234A /* PitchDetectorVDspImpl.cpp */; };
-		C2A7FB991AD6C9C20030234A /* PitchDetectorVDspImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = C2A7FB971AD6C9C20030234A /* PitchDetectorVDspImpl.h */; };
-		C2A7FB9C1AD6C9D80030234A /* PitchDetectorFftwImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2A7FB9A1AD6C9D80030234A /* PitchDetectorFftwImpl.cpp */; };
-		C2A7FB9D1AD6C9D80030234A /* PitchDetectorFftwImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = C2A7FB9B1AD6C9D80030234A /* PitchDetectorFftwImpl.h */; };
+		C2BCFD751AD8AF4D00326ECB /* PitchDetectorFftwImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2BCFD6D1AD8AF4D00326ECB /* PitchDetectorFftwImpl.cpp */; };
+		C2BCFD761AD8AF4D00326ECB /* PitchDetectorFftwImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = C2BCFD6E1AD8AF4D00326ECB /* PitchDetectorFftwImpl.h */; };
+		C2BCFD771AD8AF4D00326ECB /* PitchDetectorImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2BCFD6F1AD8AF4D00326ECB /* PitchDetectorImpl.cpp */; };
+		C2BCFD781AD8AF4D00326ECB /* PitchDetectorImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = C2BCFD701AD8AF4D00326ECB /* PitchDetectorImpl.h */; };
+		C2BCFD791AD8AF4D00326ECB /* PitchDetectorNullImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2BCFD711AD8AF4D00326ECB /* PitchDetectorNullImpl.cpp */; };
+		C2BCFD7A1AD8AF4D00326ECB /* PitchDetectorNullImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = C2BCFD721AD8AF4D00326ECB /* PitchDetectorNullImpl.h */; };
+		C2BCFD7B1AD8AF4D00326ECB /* PitchDetectorVDspImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2BCFD731AD8AF4D00326ECB /* PitchDetectorVDspImpl.cpp */; };
+		C2BCFD7C1AD8AF4D00326ECB /* PitchDetectorVDspImpl.h in Headers */ = {isa = PBXBuildFile; fileRef = C2BCFD741AD8AF4D00326ECB /* PitchDetectorVDspImpl.h */; };
 		C2C78B861AD54FED006A10E0 /* AutoCorrelationV.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2C78B841AD54FED006A10E0 /* AutoCorrelationV.cpp */; };
 		C2C78B871AD54FED006A10E0 /* AutoCorrelationV.h in Headers */ = {isa = PBXBuildFile; fileRef = C2C78B851AD54FED006A10E0 /* AutoCorrelationV.h */; };
 		C2C78B8A1AD550E5006A10E0 /* AutoCorrelationW.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2C78B881AD550E5006A10E0 /* AutoCorrelationW.cpp */; };
@@ -69,15 +69,15 @@
 		C27EAC391ACD7E4200148297 /* NsdfWalkerDefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NsdfWalkerDefs.h; sourceTree = "<group>"; };
 		C27EAC3A1ACD7E4200148297 /* PeakDetectMsm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PeakDetectMsm.h; sourceTree = "<group>"; };
 		C27EAC431ACD7EBF00148297 /* libfftw3f.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfftw3f.a; path = ../../../../../../../../usr/local/lib/libfftw3f.a; sourceTree = "<group>"; };
-		C2A7FB8C1AD6C7580030234A /* PitchDetectorImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PitchDetectorImpl.cpp; sourceTree = "<group>"; };
-		C2A7FB8D1AD6C7580030234A /* PitchDetectorImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PitchDetectorImpl.h; sourceTree = "<group>"; };
 		C2A7FB901AD6C7BD0030234A /* PitchDetectorDefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PitchDetectorDefs.h; sourceTree = "<group>"; };
-		C2A7FB921AD6C9080030234A /* PitchDetectorNullImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PitchDetectorNullImpl.cpp; sourceTree = "<group>"; };
-		C2A7FB931AD6C9080030234A /* PitchDetectorNullImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PitchDetectorNullImpl.h; sourceTree = "<group>"; };
-		C2A7FB961AD6C9C20030234A /* PitchDetectorVDspImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PitchDetectorVDspImpl.cpp; sourceTree = "<group>"; };
-		C2A7FB971AD6C9C20030234A /* PitchDetectorVDspImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PitchDetectorVDspImpl.h; sourceTree = "<group>"; };
-		C2A7FB9A1AD6C9D80030234A /* PitchDetectorFftwImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PitchDetectorFftwImpl.cpp; sourceTree = "<group>"; };
-		C2A7FB9B1AD6C9D80030234A /* PitchDetectorFftwImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PitchDetectorFftwImpl.h; sourceTree = "<group>"; };
+		C2BCFD6D1AD8AF4D00326ECB /* PitchDetectorFftwImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PitchDetectorFftwImpl.cpp; sourceTree = "<group>"; };
+		C2BCFD6E1AD8AF4D00326ECB /* PitchDetectorFftwImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PitchDetectorFftwImpl.h; sourceTree = "<group>"; };
+		C2BCFD6F1AD8AF4D00326ECB /* PitchDetectorImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PitchDetectorImpl.cpp; sourceTree = "<group>"; };
+		C2BCFD701AD8AF4D00326ECB /* PitchDetectorImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PitchDetectorImpl.h; sourceTree = "<group>"; };
+		C2BCFD711AD8AF4D00326ECB /* PitchDetectorNullImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PitchDetectorNullImpl.cpp; sourceTree = "<group>"; };
+		C2BCFD721AD8AF4D00326ECB /* PitchDetectorNullImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PitchDetectorNullImpl.h; sourceTree = "<group>"; };
+		C2BCFD731AD8AF4D00326ECB /* PitchDetectorVDspImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PitchDetectorVDspImpl.cpp; sourceTree = "<group>"; };
+		C2BCFD741AD8AF4D00326ECB /* PitchDetectorVDspImpl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PitchDetectorVDspImpl.h; sourceTree = "<group>"; };
 		C2C78B841AD54FED006A10E0 /* AutoCorrelationV.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AutoCorrelationV.cpp; path = PitchDetector/NsdfCompute/AutoCorrelationV.cpp; sourceTree = SOURCE_ROOT; };
 		C2C78B851AD54FED006A10E0 /* AutoCorrelationV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AutoCorrelationV.h; path = PitchDetector/NsdfCompute/AutoCorrelationV.h; sourceTree = SOURCE_ROOT; };
 		C2C78B881AD550E5006A10E0 /* AutoCorrelationW.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AutoCorrelationW.cpp; path = PitchDetector/NsdfCompute/AutoCorrelationW.cpp; sourceTree = SOURCE_ROOT; };
@@ -130,6 +130,7 @@
 		C27EAB7E1ACD6CFC00148297 /* PitchDetector */ = {
 			isa = PBXGroup;
 			children = (
+				C2BCFD6C1AD8AF4D00326ECB /* PitchDetectorImpl */,
 				67677FC31AD26AC900A91434 /* StopWatch.cpp */,
 				67677FC41AD26AC900A91434 /* StopWatch.h */,
 				C27EAC311ACD7E4200148297 /* NsdfCompute */,
@@ -137,14 +138,6 @@
 				C2A7FB901AD6C7BD0030234A /* PitchDetectorDefs.h */,
 				C27EAC061ACD702400148297 /* PitchDetector.cpp */,
 				C27EAB7F1ACD6CFC00148297 /* PitchDetector.h */,
-				C2A7FB8D1AD6C7580030234A /* PitchDetectorImpl.h */,
-				C2A7FB8C1AD6C7580030234A /* PitchDetectorImpl.cpp */,
-				C2A7FB931AD6C9080030234A /* PitchDetectorNullImpl.h */,
-				C2A7FB921AD6C9080030234A /* PitchDetectorNullImpl.cpp */,
-				C2A7FB971AD6C9C20030234A /* PitchDetectorVDspImpl.h */,
-				C2A7FB961AD6C9C20030234A /* PitchDetectorVDspImpl.cpp */,
-				C2A7FB9B1AD6C9D80030234A /* PitchDetectorFftwImpl.h */,
-				C2A7FB9A1AD6C9D80030234A /* PitchDetectorFftwImpl.cpp */,
 			);
 			path = PitchDetector;
 			sourceTree = "<group>";
@@ -193,6 +186,21 @@
 			path = NsdfWalker;
 			sourceTree = "<group>";
 		};
+		C2BCFD6C1AD8AF4D00326ECB /* PitchDetectorImpl */ = {
+			isa = PBXGroup;
+			children = (
+				C2BCFD6D1AD8AF4D00326ECB /* PitchDetectorFftwImpl.cpp */,
+				C2BCFD6E1AD8AF4D00326ECB /* PitchDetectorFftwImpl.h */,
+				C2BCFD6F1AD8AF4D00326ECB /* PitchDetectorImpl.cpp */,
+				C2BCFD701AD8AF4D00326ECB /* PitchDetectorImpl.h */,
+				C2BCFD711AD8AF4D00326ECB /* PitchDetectorNullImpl.cpp */,
+				C2BCFD721AD8AF4D00326ECB /* PitchDetectorNullImpl.h */,
+				C2BCFD731AD8AF4D00326ECB /* PitchDetectorVDspImpl.cpp */,
+				C2BCFD741AD8AF4D00326ECB /* PitchDetectorVDspImpl.h */,
+			);
+			path = PitchDetectorImpl;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -200,20 +208,20 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C2A7FB951AD6C9080030234A /* PitchDetectorNullImpl.h in Headers */,
-				C2A7FB991AD6C9C20030234A /* PitchDetectorVDspImpl.h in Headers */,
+				C2BCFD7A1AD8AF4D00326ECB /* PitchDetectorNullImpl.h in Headers */,
 				67677FC61AD26AC900A91434 /* StopWatch.h in Headers */,
 				C2C78B871AD54FED006A10E0 /* AutoCorrelationV.h in Headers */,
 				C2C78B8D1AD55A9A006A10E0 /* IAutoCorrelation.h in Headers */,
 				C27EAC421ACD7E4200148297 /* PeakDetectMsm.h in Headers */,
 				C27EAC3E1ACD7E4200148297 /* NsdfPeakDetectMachine.h in Headers */,
+				C2BCFD7C1AD8AF4D00326ECB /* PitchDetectorVDspImpl.h in Headers */,
+				C2BCFD761AD8AF4D00326ECB /* PitchDetectorFftwImpl.h in Headers */,
 				C27EAB801ACD6CFC00148297 /* PitchDetector.h in Headers */,
 				C27EAC411ACD7E4200148297 /* NsdfWalkerDefs.h in Headers */,
 				C27EAC401ACD7E4200148297 /* NsdfWalker.h in Headers */,
-				C2A7FB9D1AD6C9D80030234A /* PitchDetectorFftwImpl.h in Headers */,
+				C2BCFD781AD8AF4D00326ECB /* PitchDetectorImpl.h in Headers */,
 				C2A7FB911AD6C7BD0030234A /* PitchDetectorDefs.h in Headers */,
 				C2C78B8B1AD550E5006A10E0 /* AutoCorrelationW.h in Headers */,
-				C2A7FB8F1AD6C7580030234A /* PitchDetectorImpl.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,17 +314,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C2A7FB941AD6C9080030234A /* PitchDetectorNullImpl.cpp in Sources */,
+				C2BCFD771AD8AF4D00326ECB /* PitchDetectorImpl.cpp in Sources */,
 				C27EAC3F1ACD7E4200148297 /* NsdfWalker.cpp in Sources */,
 				67677FC51AD26AC900A91434 /* StopWatch.cpp in Sources */,
-				C2A7FB8E1AD6C7580030234A /* PitchDetectorImpl.cpp in Sources */,
 				C27EAC3D1ACD7E4200148297 /* NsdfPeakDetectMachine.cpp in Sources */,
 				C27EAC071ACD702400148297 /* PitchDetector.cpp in Sources */,
 				C2C78B861AD54FED006A10E0 /* AutoCorrelationV.cpp in Sources */,
-				C2A7FB9C1AD6C9D80030234A /* PitchDetectorFftwImpl.cpp in Sources */,
+				C2BCFD7B1AD8AF4D00326ECB /* PitchDetectorVDspImpl.cpp in Sources */,
+				C2BCFD751AD8AF4D00326ECB /* PitchDetectorFftwImpl.cpp in Sources */,
 				C2C78B8A1AD550E5006A10E0 /* AutoCorrelationW.cpp in Sources */,
 				C27EAC3B1ACD7E4200148297 /* IAutoCorrelation.cpp in Sources */,
-				C2A7FB981AD6C9C20030234A /* PitchDetectorVDspImpl.cpp in Sources */,
+				C2BCFD791AD8AF4D00326ECB /* PitchDetectorNullImpl.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

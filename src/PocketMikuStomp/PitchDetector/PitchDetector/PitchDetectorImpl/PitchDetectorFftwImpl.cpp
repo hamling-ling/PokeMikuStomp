@@ -7,7 +7,7 @@
 //
 
 #include "PitchDetectorFftwImpl.h"
-#include "NsdfCompute/AutoCorrelationW.h"
+#include "AutoCorrelationW.h"
 
 bool PitchDetectorFftwImpl::Initialize()
 {

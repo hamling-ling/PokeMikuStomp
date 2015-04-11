@@ -20,7 +20,7 @@ public:
     void Compute(const float* x, float *corr);
 private:
     const unsigned int kLog2n;
-	const float kOneOv1024;
+	const float kFreq;
     DSPSplitComplex _fftv;
     DSPSplitComplex _ifftv;
     DSPSplitComplex _srcv;
