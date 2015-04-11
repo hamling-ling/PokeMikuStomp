@@ -7,7 +7,7 @@
 //
 
 #include "PitchDetectorVDspImpl.h"
-#include "NsdfCompute/AutoCorrelationV.h"
+#include "AutoCorrelationV.h"
 
 using namespace std;
 
