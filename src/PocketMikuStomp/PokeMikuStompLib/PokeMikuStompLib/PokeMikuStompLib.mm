@@ -153,7 +153,7 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
     _cap->DeselectDevice();
     _cap = nullCap;
     _det = nullDet;
-    delete(_app.buf);
+    delete[] (_app.buf);
     _app.buf = NULL;
     _app.context = NULL;
     _app.miku = NULL;

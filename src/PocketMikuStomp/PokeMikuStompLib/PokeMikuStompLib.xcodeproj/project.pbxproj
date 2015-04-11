@@ -14,6 +14,17 @@
 		C27EAC001ACD6EC700148297 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27EABFF1ACD6EC700148297 /* OpenAL.framework */; };
 		C27EAC011ACD6ECE00148297 /* libPitchDetector.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C27EABEF1ACD6E8E00148297 /* libPitchDetector.a */; };
 		C27EAC021ACD6ECE00148297 /* libSoundCapture.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C27EABF81ACD6E9C00148297 /* libSoundCapture.a */; };
+		C2BCFD841AD8BAFD00326ECB /* VoiceController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2BCFD821AD8BAFD00326ECB /* VoiceController.cpp */; };
+		C2BCFD851AD8BAFD00326ECB /* VoiceController.h in Headers */ = {isa = PBXBuildFile; fileRef = C2BCFD831AD8BAFD00326ECB /* VoiceController.h */; };
+		C2BCFD881AD8BB1300326ECB /* StaticVoiceController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2BCFD861AD8BB1300326ECB /* StaticVoiceController.cpp */; };
+		C2BCFD891AD8BB1300326ECB /* StaticVoiceController.h in Headers */ = {isa = PBXBuildFile; fileRef = C2BCFD871AD8BB1300326ECB /* StaticVoiceController.h */; };
+		C2BCFD8C1AD8C6D600326ECB /* Utilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2BCFD8A1AD8C6D600326ECB /* Utilities.cpp */; };
+		C2BCFD8D1AD8C6D600326ECB /* Utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = C2BCFD8B1AD8C6D600326ECB /* Utilities.h */; };
+		C2BCFD901AD8CA9300326ECB /* Phrase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2BCFD8E1AD8CA9300326ECB /* Phrase.cpp */; };
+		C2BCFD911AD8CA9300326ECB /* Phrase.h in Headers */ = {isa = PBXBuildFile; fileRef = C2BCFD8F1AD8CA9300326ECB /* Phrase.h */; };
+		C2BCFD981AD8CF1B00326ECB /* MikuPhrase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2BCFD961AD8CF1B00326ECB /* MikuPhrase.cpp */; };
+		C2BCFD991AD8CF1B00326ECB /* MikuPhrase.h in Headers */ = {isa = PBXBuildFile; fileRef = C2BCFD971AD8CF1B00326ECB /* MikuPhrase.h */; };
+		C2BCFD9B1AD8D84800326ECB /* VoiceControllerTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = C2BCFD9A1AD8D84800326ECB /* VoiceControllerTest.mm */; };
 		EEBBE10BD05A3B045D78E0CA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FE027E889037045845A8820A /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -96,6 +107,17 @@
 		C27EABF21ACD6E9C00148297 /* SoundCapture.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SoundCapture.xcodeproj; path = ../SoundCapture/SoundCapture.xcodeproj; sourceTree = "<group>"; };
 		C27EABFF1ACD6EC700148297 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		C27EAC121ACD728800148297 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = Pods/Pods.xcodeproj; sourceTree = "<group>"; };
+		C2BCFD821AD8BAFD00326ECB /* VoiceController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VoiceController.cpp; path = VoiceController/VoiceController.cpp; sourceTree = "<group>"; };
+		C2BCFD831AD8BAFD00326ECB /* VoiceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VoiceController.h; path = VoiceController/VoiceController.h; sourceTree = "<group>"; };
+		C2BCFD861AD8BB1300326ECB /* StaticVoiceController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StaticVoiceController.cpp; path = VoiceController/StaticVoiceController.cpp; sourceTree = "<group>"; };
+		C2BCFD871AD8BB1300326ECB /* StaticVoiceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StaticVoiceController.h; path = VoiceController/StaticVoiceController.h; sourceTree = "<group>"; };
+		C2BCFD8A1AD8C6D600326ECB /* Utilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Utilities.cpp; path = VoiceController/Utilities.cpp; sourceTree = "<group>"; };
+		C2BCFD8B1AD8C6D600326ECB /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utilities.h; path = VoiceController/Utilities.h; sourceTree = "<group>"; };
+		C2BCFD8E1AD8CA9300326ECB /* Phrase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Phrase.cpp; path = VoiceController/Phrase.cpp; sourceTree = "<group>"; };
+		C2BCFD8F1AD8CA9300326ECB /* Phrase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Phrase.h; path = VoiceController/Phrase.h; sourceTree = "<group>"; };
+		C2BCFD961AD8CF1B00326ECB /* MikuPhrase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MikuPhrase.cpp; path = VoiceController/MikuPhrase.cpp; sourceTree = "<group>"; };
+		C2BCFD971AD8CF1B00326ECB /* MikuPhrase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MikuPhrase.h; path = VoiceController/MikuPhrase.h; sourceTree = "<group>"; };
+		C2BCFD9A1AD8D84800326ECB /* VoiceControllerTest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VoiceControllerTest.mm; sourceTree = "<group>"; };
 		FE027E889037045845A8820A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -159,6 +181,7 @@
 		C27EABD11ACD6E4700148297 /* PokeMikuStompLib */ = {
 			isa = PBXGroup;
 			children = (
+				C2BCFD7D1AD8BAD400326ECB /* VoiceController */,
 				C27EABD21ACD6E4700148297 /* PokeMikuStompLib.h */,
 				C27EABD41ACD6E4700148297 /* PokeMikuStompLib.mm */,
 			);
@@ -169,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				C27EABDF1ACD6E4700148297 /* Supporting Files */,
+				C2BCFD9A1AD8D84800326ECB /* VoiceControllerTest.mm */,
 			);
 			path = PokeMikuStompLibTests;
 			sourceTree = "<group>";
@@ -208,6 +232,23 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		C2BCFD7D1AD8BAD400326ECB /* VoiceController */ = {
+			isa = PBXGroup;
+			children = (
+				C2BCFD821AD8BAFD00326ECB /* VoiceController.cpp */,
+				C2BCFD831AD8BAFD00326ECB /* VoiceController.h */,
+				C2BCFD861AD8BB1300326ECB /* StaticVoiceController.cpp */,
+				C2BCFD871AD8BB1300326ECB /* StaticVoiceController.h */,
+				C2BCFD8A1AD8C6D600326ECB /* Utilities.cpp */,
+				C2BCFD8B1AD8C6D600326ECB /* Utilities.h */,
+				C2BCFD8E1AD8CA9300326ECB /* Phrase.cpp */,
+				C2BCFD8F1AD8CA9300326ECB /* Phrase.h */,
+				C2BCFD961AD8CF1B00326ECB /* MikuPhrase.cpp */,
+				C2BCFD971AD8CF1B00326ECB /* MikuPhrase.h */,
+			);
+			name = VoiceController;
+			sourceTree = "<group>";
+		};
 		FE4E56E9CFAC2F21E4C10743 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -224,7 +265,12 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2BCFD891AD8BB1300326ECB /* StaticVoiceController.h in Headers */,
+				C2BCFD8D1AD8C6D600326ECB /* Utilities.h in Headers */,
+				C2BCFD991AD8CF1B00326ECB /* MikuPhrase.h in Headers */,
 				C27EABD31ACD6E4700148297 /* PokeMikuStompLib.h in Headers */,
+				C2BCFD851AD8BAFD00326ECB /* VoiceController.h in Headers */,
+				C2BCFD911AD8CA9300326ECB /* Phrase.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,7 +458,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2BCFD8C1AD8C6D600326ECB /* Utilities.cpp in Sources */,
+				C2BCFD841AD8BAFD00326ECB /* VoiceController.cpp in Sources */,
 				C27EABD51ACD6E4700148297 /* PokeMikuStompLib.mm in Sources */,
+				C2BCFD881AD8BB1300326ECB /* StaticVoiceController.cpp in Sources */,
+				C2BCFD901AD8CA9300326ECB /* Phrase.cpp in Sources */,
+				C2BCFD981AD8CF1B00326ECB /* MikuPhrase.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -420,6 +471,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2BCFD9B1AD8D84800326ECB /* VoiceControllerTest.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
