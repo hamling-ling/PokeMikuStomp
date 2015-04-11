@@ -25,12 +25,9 @@ struct VoiceControllerNotification {
     std::string pronounciation;
     unsigned int note;
     int level;
-    void* user;
 };
 
 class Phrase;
-
-typedef std::function<void(const VoiceControllerNotification&)> VoiceControllerCallback_t;
 
 class VoiceController
 {
@@ -40,15 +37,12 @@ public:
     
     VoiceController();
     virtual ~VoiceController();
-    virtual void InputLevel(int level);
-    virtual void InputNote(unsigned int note);
+    virtual bool Input(int level, unsigned int note, VoiceControllerNotification& notif);
     virtual void SetPhrase(std::string& phrase);
-    virtual void SetCallback(VoiceControllerCallback_t func, void* userInfo);
     virtual void SetThreshold(int threshold);
 
 protected:
     std::shared_ptr<Phrase> _phrase;
-    VoiceControllerCallback_t _callback;
     // last notified note. keep same no matter input level changed.
     unsigned int _currentNote;
     int _currentInputLevel;
@@ -57,18 +51,18 @@ protected:
     
     virtual bool IsOffLevel();
     
-    virtual void RaisePronounceStartedNotification();
+    virtual VoiceControllerNotification MakeStartedNotification();
     
-    virtual void RaisePronounceFinishedNotification();
+    virtual VoiceControllerNotification MakeFinishedNotification();
     
-    virtual void RaisePronounceChangedNotification();
+    virtual VoiceControllerNotification MakeChangedNotification();
 
 private:
-    void RaiseNotification(
-                           VoiceControllerNotificationType type,
-                           unsigned int midiNote,
-                           const std::string& pronounciation
-                           );
+    VoiceControllerNotification MakeNotification(
+                                             VoiceControllerNotificationType type,
+                                             unsigned int midiNote,
+                                             const std::string& pronounciation
+                                             );
 };
 
 #endif /* defined(__PokeMikuStompLib__VoiceController__) */

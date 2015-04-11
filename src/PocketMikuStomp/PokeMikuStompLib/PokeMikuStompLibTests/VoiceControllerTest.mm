@@ -13,12 +13,6 @@
 
 using namespace std;
 
-VoiceControllerNotification gNotif;
-
-static void voiceControllerCallback(const VoiceControllerNotification& notif) {
-    gNotif = notif;
-}
-
 @interface VoiceControllerTest : XCTestCase
 
 @end
@@ -95,90 +89,77 @@ static void voiceControllerCallback(const VoiceControllerNotification& notif) {
 - (void)testStaticVoiceControllerStartedEvent {
     string input = "ぅいあぁえ";
     StaticVoiceController svc;
-    svc.SetPhrase(input);
-    svc.SetCallback(voiceControllerCallback, NULL);
-    svc.SetThreshold(10);
-    gNotif.type = VoiceControllerNotificationTypePronounceFinished;
+    VoiceControllerNotification notif;
     
-    svc.InputLevel(20);
-    // no callback expected
-    XCTAssertTrue(gNotif.type == VoiceControllerNotificationTypePronounceFinished);
-    svc.InputNote(50);
+    svc.SetPhrase(input);
+    svc.SetThreshold(10);
+    notif.type = VoiceControllerNotificationTypePronounceFinished;
+    
+    svc.Input(20,50,notif);
     // callback expected
-    XCTAssertTrue(gNotif.type == VoiceControllerNotificationTypePronounceStarted);
-    XCTAssertTrue(gNotif.level == 20);
-    XCTAssertTrue(gNotif.note == 50);
-    XCTAssertTrue(gNotif.pronounciation == "ぅ");
+    XCTAssertTrue(notif.type == VoiceControllerNotificationTypePronounceStarted);
+    XCTAssertTrue(notif.level == 20);
+    XCTAssertTrue(notif.note == 50);
+    XCTAssertTrue(notif.pronounciation == "ぅ");
 }
 
 - (void)testStaticVoiceControllerFinishEvent {
     string input = "ぅいあぁえ";
     StaticVoiceController svc;
+    VoiceControllerNotification notif;
+    
     svc.SetPhrase(input);
-    svc.SetCallback(voiceControllerCallback, NULL);
     svc.SetThreshold(10);
-    gNotif.type = VoiceControllerNotificationTypePronounceFinished;
+    notif.type = VoiceControllerNotificationTypePronounceFinished;
     
-    svc.InputLevel(20);
-    svc.InputNote(50);
-    svc.InputLevel(19);
-    // no callback expected
-    XCTAssertTrue(gNotif.type == VoiceControllerNotificationTypePronounceStarted);
+    svc.Input(20,50,notif);
+    XCTAssertTrue(notif.type == VoiceControllerNotificationTypePronounceStarted);
     
-    svc.InputLevel(9);
+    svc.Input(9,10,notif);
     // callback expected
-    XCTAssertTrue(gNotif.type == VoiceControllerNotificationTypePronounceFinished);
-    XCTAssertTrue(gNotif.level == 9);
-    XCTAssertTrue(gNotif.note == StaticVoiceController::kNoMidiNote);
-    XCTAssertTrue(gNotif.pronounciation == "");
+    XCTAssertTrue(notif.type == VoiceControllerNotificationTypePronounceFinished);
+    XCTAssertTrue(notif.level == 9);
+    XCTAssertTrue(notif.note == StaticVoiceController::kNoMidiNote);
+    XCTAssertTrue(notif.pronounciation == "");
 }
 
 - (void)testStaticVoiceControllerChangeEvent {
     string input = "ぅいあぁえ";
     StaticVoiceController svc;
+    VoiceControllerNotification notif;
     svc.SetPhrase(input);
-    svc.SetCallback(voiceControllerCallback, NULL);
     svc.SetThreshold(10);
-    gNotif.type = VoiceControllerNotificationTypePronounceFinished;
+    notif.type = VoiceControllerNotificationTypePronounceFinished;
     
-    svc.InputLevel(20);
-    svc.InputNote(50);
-    svc.InputLevel(19);
-    // no callback expected
-    XCTAssertTrue(gNotif.type == VoiceControllerNotificationTypePronounceStarted);
+    svc.Input(20,50,notif);
+    XCTAssertTrue(notif.type == VoiceControllerNotificationTypePronounceStarted);
     
-    svc.InputLevel(100);
-    svc.InputNote(45);
-    // callback expected
-    XCTAssertTrue(gNotif.type == VoiceControllerNotificationTypePronounceChanged);
-    XCTAssertTrue(gNotif.level == 100);
-    XCTAssertTrue(gNotif.note == 45);
-    XCTAssertTrue(gNotif.pronounciation == "い");
+    svc.Input(100,45,notif);
+    XCTAssertTrue(notif.type == VoiceControllerNotificationTypePronounceChanged);
+    XCTAssertTrue(notif.level == 100);
+    XCTAssertTrue(notif.note == 45);
+    XCTAssertTrue(notif.pronounciation == "い");
 }
 
 - (void)testStaticVoiceControllerNoEventAfterNoteOffEvenLevelIncrease {
     string input = "ぅいあぁえ";
     StaticVoiceController svc;
+    VoiceControllerNotification notif;
     svc.SetPhrase(input);
-    svc.SetCallback(voiceControllerCallback, NULL);
     svc.SetThreshold(10);
-    gNotif.type = VoiceControllerNotificationTypePronounceFinished;
+    notif.type = VoiceControllerNotificationTypePronounceFinished;
     
-    svc.InputLevel(20);
-    svc.InputNote(50);
-    svc.InputLevel(19);
-    // no callback expected
-    XCTAssertTrue(gNotif.type == VoiceControllerNotificationTypePronounceStarted);
+    svc.Input(20,50,notif);
+    XCTAssertTrue(notif.type == VoiceControllerNotificationTypePronounceStarted);
     
-    svc.InputLevel(9);
-    // callback expected
-    XCTAssertTrue(gNotif.type == VoiceControllerNotificationTypePronounceFinished);
-    XCTAssertTrue(gNotif.level == 9);
-    XCTAssertTrue(gNotif.note == StaticVoiceController::kNoMidiNote);
-    XCTAssertTrue(gNotif.pronounciation == "");
+    svc.Input(9,0,notif);
+    XCTAssertTrue(notif.type == VoiceControllerNotificationTypePronounceFinished);
+    XCTAssertTrue(notif.level == 9);
+    XCTAssertTrue(notif.note == StaticVoiceController::kNoMidiNote);
+    XCTAssertTrue(notif.pronounciation == "");
     
-    svc.InputLevel(20);
-    XCTAssertTrue(gNotif.type == VoiceControllerNotificationTypePronounceFinished);
+    svc.Input(20, VoiceController::kNoMidiNote,notif);
+    XCTAssertTrue(notif.type == VoiceControllerNotificationTypePronounceFinished);
 }
 
 - (void)testPerformanceExample {

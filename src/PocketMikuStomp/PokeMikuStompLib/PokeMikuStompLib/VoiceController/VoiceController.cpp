@@ -29,22 +29,11 @@ void VoiceController::SetPhrase(std::string& phrase)
     _phrase = make_shared<Phrase>(phrase);
 }
 
-void VoiceController::InputLevel(int level)
+bool VoiceController::Input(int level, unsigned int note, VoiceControllerNotification& notif)
 {
     _currentInputLevel = level;
-}
-
-void VoiceController::InputNote(unsigned int note)
-{
-    if(_currentNote != note) {
-        _currentNote = note;
-    }
-}
-
-void VoiceController::SetCallback(VoiceControllerCallback_t func, void* userInfo)
-{
-    _callback = func;
-    _userInfo = userInfo;
+    _currentNote = note;
+    return true;
 }
 
 void VoiceController::SetThreshold(int threshold)
@@ -56,24 +45,24 @@ bool VoiceController::IsOffLevel() {
     return (_currentInputLevel < _threshold);
 }
 
-void VoiceController::RaisePronounceStartedNotification() {
-    RaiseNotification( VoiceControllerNotificationTypePronounceStarted,
+VoiceControllerNotification VoiceController::MakeStartedNotification() {
+    return MakeNotification( VoiceControllerNotificationTypePronounceStarted,
                       _currentNote,
                       _phrase->Next());
 }
 
-void VoiceController::RaisePronounceFinishedNotification() {
+VoiceControllerNotification VoiceController::MakeFinishedNotification() {
     std::string pro("");
-    RaiseNotification( VoiceControllerNotificationTypePronounceFinished, kNoMidiNote, pro);
+    return MakeNotification( VoiceControllerNotificationTypePronounceFinished, kNoMidiNote, pro);
 }
 
-void VoiceController::RaisePronounceChangedNotification() {
-    RaiseNotification( VoiceControllerNotificationTypePronounceChanged,
+VoiceControllerNotification VoiceController::MakeChangedNotification() {
+    return MakeNotification( VoiceControllerNotificationTypePronounceChanged,
                       _currentNote,
                       _phrase->Next());
 }
 
-void VoiceController::RaiseNotification(
+VoiceControllerNotification VoiceController::MakeNotification (
                                         VoiceControllerNotificationType type,
                                         unsigned int midiNote,
                                         const std::string& pronounciation
@@ -82,11 +71,8 @@ void VoiceController::RaiseNotification(
         .type = type,
         .pronounciation = pronounciation,
         .note = midiNote,
-        .user = _userInfo,
         .level = _currentInputLevel
     };
     
-    if(_callback) {
-        _callback(notif);
-    }
+    return notif;
 }

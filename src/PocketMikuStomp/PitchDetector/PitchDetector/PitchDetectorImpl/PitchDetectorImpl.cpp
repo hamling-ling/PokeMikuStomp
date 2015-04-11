@@ -118,7 +118,6 @@ int PitchDetectorImpl::AnalyzeNsdf()
         return -1;
     }
     
-    _pitch.note = static_cast<Note>(inote);
     _pitch.noteStr = kNoteStrings[inote % 12];
     _pitch.octave = inote / 12;
     _pitch.freq = freq;

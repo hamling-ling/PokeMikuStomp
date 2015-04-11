@@ -7,6 +7,9 @@
 //
 
 #include "StaticVoiceController.h"
+#include "MikuPhrase.h"
+
+using namespace std;
 
 StaticVoiceController::StaticVoiceController()
 {
@@ -18,7 +21,13 @@ StaticVoiceController::~StaticVoiceController()
     
 }
 
-void StaticVoiceController::InputLevel(int level)
+void StaticVoiceController::SetPhrase(std::string& phrase)
+{
+    shared_ptr<MikuPhrase> mikuPhrase = make_shared<MikuPhrase>(phrase);
+    _phrase = std::dynamic_pointer_cast<Phrase>(mikuPhrase);
+}
+
+bool StaticVoiceController::HandleInputLevel(int level, VoiceControllerNotification& notif)
 {
     bool isOffLevel = IsOffLevel();
     bool willBeOffLevel = (level < _threshold);
@@ -31,24 +40,38 @@ void StaticVoiceController::InputLevel(int level)
         _currentNote = kNoMidiNote;
         
         // note off
-        RaisePronounceFinishedNotification();
+        notif = MakeFinishedNotification();
+        return true;
     }
+    
+    return false;
 }
 
-void StaticVoiceController::InputNote(unsigned int note)
+bool StaticVoiceController::Input(int level, unsigned int note, VoiceControllerNotification& notif)
 {
-    if(IsOffLevel()) {
-        return;
+    if(HandleInputLevel(level, notif)) {
+        return true;
+    }
+    
+    if(note == kNoMidiNote) {
+        return false;
+    }
+    
+    if(level < _threshold) {
+        return false;
     }
     
     if(_currentNote == kNoMidiNote) {
         _currentNote = note;
-        RaisePronounceStartedNotification();
-        return;
+        notif = MakeStartedNotification();
+        return true;
     }
     
     if(_currentNote != note) {
         _currentNote = note;
-        RaisePronounceChangedNotification();
+        notif = MakeChangedNotification();
+        return true;
     }
+    
+    return false;
 }

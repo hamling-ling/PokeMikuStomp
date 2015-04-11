@@ -12,6 +12,7 @@
 #include <SoundCapture.h>
 #include <PMMiku.h>
 #include "StopWatch.h"
+#include <StaticVoiceController.h>
 
 using namespace std;
 
@@ -29,16 +30,20 @@ static const shared_ptr<SoundCapture> nullCap;
     PMMiku* _miku;
     shared_ptr<PitchDetector> _det;
     shared_ptr<SoundCapture> _cap;
+    shared_ptr<StaticVoiceController> _voice;
     AppData _app;
-    NSArray* _pronounciations;
-    NSUInteger _currentProIndex;
+    PitchInfo _pitch;
 }
 
 @property (atomic, readwrite, assign) int inputLevel;
 @property (atomic, readwrite, assign) int midiNote;
 @property (atomic, readwrite, strong) NSString* noteString;
+@property (atomic, readwrite, strong) NSString* pronoString;
 
 - (void) captureEventNotifiedFrom:(SoundCapture*)sc notification:(SoundCaptureNotification&)note;
+- (bool)noteOff;
+- (bool)startPronounce:(const string&)pro withNote:(unsigned int)midiNote andLevel:(int)level;
+- (bool)changePronounce:(const string&)pro withNote:(unsigned int)midiNote andLevel:(int)level;
 @end
 
 static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
@@ -74,9 +79,6 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
         _app.buf = NULL;
         _app.miku = NULL;
         _levelThreshold = kDefaultLevelThreshold;
-        
-        _pronounciations = @[@"た", @"ら", @"り", @"ら"];
-        _currentProIndex = 0;
     }
     return self;
 }
@@ -126,6 +128,11 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
         return kPokeMikuStompLibErrorInternalError;
     }
     
+    shared_ptr<StaticVoiceController> voice = make_shared<StaticVoiceController>();
+    voice->SetThreshold(kDefaultLevelThreshold);
+    string phrase("らりるれろ");
+    voice->SetPhrase(phrase);
+    
     _miku = [[PMMiku alloc] init];
     if(!_miku) {
         return kPokeMikuStompLibErrorPokeMikuNotFound;
@@ -133,6 +140,7 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
     
     _det = det;
     _cap = cap;
+    _voice = voice;
     _app.det = _det;
     _app.context = (__bridge void*)self;
     _app.buf = new float[samplingSize];
@@ -251,12 +259,41 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
 
 - (bool)noteOff {
     if(_midiNote == -1) {
+        // do nothing if already off
         return NO;
     }
     
     [_miku noteOff];
     self.midiNote = -1;
     self.noteString = @"";
+    
+    return YES;
+}
+
+- (bool)startPronounce:(const string&)pro withNote:(unsigned int)midiNote andLevel:(int)level {
+    if(midiNote == -1) {
+        return NO;
+    }
+    
+    NSString* nspro = [NSString stringWithUTF8String:pro.c_str()];
+    [_miku noteOnWithKey:midiNote velocity:level pronunciation:nspro];
+    self.pronoString = nspro;
+    
+    self.midiNote = (int)midiNote;
+    NSLog(@"start pronounce level=%d, note=%d", level, _midiNote);
+    
+    NSString* nsnote = [NSString stringWithUTF8String:_pitch.noteStr];
+    self.noteString = nsnote;
+    
+    return YES;
+}
+
+- (bool)changePronounce:(const string&)pro withNote:(unsigned int)midiNote andLevel:(int)level {
+    if(midiNote == -1) {
+        return NO;
+    }
+    
+    [self startPronounce:pro withNote:midiNote andLevel:level];
     
     return YES;
 }
@@ -292,24 +329,27 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
         // do nothing when detection failed
     }
 	
-    PitchInfo pitch;
-    _det->GetPiatch(pitch);
-    if (level < self.levelThreshold) {
-        if([self noteOff]) {
-            NSLog(@"level=%d, note=off", level);
-        }
-        return;
+    _det->GetPiatch(_pitch);
+    VoiceControllerNotification notif;
+    unsigned int midiNote = _pitch.error ? VoiceController::kNoMidiNote : _pitch.midi;
+    if(_voice->Input(level, midiNote, notif)) {
+        [self handleVoiceControllerNotification:notif];
     }
-    
-    if(_midiNote != pitch.midi) {
-        NSString* pro = _pronounciations[_currentProIndex];
-        _currentProIndex++;
-        _currentProIndex %= _pronounciations.count;
-        [_miku noteOnWithKey:pitch.midi velocity:level pronunciation:pro];
+}
 
-        self.midiNote = pitch.midi;
-        NSLog(@"level=%d, note=%d", level, pitch.midi);
-        self.noteString = [NSString stringWithUTF8String:pitch.noteStr];
+- (void)handleVoiceControllerNotification:(VoiceControllerNotification&)notif {
+    switch (notif.type) {
+        case VoiceControllerNotificationTypePronounceStarted:
+            [self startPronounce:notif.pronounciation withNote:notif.note andLevel:notif.level];
+            break;
+        case VoiceControllerNotificationTypePronounceChanged:
+            [self changePronounce:notif.pronounciation withNote:notif.note andLevel:notif.level];
+            break;
+        case VoiceControllerNotificationTypePronounceFinished:
+            [self noteOff];
+            break;
+        default:
+            break;
     }
 }
 

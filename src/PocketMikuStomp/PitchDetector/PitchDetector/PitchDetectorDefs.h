@@ -12,25 +12,9 @@
 #include <cmath>
 #include <cstdint>
 
-typedef enum Note_ {
-    A,
-    Bes,
-    B,
-    C,
-    Cis,
-    D,
-    Dis,
-    E,
-    F,
-    Fis,
-    G,
-    Gis,
-} Note;
-
 typedef struct PitchInfo_ {
     bool error;
     float freq;
-    Note note;
     unsigned int midi;
     const char* noteStr;
     uint8_t octave;
