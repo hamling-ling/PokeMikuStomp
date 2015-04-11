@@ -110,7 +110,6 @@
 		C27EAB731ACD6CFC00148297 = {
 			isa = PBXGroup;
 			children = (
-				C2BCFD6C1AD8AF4D00326ECB /* PitchDetectorImpl */,
 				C267C72F1AD2F297003071E8 /* Accelerate.framework */,
 				C27EAC431ACD7EBF00148297 /* libfftw3f.a */,
 				C27EAB7E1ACD6CFC00148297 /* PitchDetector */,
@@ -131,6 +130,7 @@
 		C27EAB7E1ACD6CFC00148297 /* PitchDetector */ = {
 			isa = PBXGroup;
 			children = (
+				C2BCFD6C1AD8AF4D00326ECB /* PitchDetectorImpl */,
 				67677FC31AD26AC900A91434 /* StopWatch.cpp */,
 				67677FC41AD26AC900A91434 /* StopWatch.h */,
 				C27EAC311ACD7E4200148297 /* NsdfCompute */,
@@ -198,8 +198,7 @@
 				C2BCFD731AD8AF4D00326ECB /* PitchDetectorVDspImpl.cpp */,
 				C2BCFD741AD8AF4D00326ECB /* PitchDetectorVDspImpl.h */,
 			);
-			name = PitchDetectorImpl;
-			path = PitchDetector/PitchDetectorImpl;
+			path = PitchDetectorImpl;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

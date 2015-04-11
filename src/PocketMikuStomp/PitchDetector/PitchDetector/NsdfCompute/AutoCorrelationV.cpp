@@ -15,7 +15,7 @@ using namespace std;
 AutoCorrelationV::AutoCorrelationV(int windowSize) :
 IAutoCorrelation(windowSize),
 kLog2n(log2(windowSize)),
-kOneOv1024(1.0f/1024.0f)
+kFreq(1.0f/windowSize)
 {
 	AllocateComplexBuf(_srcv, kFftSize);
 	AllocateComplexBuf(_fftv, kFftSize);
@@ -45,7 +45,7 @@ void AutoCorrelationV::Compute(const float* x, float *corr)
 	
 	// power spectrum
     vDSP_zvmags(&_fftv, 1, _tempv.realp, 1, kFftSize);
-	vDSP_vsmul(_tempv.realp, 1, &kOneOv1024, _powspv.realp, 1, kFftSize);
+	vDSP_vsmul(_tempv.realp, 1, &kFreq, _powspv.realp, 1, kFftSize);
 	
 	// inverse fft of powerspectrum
     vDSP_fft_zop(_setup, &_powspv, 1, &_ifftv, 1, kLog2n+1, FFT_INVERSE);
