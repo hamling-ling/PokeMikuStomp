@@ -34,6 +34,7 @@ void MikuPhrase::MakePronounciations()
         if(it != _phraseString.end()) {
             if(IsSmallVowel(*it)) {
                 letters[1] = *it;
+                it++;
             }
         }
         wstring wsLetters(letters);

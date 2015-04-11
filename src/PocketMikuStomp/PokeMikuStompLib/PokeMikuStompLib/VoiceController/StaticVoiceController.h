@@ -16,7 +16,11 @@ class StaticVoiceController : public VoiceController
 public:
     StaticVoiceController();
     ~StaticVoiceController();
-    virtual void Input(PitchInfo& pitch);
+    virtual void InputLevel(int level);
+    virtual void InputNote(unsigned int note);
+
+private:
+    std::string _currentPronounciation;
 };
 
 #endif /* defined(__PokeMikuStompLib__StaticVoiceController__) */

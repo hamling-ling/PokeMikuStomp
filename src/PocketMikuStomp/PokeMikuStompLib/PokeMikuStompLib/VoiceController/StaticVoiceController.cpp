@@ -18,12 +18,37 @@ StaticVoiceController::~StaticVoiceController()
     
 }
 
-void StaticVoiceController::Input(PitchInfo& pitch)
+void StaticVoiceController::InputLevel(int level)
 {
+    bool isOffLevel = IsOffLevel();
+    bool willBeOffLevel = (level < _threshold);
+
+    // update level
+    _currentInputLevel = level;
     
+    if(!isOffLevel && willBeOffLevel) {
+        _currentPronounciation = "";
+        _currentNote = kNoMidiNote;
+        
+        // note off
+        RaisePronounceFinishedNotification();
+    }
 }
 
-/**
- ご
- きゃ
-*/
+void StaticVoiceController::InputNote(unsigned int note)
+{
+    if(IsOffLevel()) {
+        return;
+    }
+    
+    if(_currentNote == kNoMidiNote) {
+        _currentNote = note;
+        RaisePronounceStartedNotification();
+        return;
+    }
+    
+    if(_currentNote != note) {
+        _currentNote = note;
+        RaisePronounceChangedNotification();
+    }
+}

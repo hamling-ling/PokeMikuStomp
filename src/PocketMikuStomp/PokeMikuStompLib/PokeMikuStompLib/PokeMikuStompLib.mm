@@ -264,27 +264,30 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
 #pragma Event Handlers
 
 - (void) captureEventNotifiedFrom:(SoundCapture*)sc notification:(SoundCaptureNotification&)note {
-    int level = sc->Level();
-    if(_inputLevel != level) {
-        self.inputLevel = level;
-    }
     
     if(!sc) {
         [self noteOff];
+        self.inputLevel = 0;
         return;
     }
     
     if(!_app.buf) {
         [self noteOff];
+        self.inputLevel = 0;
         return;
     }
     
     if(!_app.det) {
         [self noteOff];
+        self.inputLevel = 0;
         return;
     }
 	
-	
+    int level = sc->Level();
+    if(_inputLevel != level) {
+        self.inputLevel = level;
+    }
+    
     if(_det->Detect(sc->GetRawBufferPointer())) {
         // do nothing when detection failed
     }

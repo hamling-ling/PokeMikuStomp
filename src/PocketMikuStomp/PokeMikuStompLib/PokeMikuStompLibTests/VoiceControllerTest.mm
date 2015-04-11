@@ -9,8 +9,15 @@
 #import <Cocoa/Cocoa.h>
 #import <XCTest/XCTest.h>
 #include "MikuPhrase.h"
+#include "StaticVoiceController.h"
 
 using namespace std;
+
+VoiceControllerNotification gNotif;
+
+static void voiceControllerCallback(const VoiceControllerNotification& notif) {
+    gNotif = notif;
+}
 
 @interface VoiceControllerTest : XCTestCase
 
@@ -73,16 +80,105 @@ using namespace std;
 }
 
 - (void)testVowelPhrasing {
-    string input = "あぅい";
+    string input = "あぁいぃぇ";
     MikuPhrase mp(input);
     string letters;
     
     letters = mp.Next();
-    XCTAssertTrue(letters.compare("あ") == 0);
+    XCTAssertTrue(letters.compare("あぁ") == 0);
     letters = mp.Next();
-    XCTAssertTrue(letters.compare("ぅ") == 0);
+    XCTAssertTrue(letters.compare("いぃ") == 0);
     letters = mp.Next();
-    XCTAssertTrue(letters.compare("い") == 0);
+    XCTAssertTrue(letters.compare("ぇ") == 0);
+}
+
+- (void)testStaticVoiceControllerStartedEvent {
+    string input = "ぅいあぁえ";
+    StaticVoiceController svc;
+    svc.SetPhrase(input);
+    svc.SetCallback(voiceControllerCallback, NULL);
+    svc.SetThreshold(10);
+    gNotif.type = VoiceControllerNotificationTypePronounceFinished;
+    
+    svc.InputLevel(20);
+    // no callback expected
+    XCTAssertTrue(gNotif.type == VoiceControllerNotificationTypePronounceFinished);
+    svc.InputNote(50);
+    // callback expected
+    XCTAssertTrue(gNotif.type == VoiceControllerNotificationTypePronounceStarted);
+    XCTAssertTrue(gNotif.level == 20);
+    XCTAssertTrue(gNotif.note == 50);
+    XCTAssertTrue(gNotif.pronounciation == "ぅ");
+}
+
+- (void)testStaticVoiceControllerFinishEvent {
+    string input = "ぅいあぁえ";
+    StaticVoiceController svc;
+    svc.SetPhrase(input);
+    svc.SetCallback(voiceControllerCallback, NULL);
+    svc.SetThreshold(10);
+    gNotif.type = VoiceControllerNotificationTypePronounceFinished;
+    
+    svc.InputLevel(20);
+    svc.InputNote(50);
+    svc.InputLevel(19);
+    // no callback expected
+    XCTAssertTrue(gNotif.type == VoiceControllerNotificationTypePronounceStarted);
+    
+    svc.InputLevel(9);
+    // callback expected
+    XCTAssertTrue(gNotif.type == VoiceControllerNotificationTypePronounceFinished);
+    XCTAssertTrue(gNotif.level == 9);
+    XCTAssertTrue(gNotif.note == StaticVoiceController::kNoMidiNote);
+    XCTAssertTrue(gNotif.pronounciation == "");
+}
+
+- (void)testStaticVoiceControllerChangeEvent {
+    string input = "ぅいあぁえ";
+    StaticVoiceController svc;
+    svc.SetPhrase(input);
+    svc.SetCallback(voiceControllerCallback, NULL);
+    svc.SetThreshold(10);
+    gNotif.type = VoiceControllerNotificationTypePronounceFinished;
+    
+    svc.InputLevel(20);
+    svc.InputNote(50);
+    svc.InputLevel(19);
+    // no callback expected
+    XCTAssertTrue(gNotif.type == VoiceControllerNotificationTypePronounceStarted);
+    
+    svc.InputLevel(100);
+    svc.InputNote(45);
+    // callback expected
+    XCTAssertTrue(gNotif.type == VoiceControllerNotificationTypePronounceChanged);
+    XCTAssertTrue(gNotif.level == 100);
+    XCTAssertTrue(gNotif.note == 45);
+    XCTAssertTrue(gNotif.pronounciation == "い");
+}
+
+- (void)testStaticVoiceControllerNoEventAfterNoteOffEvenLevelIncrease {
+    string input = "ぅいあぁえ";
+    StaticVoiceController svc;
+    svc.SetPhrase(input);
+    svc.SetCallback(voiceControllerCallback, NULL);
+    svc.SetThreshold(10);
+    gNotif.type = VoiceControllerNotificationTypePronounceFinished;
+    
+    svc.InputLevel(20);
+    svc.InputNote(50);
+    svc.InputLevel(19);
+    // no callback expected
+    XCTAssertTrue(gNotif.type == VoiceControllerNotificationTypePronounceStarted);
+    
+    svc.InputLevel(9);
+    // callback expected
+    XCTAssertTrue(gNotif.type == VoiceControllerNotificationTypePronounceFinished);
+    XCTAssertTrue(gNotif.level == 9);
+    XCTAssertTrue(gNotif.note == StaticVoiceController::kNoMidiNote);
+    XCTAssertTrue(gNotif.pronounciation == "");
+    
+    svc.InputLevel(20);
+    XCTAssertTrue(gNotif.type == VoiceControllerNotificationTypePronounceFinished);
 }
 
 - (void)testPerformanceExample {
