@@ -272,7 +272,7 @@
 		C27EAB741ACD6CFC00148297 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0620;
+				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Nobuhiro Kuroiwa";
 				TargetAttributes = {
 					C27EAB7B1ACD6CFC00148297 = {
@@ -442,6 +442,7 @@
 		C27EAB911ACD6CFC00148297 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_PREFIX = lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -450,6 +451,7 @@
 		C27EAB921ACD6CFC00148297 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_PREFIX = lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
