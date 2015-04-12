@@ -8,12 +8,14 @@
 
 #include "MikuPhrase.h"
 #include "Utilities.h"
+#include <iostream>
 
 using namespace std;
 
-MikuPhrase::MikuPhrase(std::string& phraseString)
+MikuPhrase::MikuPhrase(std::string& phraseString, std::map<std::wstring, int>& charMap)
 :
-Phrase(phraseString)
+Phrase(phraseString),
+_charMap(charMap)
 {
     MakePronounciations();
     ResetPos();
@@ -34,7 +36,12 @@ void MikuPhrase::MakePronounciations()
         if(it != _phraseString.end()) {
             if(IsSmallVowel(*it)) {
                 letters[1] = *it;
-                it++;
+                wstring wsCandLetters(letters);
+                if(_charMap.find(wsCandLetters) != _charMap.end()) {
+                    it++;
+                } else {
+                    letters[1] = static_cast<wchar_t>(0);
+                }
             }
         }
         wstring wsLetters(letters);

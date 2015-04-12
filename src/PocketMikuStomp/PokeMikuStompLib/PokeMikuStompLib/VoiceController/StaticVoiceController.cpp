@@ -8,6 +8,8 @@
 
 #include "StaticVoiceController.h"
 #include "MikuPhrase.h"
+#include <fstream>
+#include "Utilities.h"
 
 using namespace std;
 
@@ -21,10 +23,34 @@ StaticVoiceController::~StaticVoiceController()
     
 }
 
-void StaticVoiceController::SetPhrase(std::string& phrase)
+bool StaticVoiceController::MakePronounceStringMap(const char* path, std::map<std::wstring, int>& map) {
+    ifstream file(path);
+    if(!file.is_open()) {
+        return false;
+    }
+    
+    string line;
+    int count = 0;
+    while (getline(file, line)) {
+        wstring wline = s2ws(line);
+        pair<wstring, int> item(wline, count++);
+        map.insert(item);
+    }
+    file.close();
+    
+    return true;
+}
+
+bool StaticVoiceController::SetPhrase(std::string& phrase, const char* mapPath)
 {
-    shared_ptr<MikuPhrase> mikuPhrase = make_shared<MikuPhrase>(phrase);
+    if(!MakeMap(mapPath)) {
+        return false;
+    }
+    
+    shared_ptr<MikuPhrase> mikuPhrase = make_shared<MikuPhrase>(phrase, _proMap);
     _phrase = std::dynamic_pointer_cast<Phrase>(mikuPhrase);
+    
+    return true;
 }
 
 bool StaticVoiceController::HandleInputLevel(int level, VoiceControllerNotification& notif)
@@ -74,4 +100,9 @@ bool StaticVoiceController::Input(int level, unsigned int note, VoiceControllerN
     }
     
     return false;
+}
+
+bool StaticVoiceController::MakeMap(const char* mapPath)
+{
+    return MakePronounceStringMap(mapPath, _proMap);
 }

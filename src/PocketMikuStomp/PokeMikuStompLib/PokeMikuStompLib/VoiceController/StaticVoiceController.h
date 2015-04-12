@@ -10,18 +10,22 @@
 #define __PokeMikuStompLib__StaticVoiceController__
 
 #include "VoiceController.h"
+#include <map>
 
 class StaticVoiceController : public VoiceController
 {
 public:
     StaticVoiceController();
     ~StaticVoiceController();
-    virtual void SetPhrase(std::string& phrase);
+    static bool MakePronounceStringMap(const char* path, std::map<std::wstring, int>& map);
+    virtual bool SetPhrase(std::string& phrase, const char* mapPath);
     virtual bool Input(int level, unsigned int note, VoiceControllerNotification& notif);
-
+    
 private:
     std::string _currentPronounciation;
+    std::map<std::wstring, int> _proMap;
     
+    bool MakeMap(const char* mapPath);
     bool HandleInputLevel(int level, VoiceControllerNotification& notif);
 };
 

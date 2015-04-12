@@ -11,17 +11,19 @@
 
 #include "Phrase.h"
 #include <vector>
+#include <map>
 
 class MikuPhrase : public Phrase
 {
 public:
-    MikuPhrase(std::string& phraseString);
+    MikuPhrase(std::string& phraseString, std::map<std::wstring, int>& charMap);
     virtual ~MikuPhrase();
     virtual std::string Next();
     virtual void ResetPos();
 private:
     std::vector<std::string> _pronounciations;
     std::vector<std::string>::const_iterator _proIt;
+    std::map<std::wstring, int>& _charMap;
     
     void MakePronounciations();
     bool IsSmallVowel(wchar_t letter);

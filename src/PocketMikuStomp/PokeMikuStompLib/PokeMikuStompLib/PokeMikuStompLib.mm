@@ -131,7 +131,10 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
     shared_ptr<StaticVoiceController> voice = make_shared<StaticVoiceController>();
     voice->SetThreshold(kDefaultLevelThreshold);
     string phrase("らりるれろ");
-    voice->SetPhrase(phrase);
+    
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    NSString* path = [bundle pathForResource:@"pm-char-map" ofType:@"txt"];
+    voice->SetPhrase(phrase, [path UTF8String]);
     
     _miku = [[PMMiku alloc] init];
     if(!_miku) {

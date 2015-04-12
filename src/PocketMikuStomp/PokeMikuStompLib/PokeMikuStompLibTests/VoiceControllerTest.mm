@@ -18,10 +18,20 @@ using namespace std;
 @end
 
 @implementation VoiceControllerTest
+{
+    map<wstring, int> _map;
+    string _path;
+}
 
 - (void)setUp {
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
+    if(_map.empty()) {
+        NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+        NSString* path = [bundle pathForResource:@"pm-char-map" ofType:@"txt"];
+        StaticVoiceController::MakePronounceStringMap([path UTF8String], _map);
+        _path = string([path UTF8String]);
+    }
 }
 
 - (void)tearDown {
@@ -32,7 +42,8 @@ using namespace std;
 - (void)testNormalPhrasing {
     
     string input = "あいうえお";
-    MikuPhrase mp(input);
+    XCTAssertFalse(_map.empty());
+    MikuPhrase mp(input, _map);
     string letters;
     
     letters = mp.Next();
@@ -49,7 +60,8 @@ using namespace std;
 
 - (void)testNormalNonCirculatePhraseEnding {
     string input = "あ";
-    MikuPhrase mp(input);
+    XCTAssertFalse(_map.empty());
+    MikuPhrase mp(input, _map);
     mp.SetCirculation(false);
     string letters;
     
@@ -61,7 +73,8 @@ using namespace std;
 
 - (void)testNormalCirculatePhraseEnding {
     string input = "あい";
-    MikuPhrase mp(input);
+    XCTAssertFalse(_map.empty());
+    MikuPhrase mp(input, _map);
     mp.SetCirculation(true);
     string letters;
     
@@ -74,14 +87,17 @@ using namespace std;
 }
 
 - (void)testVowelPhrasing {
-    string input = "あぁいぃぇ";
-    MikuPhrase mp(input);
+    string input = "あぁきゃぇ";
+    XCTAssertFalse(_map.empty());
+    MikuPhrase mp(input, _map);
     string letters;
     
     letters = mp.Next();
-    XCTAssertTrue(letters.compare("あぁ") == 0);
+    XCTAssertTrue(letters.compare("あ") == 0);
     letters = mp.Next();
-    XCTAssertTrue(letters.compare("いぃ") == 0);
+    XCTAssertTrue(letters.compare("ぁ") == 0);
+    letters = mp.Next();
+    XCTAssertTrue(letters.compare("きゃ") == 0);
     letters = mp.Next();
     XCTAssertTrue(letters.compare("ぇ") == 0);
 }
@@ -91,7 +107,8 @@ using namespace std;
     StaticVoiceController svc;
     VoiceControllerNotification notif;
     
-    svc.SetPhrase(input);
+    XCTAssertFalse(_map.empty());
+    svc.SetPhrase(input, _path.c_str());
     svc.SetThreshold(10);
     notif.type = VoiceControllerNotificationTypePronounceFinished;
     
@@ -108,7 +125,8 @@ using namespace std;
     StaticVoiceController svc;
     VoiceControllerNotification notif;
     
-    svc.SetPhrase(input);
+    XCTAssertFalse(_map.empty());
+    svc.SetPhrase(input, _path.c_str());
     svc.SetThreshold(10);
     notif.type = VoiceControllerNotificationTypePronounceFinished;
     
@@ -127,8 +145,9 @@ using namespace std;
     string input = "ぅいあぁえ";
     StaticVoiceController svc;
     VoiceControllerNotification notif;
-    svc.SetPhrase(input);
+    XCTAssertFalse(_map.empty());
     svc.SetThreshold(10);
+    svc.SetPhrase(input, _path.c_str());
     notif.type = VoiceControllerNotificationTypePronounceFinished;
     
     svc.Input(20,50,notif);
@@ -145,7 +164,8 @@ using namespace std;
     string input = "ぅいあぁえ";
     StaticVoiceController svc;
     VoiceControllerNotification notif;
-    svc.SetPhrase(input);
+    XCTAssertFalse(_map.empty());
+    svc.SetPhrase(input, _path.c_str());
     svc.SetThreshold(10);
     notif.type = VoiceControllerNotificationTypePronounceFinished;
     
