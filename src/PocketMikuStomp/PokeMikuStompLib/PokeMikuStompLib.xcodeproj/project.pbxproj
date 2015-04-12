@@ -322,7 +322,7 @@
 		C27EABC71ACD6E4700148297 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0620;
+				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Nobuhiro Kuroiwa";
 				TargetAttributes = {
 					C27EABCE1ACD6E4700148297 = {
@@ -586,6 +586,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 018275A5EC2222907D0CBF21 /* Pods.debug.xcconfig */;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_PREFIX = lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -595,6 +596,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 074A8FE93822D8D9A6850F21 /* Pods.release.xcconfig */;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_PREFIX = lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
