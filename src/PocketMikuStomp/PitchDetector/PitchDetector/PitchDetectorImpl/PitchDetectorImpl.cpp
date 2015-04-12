@@ -54,6 +54,11 @@ bool PitchDetectorImpl::Initialize()
         return false;
     }
     
+    memset(_r, 0, sizeof(float)*_samplingSize);
+    memset(_m, 0, sizeof(float)*_samplingSize);
+    memset(_nsdf, 0, sizeof(float)*_samplingSize);
+    memset(_x2, 0, sizeof(float)*_samplingSize);
+    
     return true;
 }
 

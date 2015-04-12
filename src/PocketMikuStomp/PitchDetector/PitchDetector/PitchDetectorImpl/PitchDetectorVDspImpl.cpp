@@ -13,12 +13,14 @@ using namespace std;
 
 PitchDetectorVDspImpl::PitchDetectorVDspImpl(int samplingRate, int samplingSize)
 :
-PitchDetectorImpl(samplingRate, samplingSize)
+PitchDetectorImpl(samplingRate, samplingSize),
+_2r(NULL)
 {
 }
 
 PitchDetectorVDspImpl::~PitchDetectorVDspImpl()
 {
+    delete[] _2r;
 }
 
 bool PitchDetectorVDspImpl::PitchDetectorVDspImpl::Initialize()
@@ -29,6 +31,13 @@ bool PitchDetectorVDspImpl::PitchDetectorVDspImpl::Initialize()
     
     std::shared_ptr<AutoCorrelationV> ptr = std::make_shared<AutoCorrelationV>(_samplingSize);
     _corr = std::dynamic_pointer_cast<IAutoCorrelation>(ptr);
+    
+    _2r = new float[_samplingSize];
+    if(!_2r) {
+        return false;
+    }
+    
+    memset(_2r, 0, sizeof(float)*_samplingSize);
     
     return true;
 }
@@ -54,8 +63,8 @@ bool PitchDetectorVDspImpl::ComputeNsdf(const float* x)
     
     // nsdf
     const float two = 2.0f;
-    vDSP_vsmul(_r, 1, &two, _nsdf, 1, N);
-    vDSP_vdiv(_m, 1, _nsdf, 1, _nsdf, 1, N);
+    vDSP_vsmul(_r, 1, &two, _2r, 1, N);
+    vDSP_vdiv(_m, 1, _2r, 1, _nsdf, 1, N);
     
     return true;
 }

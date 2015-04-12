@@ -19,6 +19,7 @@ public:
     virtual bool Initialize();
     
 private:
+    float* _2r;
     virtual bool ComputeNsdf(const float* x);
 };
 

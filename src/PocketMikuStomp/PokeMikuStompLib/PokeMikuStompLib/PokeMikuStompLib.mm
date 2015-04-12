@@ -113,7 +113,7 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
 - (PokeMikuStompLibError)setup {
     const int samplingRate = 22050;
     const int samplingSize = 1024;
-	
+    
 	if(_miku) {
 		return kPokeMikuStompLibNoError;
 	}
@@ -263,6 +263,7 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
         return NO;
     }
     
+    NSLog(@"stop pronounce level=%d", _inputLevel);
     [_miku noteOff];
     self.midiNote = -1;
     self.noteString = @"";
