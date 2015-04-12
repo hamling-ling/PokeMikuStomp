@@ -9,6 +9,16 @@
 #include "PitchDetectorFftwImpl.h"
 #include "AutoCorrelationW.h"
 
+PitchDetectorFftwImpl::PitchDetectorFftwImpl(int samplingRate, int samplingSize)
+:
+PitchDetectorImpl(samplingRate, samplingSize)
+{
+}
+
+PitchDetectorFftwImpl::~PitchDetectorFftwImpl()
+{
+}
+
 bool PitchDetectorFftwImpl::Initialize()
 {
     if(!PitchDetectorImpl::Initialize()) {
