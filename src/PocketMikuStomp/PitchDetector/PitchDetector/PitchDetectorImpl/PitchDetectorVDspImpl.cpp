@@ -8,6 +8,7 @@
 
 #include "PitchDetectorVDspImpl.h"
 #include "AutoCorrelationV.h"
+#include <iostream> // for debug
 
 using namespace std;
 
