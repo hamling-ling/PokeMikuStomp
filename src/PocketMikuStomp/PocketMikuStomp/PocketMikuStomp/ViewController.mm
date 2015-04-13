@@ -9,6 +9,9 @@
 #import "ViewController.h"
 #import "PokeMikuStompLib.h"
 
+static NSString* const kNoteStringProp = @"noteString";
+static NSString* const kInputLevelProp = @"inputLevel";
+
 @interface ViewController() {
     PokeMikuStompLib* _miku;
 }
@@ -16,6 +19,10 @@
 @property (nonatomic, readwrite, assign) bool isPokeMikuReady;
 @property (nonatomic, readwrite, strong) NSString* inlineError;
 @property (nonatomic, readwrite, strong) NSString* noteString;
+@property (nonatomic, readwrite, assign) NSInteger level;
+@property (nonatomic, readwrite, assign) NSInteger OffToOnThreshold;
+@property (nonatomic, readwrite, assign) NSInteger OnToOffThreshold;
+
 @end
 
 @implementation ViewController
@@ -26,7 +33,8 @@
     // Do any additional setup after loading the view.
     self.isDeviceReady = NO;
     self.isPokeMikuReady = NO;
-    
+    self.level = 0;
+
     _miku = [[PokeMikuStompLib alloc] init];
     auto err = [_miku setup];
     if(kPokeMikuStompLibNoError != err) {
@@ -34,6 +42,8 @@
         return;
     }
     
+    self.OffToOnThreshold = _miku.OffToOnThreshold;
+    self.OnToOffThreshold = _miku.OnToOffThreshold;
     self.isPokeMikuReady = YES;
     
     NSArray* devices = [_miku devices];
@@ -48,7 +58,15 @@
         self.isDeviceReady = YES;
     }
     
-    [_miku addObserver:self forKeyPath:@"noteString" options:NSKeyValueObservingOptionNew context:nil];
+    [_miku addObserver:self forKeyPath:kNoteStringProp options:NSKeyValueObservingOptionNew context:nil];
+    [_miku addObserver:self forKeyPath:kInputLevelProp options:NSKeyValueObservingOptionNew context:nil];
+}
+
+- (void)viewWillDisappear {
+    [super viewWillDisappear];
+    
+    [_miku removeObserver:self forKeyPath:kNoteStringProp];
+    [_miku removeObserver:self forKeyPath:kInputLevelProp];
 }
 
 - (void)setRepresentedObject:(id)representedObject {
@@ -120,8 +138,36 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    if ([keyPath isEqual:@"noteString"]) {
+    if ([keyPath isEqualToString:kNoteStringProp]) {
         self.noteString = _miku.noteString;
+    } else if([keyPath isEqualToString:kInputLevelProp]) {
+        self.level = _miku.inputLevel;
+    }
+}
+
+- (IBAction)offOnSliderChanged:(id)sender {
+    NSSlider* sld = (NSSlider*)sender;
+    int onOffValue = _miku.OnToOffThreshold;
+    if (sld.intValue < onOffValue) {
+        // cancel change
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
+                       ^() {[sld setIntValue:onOffValue];}
+                       );
+    } else {
+        _miku.OffToOnThreshold = sld.intValue;
+    }
+}
+
+- (IBAction)onOffSliderChanged:(id)sender {
+    NSSlider* sld = (NSSlider*)sender;
+    int offOnValue = _miku.OffToOnThreshold;
+    if (sld.intValue > _miku.OffToOnThreshold) {
+        // cancel change
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
+                       ^() {[sld setIntValue:offOnValue];}
+                       );
+    } else {
+        _miku.OnToOffThreshold = sld.intValue;
     }
 }
 

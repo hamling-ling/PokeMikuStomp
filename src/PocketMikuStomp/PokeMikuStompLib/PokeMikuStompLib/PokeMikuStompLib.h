@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-static const int kDefaultLevelThreshold = 10;
-
 typedef NS_ENUM (NSUInteger, PokeMikuStompLibError) {
     kPokeMikuStompLibNoError,
     kPokeMikuStompLibErrorPokeMikuNotFound,
@@ -28,6 +26,8 @@ typedef NS_ENUM (NSUInteger, PokeMikuStompLibError) {
 @property (atomic, readonly, assign) int midiNote;
 @property (atomic, readonly, strong) NSString* noteString;
 @property (atomic, readonly, strong) NSString* pronoString;
+@property (atomic, readwrite, assign) int OffToOnThreshold;
+@property (atomic, readwrite, assign) int OnToOffThreshold;
 
 - (NSArray*)devices;
 - (PokeMikuStompLibError)selectDeviceWithId:(int)deviceId;

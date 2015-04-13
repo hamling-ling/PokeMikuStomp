@@ -53,15 +53,13 @@ bool StaticVoiceController::SetPhrase(std::string& phrase, const char* mapPath)
     return true;
 }
 
-bool StaticVoiceController::HandleInputLevel(int level, VoiceControllerNotification& notif)
+bool StaticVoiceController::HandleInputLevelToOff(int level, VoiceControllerNotification& notif)
 {
-    bool isOffLevel = IsOffLevel();
-    bool willBeOffLevel = (level < _threshold);
-
+    bool isOn = (kNoMidiNote != _currentNote);
     // update level
     _currentInputLevel = level;
     
-    if(!isOffLevel && willBeOffLevel) {
+    if( isOn && IsBelowOnToOff()) {
         _currentPronounciation = "";
         _currentNote = kNoMidiNote;
         
@@ -75,7 +73,7 @@ bool StaticVoiceController::HandleInputLevel(int level, VoiceControllerNotificat
 
 bool StaticVoiceController::Input(int level, unsigned int note, VoiceControllerNotification& notif)
 {
-    if(HandleInputLevel(level, notif)) {
+    if(HandleInputLevelToOff(level, notif)) {
         return true;
     }
     
@@ -83,7 +81,7 @@ bool StaticVoiceController::Input(int level, unsigned int note, VoiceControllerN
         return false;
     }
     
-    if(level < _threshold) {
+    if(!IsAboveOffToOn()) {
         return false;
     }
     

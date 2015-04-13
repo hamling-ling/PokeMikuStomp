@@ -13,7 +13,8 @@
 using namespace std;
 
 VoiceController::VoiceController() :
-_threshold(kDefaultThreshold),
+_offToOnThreshold(kDefaultOffToOnThreshold),
+_onToOffThreshold(kDefaultOffToOnThreshold),
 _currentNote(kNoMidiNote)
 {
     
@@ -36,13 +37,18 @@ bool VoiceController::Input(int level, unsigned int note, VoiceControllerNotific
     return true;
 }
 
-void VoiceController::SetThreshold(int threshold)
+void VoiceController::SetThreshold(int offToOn, int onToOff)
 {
-    _threshold = threshold;
+    _offToOnThreshold = offToOn;
+    _onToOffThreshold = onToOff;
 }
 
-bool VoiceController::IsOffLevel() {
-    return (_currentInputLevel < _threshold);
+bool VoiceController::IsBelowOnToOff() {
+    return (_currentInputLevel < _onToOffThreshold);
+}
+
+bool VoiceController::IsAboveOffToOn() {
+    return (_offToOnThreshold <= _currentInputLevel);
 }
 
 VoiceControllerNotification VoiceController::MakeStartedNotification() {

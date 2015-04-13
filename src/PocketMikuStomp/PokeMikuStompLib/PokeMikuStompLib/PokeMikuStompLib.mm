@@ -78,7 +78,8 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
         _app.context = NULL;
         _app.buf = NULL;
         _app.miku = NULL;
-        _levelThreshold = kDefaultLevelThreshold;
+        _OffToOnThreshold = VoiceController::kDefaultOffToOnThreshold;
+        _OnToOffThreshold = VoiceController::kDefaultOnToOffThreshold;
     }
     return self;
 }
@@ -129,7 +130,7 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
     }
     
     shared_ptr<StaticVoiceController> voice = make_shared<StaticVoiceController>();
-    voice->SetThreshold(kDefaultLevelThreshold);
+    voice->SetThreshold((int)self.OffToOnThreshold, (int)self.OnToOffThreshold);
     string phrase("らりるれろ");
     
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
@@ -334,6 +335,9 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
     }
 	
     _det->GetPiatch(_pitch);
+    
+    _voice->SetThreshold(self.OffToOnThreshold, self.OnToOffThreshold);
+    
     VoiceControllerNotification notif;
     unsigned int midiNote = _pitch.error ? VoiceController::kNoMidiNote : _pitch.midi;
     if(_voice->Input(level, midiNote, notif)) {

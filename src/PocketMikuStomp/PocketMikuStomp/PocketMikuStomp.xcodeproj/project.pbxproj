@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C267C72D1AD2E5DD003071E8 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C267C72C1AD2E5DD003071E8 /* Accelerate.framework */; };
+		C27C46C41ADC127400AB8988 /* LevelIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = C27C46C31ADC127300AB8988 /* LevelIndicator.m */; };
 		C27EAB391ACD6B5B00148297 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C27EAB381ACD6B5B00148297 /* AppDelegate.m */; };
 		C27EAB3B1ACD6B5B00148297 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C27EAB3A1ACD6B5B00148297 /* main.m */; };
 		C27EAB3E1ACD6B5B00148297 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = C27EAB3D1ACD6B5B00148297 /* ViewController.mm */; };
@@ -62,6 +63,8 @@
 
 /* Begin PBXFileReference section */
 		C267C72C1AD2E5DD003071E8 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		C27C46C21ADC127300AB8988 /* LevelIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelIndicator.h; sourceTree = "<group>"; };
+		C27C46C31ADC127300AB8988 /* LevelIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelIndicator.m; sourceTree = "<group>"; };
 		C27EAB321ACD6B5B00148297 /* PocketMikuStomp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PocketMikuStomp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C27EAB361ACD6B5B00148297 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C27EAB371ACD6B5B00148297 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -155,6 +158,8 @@
 				C27EAB3F1ACD6B5B00148297 /* Images.xcassets */,
 				C27EAB411ACD6B5B00148297 /* Main.storyboard */,
 				C27EAB351ACD6B5B00148297 /* Supporting Files */,
+				C27C46C21ADC127300AB8988 /* LevelIndicator.h */,
+				C27C46C31ADC127300AB8988 /* LevelIndicator.m */,
 			);
 			path = PocketMikuStomp;
 			sourceTree = "<group>";
@@ -380,6 +385,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C27C46C41ADC127400AB8988 /* LevelIndicator.m in Sources */,
 				C27EAB3E1ACD6B5B00148297 /* ViewController.mm in Sources */,
 				C27EAB3B1ACD6B5B00148297 /* main.m in Sources */,
 				C27EAB391ACD6B5B00148297 /* AppDelegate.m in Sources */,

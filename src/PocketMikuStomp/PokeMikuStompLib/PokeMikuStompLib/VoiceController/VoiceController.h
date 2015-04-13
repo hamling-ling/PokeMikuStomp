@@ -32,14 +32,15 @@ class Phrase;
 class VoiceController
 {
 public:
-    static const int kDefaultThreshold = 20;;
+    static const int kDefaultOffToOnThreshold = 10;
+    static const int kDefaultOnToOffThreshold = 5;
     static const unsigned int kNoMidiNote = 0xFFFFFFFF;
     
     VoiceController();
     virtual ~VoiceController();
     virtual bool Input(int level, unsigned int note, VoiceControllerNotification& notif);
     virtual void SetPhrase(std::string& phrase);
-    virtual void SetThreshold(int threshold);
+    virtual void SetThreshold(int offToOn, int onToOff);
 
 protected:
     std::shared_ptr<Phrase> _phrase;
@@ -47,9 +48,11 @@ protected:
     unsigned int _currentNote;
     int _currentInputLevel;
     void* _userInfo;
-    int _threshold;
+    int _offToOnThreshold;
+    int _onToOffThreshold;
     
-    virtual bool IsOffLevel();
+    virtual bool IsBelowOnToOff();
+    virtual bool IsAboveOffToOn();
     
     virtual VoiceControllerNotification MakeStartedNotification();
     

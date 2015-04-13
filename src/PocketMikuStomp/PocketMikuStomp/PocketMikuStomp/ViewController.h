@@ -16,5 +16,9 @@
 @property (weak) IBOutlet NSPopUpButton *deviceSelection;
 @property (nonatomic, readonly, strong) NSString* inlineError;
 @property (nonatomic, readonly, strong) NSString* noteString;
+@property (nonatomic, readonly, assign) NSInteger level;
+@property (nonatomic, readonly, assign) NSInteger OffToOnThreshold;
+@property (nonatomic, readonly, assign) NSInteger OnToOffThreshold;
+
 @end
 

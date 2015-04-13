@@ -26,7 +26,7 @@ private:
     std::map<std::wstring, int> _proMap;
     
     bool MakeMap(const char* mapPath);
-    bool HandleInputLevel(int level, VoiceControllerNotification& notif);
+    bool HandleInputLevelToOff(int level, VoiceControllerNotification& notif);
 };
 
 #endif /* defined(__PokeMikuStompLib__StaticVoiceController__) */
