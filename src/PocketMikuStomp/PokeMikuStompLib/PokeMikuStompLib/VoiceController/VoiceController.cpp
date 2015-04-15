@@ -25,16 +25,16 @@ VoiceController::~VoiceController()
     
 }
 
-void VoiceController::SetPhrase(std::string& phrase)
+bool VoiceController::SetPhrase(std::string& phrase)
 {
+    std::lock_guard<std::recursive_mutex> lock(_phraseMutex);
     _phrase = make_shared<Phrase>(phrase);
+    return true;
 }
 
-bool VoiceController::Input(int level, unsigned int note, VoiceControllerNotification& notif)
+std::string VoiceController::GetPhrase()
 {
-    _currentInputLevel = level;
-    _currentNote = note;
-    return true;
+    return _phrase->GetPhraseString();
 }
 
 void VoiceController::SetThreshold(int offToOn, int onToOff)
@@ -51,7 +51,53 @@ bool VoiceController::IsAboveOffToOn() {
     return (_offToOnThreshold <= _currentInputLevel);
 }
 
+bool VoiceController::HandleInputLevelToOff(int level, VoiceControllerNotification& notif)
+{
+    bool isOn = (kNoMidiNote != _currentNote);
+    // update level
+    _currentInputLevel = level;
+    
+    if( isOn && IsBelowOnToOff()) {
+        _currentNote = kNoMidiNote;
+        // note off
+        notif = MakeFinishedNotification();
+        return true;
+    }
+    
+    return false;
+}
+
+bool VoiceController::Input(int level, unsigned int note, VoiceControllerNotification& notif)
+{
+    if(HandleInputLevelToOff(level, notif)) {
+        return true;
+    }
+    
+    if(note == kNoMidiNote) {
+        return false;
+    }
+    
+    if(!IsAboveOffToOn()) {
+        return false;
+    }
+    
+    if(_currentNote == kNoMidiNote) {
+        _currentNote = note;
+        notif = MakeStartedNotification();
+        return true;
+    }
+    
+    if(_currentNote != note) {
+        _currentNote = note;
+        notif = MakeChangedNotification();
+        return true;
+    }
+    
+    return false;
+}
+
 VoiceControllerNotification VoiceController::MakeStartedNotification() {
+    std::lock_guard<std::recursive_mutex> lock(_phraseMutex);
     return MakeNotification( VoiceControllerNotificationTypePronounceStarted,
                       _currentNote,
                       _phrase->Next());
@@ -63,6 +109,7 @@ VoiceControllerNotification VoiceController::MakeFinishedNotification() {
 }
 
 VoiceControllerNotification VoiceController::MakeChangedNotification() {
+    std::lock_guard<std::recursive_mutex> lock(_phraseMutex);
     return MakeNotification( VoiceControllerNotificationTypePronounceChanged,
                       _currentNote,
                       _phrase->Next());
@@ -73,6 +120,8 @@ VoiceControllerNotification VoiceController::MakeNotification (
                                         unsigned int midiNote,
                                         const std::string& pronounciation
                                         ) {
+    _currentPronounciation = pronounciation;
+    
     VoiceControllerNotification notif {
         .type = type,
         .pronounciation = pronounciation,

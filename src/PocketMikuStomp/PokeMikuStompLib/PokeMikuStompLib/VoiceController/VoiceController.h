@@ -13,6 +13,7 @@
 #include <string>
 #include <memory>
 #include <functional>
+#include <mutex>
 
 typedef enum _VoiceControllerNotificationType {
     VoiceControllerNotificationTypePronounceStarted,
@@ -39,7 +40,8 @@ public:
     VoiceController();
     virtual ~VoiceController();
     virtual bool Input(int level, unsigned int note, VoiceControllerNotification& notif);
-    virtual void SetPhrase(std::string& phrase);
+    virtual bool SetPhrase(std::string& phrase);
+    virtual std::string GetPhrase();
     virtual void SetThreshold(int offToOn, int onToOff);
 
 protected:
@@ -47,12 +49,16 @@ protected:
     // last notified note. keep same no matter input level changed.
     unsigned int _currentNote;
     int _currentInputLevel;
+    std::string _currentPronounciation;
     void* _userInfo;
     int _offToOnThreshold;
     int _onToOffThreshold;
+    std::recursive_mutex _phraseMutex;
     
     virtual bool IsBelowOnToOff();
     virtual bool IsAboveOffToOn();
+    
+    bool HandleInputLevelToOff(int level, VoiceControllerNotification& notif);
     
     virtual VoiceControllerNotification MakeStartedNotification();
     
@@ -60,12 +66,11 @@ protected:
     
     virtual VoiceControllerNotification MakeChangedNotification();
 
-private:
-    VoiceControllerNotification MakeNotification(
-                                             VoiceControllerNotificationType type,
-                                             unsigned int midiNote,
-                                             const std::string& pronounciation
-                                             );
+    virtual VoiceControllerNotification MakeNotification(
+                                                         VoiceControllerNotificationType type,
+                                                         unsigned int midiNote,
+                                                         const std::string& pronounciation
+                                                         );
 };
 
 #endif /* defined(__PokeMikuStompLib__VoiceController__) */

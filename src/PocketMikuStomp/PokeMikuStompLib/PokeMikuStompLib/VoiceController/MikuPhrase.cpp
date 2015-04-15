@@ -23,7 +23,15 @@ _charMap(charMap)
 
 MikuPhrase::~MikuPhrase()
 {
-    
+}
+
+std::string MikuPhrase::GetPhraseString()
+{
+    string phrase;
+    for (auto item : _pronounciations) {
+        phrase += item;
+    }
+    return phrase;
 }
 
 void MikuPhrase::MakePronounciations()

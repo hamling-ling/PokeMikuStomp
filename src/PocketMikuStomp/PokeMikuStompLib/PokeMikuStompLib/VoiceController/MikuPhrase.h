@@ -18,6 +18,7 @@ class MikuPhrase : public Phrase
 public:
     MikuPhrase(std::string& phraseString, std::map<std::wstring, int>& charMap);
     virtual ~MikuPhrase();
+    std::string GetPhraseString();
     virtual std::string Next();
     virtual void ResetPos();
 private:

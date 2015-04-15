@@ -802,11 +802,71 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xlt-6W-hDX">
+                                <rect key="frame" x="128" y="36" width="376" height="58"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="せんぼんざくら" drawsBackground="YES" id="C43-hk-5TV">
+                                    <font key="font" size="13" name="HiraKakuProN-W3"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    <connections>
+                                        <binding destination="XfG-lQ-9wD" name="value" keyPath="edittingPhrase" id="zxn-Cm-a2Q"/>
+                                    </connections>
+                                </textFieldCell>
+                                <connections>
+                                    <action selector="phraseTextFieldInput:" target="XfG-lQ-9wD" id="y9Q-Q9-Wri"/>
+                                    <binding destination="XfG-lQ-9wD" name="enabled" keyPath="isPhraseEditEnabled" id="pUb-Ag-VCL"/>
+                                    <binding destination="XfG-lQ-9wD" name="value" keyPath="edittingPhrase" id="tvz-jd-geg"/>
+                                </connections>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a07-Ec-gnE">
+                                <rect key="frame" x="25" y="11" width="481" height="17"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="Baz-KQ-53e">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <matrix verticalHuggingPriority="750" fixedFrame="YES" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tov-xD-HMJ">
+                                <rect key="frame" x="25" y="36" width="100" height="79"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                <size key="cellSize" width="82" height="18"/>
+                                <size key="intercellSpacing" width="4" height="2"/>
+                                <buttonCell key="prototype" type="radio" title="Radio" imagePosition="left" alignment="left" inset="2" id="1Xh-Uk-pO8">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <cells>
+                                    <column>
+                                        <buttonCell type="radio" title="Do-Re-Mi" imagePosition="left" alignment="left" inset="2" id="DSg-hl-stN">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                            <connections>
+                                                <action selector="phraseDoremiSelected:" target="XfG-lQ-9wD" id="fDj-ke-auw"/>
+                                            </connections>
+                                        </buttonCell>
+                                        <buttonCell type="radio" title="User1" imagePosition="left" alignment="left" lineBreakMode="truncatingTail" inset="2" id="0Go-Cl-VpT">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                            <connections>
+                                                <action selector="phrase1Selected:" target="XfG-lQ-9wD" id="QOU-Zt-mCV"/>
+                                            </connections>
+                                        </buttonCell>
+                                        <buttonCell type="radio" title="User2" imagePosition="left" alignment="left" lineBreakMode="truncatingTail" inset="2" id="IR2-7s-oGf">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                            <connections>
+                                                <action selector="phrase2Selected:" target="XfG-lQ-9wD" id="v3l-XQ-IZD"/>
+                                            </connections>
+                                        </buttonCell>
+                                    </column>
+                                </cells>
+                            </matrix>
                         </subviews>
                     </view>
                     <connections>
                         <outlet property="arrayController" destination="4ic-3C-YLd" id="vh3-Cy-AiI"/>
                         <outlet property="deviceSelection" destination="BFT-hl-qRB" id="5xQ-jP-XBA"/>
+                        <outlet property="phraseRadioGroup" destination="tov-xD-HMJ" id="FvQ-t9-aj3"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

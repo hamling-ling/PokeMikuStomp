@@ -12,7 +12,9 @@
 #include <SoundCapture.h>
 #include <PMMiku.h>
 #include "StopWatch.h"
-#include <StaticVoiceController.h>
+#include <MappedVoiceController.h>
+#include <DoremiVoiceController.h>
+#include <mutex>
 
 using namespace std;
 
@@ -30,9 +32,12 @@ static const shared_ptr<SoundCapture> nullCap;
     PMMiku* _miku;
     shared_ptr<PitchDetector> _det;
     shared_ptr<SoundCapture> _cap;
-    shared_ptr<StaticVoiceController> _voice;
+    shared_ptr<VoiceController> _voice;
     AppData _app;
     PitchInfo _pitch;
+    NSString* _currentPhrase;
+    PokeMikuStompLibVoiceMode _voiceMode;
+    std::recursive_mutex _voiceMutex;
 }
 
 @property (atomic, readwrite, assign) int inputLevel;
@@ -88,6 +93,51 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
     [self teardown];
 }
 
+#pragma Properties
+
+- (void)setCurrentPhrase:(NSString *)currentPhrase {
+    if(_voice) {
+        if(!currentPhrase) {
+            currentPhrase = @"ら";
+        }
+        std::string phrase([currentPhrase UTF8String]);
+        _voice->SetPhrase(phrase);
+        std::string resultPhrase = _voice->GetPhrase();
+        _currentPhrase = [NSString stringWithUTF8String:resultPhrase.c_str()];
+    }
+}
+
+- (NSString*)currentPhrase {
+    return _currentPhrase;
+}
+
+- (void)setVoiceMode:(PokeMikuStompLibVoiceMode)voiceMode {
+    if(_voiceMode == voiceMode) {
+        return;
+    }
+    
+    std::lock_guard<std::recursive_mutex> lock(_voiceMutex);
+    
+    if(kPokeMikuStompLibVoiceModeUserPhrase == voiceMode) {
+        shared_ptr<MappedVoiceController> ptr = make_shared<MappedVoiceController>();
+        ptr->SetThreshold((int)self.OffToOnThreshold, (int)self.OnToOffThreshold);
+        string phrase("ら");
+        
+        NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+        NSString* path = [bundle pathForResource:@"pm-char-map" ofType:@"txt"];
+        ptr->SetMap([path UTF8String]);
+        ptr->SetPhrase(phrase);
+        
+        _voice = dynamic_pointer_cast<VoiceController>(ptr);
+        self.currentPhrase = @"ら";
+    } else {
+        shared_ptr<DoremiVoiceController> ptr = make_shared<DoremiVoiceController>();
+        _voice = dynamic_pointer_cast<VoiceController>(ptr);
+    }
+    
+    _voiceMode = voiceMode;
+}
+
 #pragma Public Interface
 
 - (void)test {
@@ -129,13 +179,7 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
         return kPokeMikuStompLibErrorInternalError;
     }
     
-    shared_ptr<StaticVoiceController> voice = make_shared<StaticVoiceController>();
-    voice->SetThreshold((int)self.OffToOnThreshold, (int)self.OnToOffThreshold);
-    string phrase("らりるれろ");
-    
-    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    NSString* path = [bundle pathForResource:@"pm-char-map" ofType:@"txt"];
-    voice->SetPhrase(phrase, [path UTF8String]);
+    self.voiceMode = kPokeMikuStompLibVoiceModeDoremi;
     
     _miku = [[PMMiku alloc] init];
     if(!_miku) {
@@ -144,7 +188,6 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
     
     _det = det;
     _cap = cap;
-    _voice = voice;
     _app.det = _det;
     _app.context = (__bridge void*)self;
     _app.buf = new float[samplingSize];

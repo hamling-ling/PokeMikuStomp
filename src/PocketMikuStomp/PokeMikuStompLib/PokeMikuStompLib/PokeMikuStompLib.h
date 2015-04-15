@@ -19,6 +19,11 @@ typedef NS_ENUM (NSUInteger, PokeMikuStompLibError) {
     kPokeMikuStompLibErrorInternalError,
 };
 
+typedef NS_ENUM (NSUInteger, PokeMikuStompLibVoiceMode) {
+    kPokeMikuStompLibVoiceModeDoremi,
+    kPokeMikuStompLibVoiceModeUserPhrase,
+};
+
 @interface PokeMikuStompLib : NSObject
 
 @property (atomic, readwrite, assign) int levelThreshold;
@@ -28,6 +33,8 @@ typedef NS_ENUM (NSUInteger, PokeMikuStompLibError) {
 @property (atomic, readonly, strong) NSString* pronoString;
 @property (atomic, readwrite, assign) int OffToOnThreshold;
 @property (atomic, readwrite, assign) int OnToOffThreshold;
+@property (nonatomic, readwrite, strong) NSString* currentPhrase;
+@property (nonatomic, readwrite, assign) PokeMikuStompLibVoiceMode voiceMode;
 
 - (NSArray*)devices;
 - (PokeMikuStompLibError)selectDeviceWithId:(int)deviceId;

@@ -19,6 +19,9 @@
 @property (nonatomic, readonly, assign) NSInteger level;
 @property (nonatomic, readonly, assign) NSInteger OffToOnThreshold;
 @property (nonatomic, readonly, assign) NSInteger OnToOffThreshold;
+@property (nonatomic, readwrite, strong) NSString* phrase1;
+@property (nonatomic, readwrite, strong) NSString* phrase2;
+@property (nonatomic, readwrite, strong) NSString* edittingPhrase;
 
 @end
 

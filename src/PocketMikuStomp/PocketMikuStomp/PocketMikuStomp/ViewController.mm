@@ -22,6 +22,8 @@ static NSString* const kInputLevelProp = @"inputLevel";
 @property (nonatomic, readwrite, assign) NSInteger level;
 @property (nonatomic, readwrite, assign) NSInteger OffToOnThreshold;
 @property (nonatomic, readwrite, assign) NSInteger OnToOffThreshold;
+@property (weak) IBOutlet NSMatrix *phraseRadioGroup;
+@property (nonatomic, readwrite, assign) bool isPhraseEditEnabled;
 
 @end
 
@@ -45,6 +47,16 @@ static NSString* const kInputLevelProp = @"inputLevel";
     self.OffToOnThreshold = _miku.OffToOnThreshold;
     self.OnToOffThreshold = _miku.OnToOffThreshold;
     self.isPokeMikuReady = YES;
+    [self.phraseRadioGroup selectCellAtRow:0 column:0];
+    self.edittingPhrase = @"ら";
+    
+    self.phrase1 = @"さくらさくら";
+    NSCell* cell1 = (NSCell*)self.phraseRadioGroup.cells[1];
+    [self setString:self.phrase1 toCell:cell1];
+    
+    self.phrase2 = @"よまえやよまえ";
+    NSCell* cell2 = (NSCell*)self.phraseRadioGroup.cells[2];
+    [self setString:self.phrase2 toCell:cell2];
     
     NSArray* devices = [_miku devices];
     self.arrayController.content = devices;
@@ -136,6 +148,8 @@ static NSString* const kInputLevelProp = @"inputLevel";
     return NSLocalizedString(key,nil);
 }
 
+#pragma mark KVO
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if ([keyPath isEqualToString:kNoteStringProp]) {
@@ -144,6 +158,8 @@ static NSString* const kInputLevelProp = @"inputLevel";
         self.level = _miku.inputLevel;
     }
 }
+
+#pragma mark Actions
 
 - (IBAction)offOnSliderChanged:(id)sender {
     NSSlider* sld = (NSSlider*)sender;
@@ -169,6 +185,38 @@ static NSString* const kInputLevelProp = @"inputLevel";
     } else {
         _miku.OnToOffThreshold = sld.intValue;
     }
+}
+
+- (IBAction)phraseDoremiSelected:(id)sender {
+    self.isPhraseEditEnabled = NO;
+    self.edittingPhrase = @"";
+}
+
+- (IBAction)phrase1Selected:(id)sender {
+    self.isPhraseEditEnabled = YES;
+    _miku.currentPhrase = self.phrase1;
+    self.edittingPhrase = _miku.currentPhrase;
+}
+
+- (IBAction)phrase2Selected:(id)sender {
+    self.isPhraseEditEnabled = YES;
+    _miku.currentPhrase = self.phrase2;
+    self.edittingPhrase = _miku.currentPhrase;
+}
+
+- (IBAction)phraseTextFieldInput:(id)sender {
+    NSTextField* tf = (NSTextField*)sender;
+    _miku.currentPhrase = tf.stringValue;
+    self.edittingPhrase = _miku.currentPhrase;
+    
+    NSCell* cell = (NSCell*)self.phraseRadioGroup.selectedCell;
+    [self setString:self.edittingPhrase toCell:cell];
+}
+
+#pragma mark Private Methods
+
+- (void)setString:(NSString*)str toCell:(NSCell*)cell {
+    cell.title = [NSString stringWithFormat:@"%@%@", [str substringToIndex:4], @"..."];
 }
 
 @end
