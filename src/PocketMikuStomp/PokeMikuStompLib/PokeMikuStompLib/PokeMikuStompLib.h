@@ -30,7 +30,7 @@ typedef NS_ENUM (NSUInteger, PokeMikuStompLibVoiceMode) {
 @property (atomic, readonly, assign) int inputLevel;
 @property (atomic, readonly, assign) int midiNote;
 @property (atomic, readonly, strong) NSString* noteString;
-@property (atomic, readonly, strong) NSString* pronoString;
+@property (atomic, readonly, strong) NSString* pronouncingString;
 @property (atomic, readwrite, assign) int OffToOnThreshold;
 @property (atomic, readwrite, assign) int OnToOffThreshold;
 @property (nonatomic, readwrite, strong) NSString* currentPhrase;

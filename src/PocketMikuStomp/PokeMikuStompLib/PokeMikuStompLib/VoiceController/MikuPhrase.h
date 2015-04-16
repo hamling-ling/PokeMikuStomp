@@ -27,6 +27,7 @@ private:
     std::map<std::wstring, int>& _charMap;
     
     void MakePronounciations();
+    bool IsPronounsableLetter(wchar_t letter);
     bool IsSmallVowel(wchar_t letter);
 };
 

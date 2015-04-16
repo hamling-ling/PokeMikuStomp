@@ -814,8 +814,9 @@
                                 </textFieldCell>
                                 <connections>
                                     <action selector="phraseTextFieldInput:" target="XfG-lQ-9wD" id="y9Q-Q9-Wri"/>
-                                    <binding destination="XfG-lQ-9wD" name="enabled" keyPath="isPhraseEditEnabled" id="pUb-Ag-VCL"/>
                                     <binding destination="XfG-lQ-9wD" name="value" keyPath="edittingPhrase" id="tvz-jd-geg"/>
+                                    <binding destination="XfG-lQ-9wD" name="enabled" keyPath="isPhraseEditEnabled" id="pUb-Ag-VCL"/>
+                                    <outlet property="delegate" destination="XfG-lQ-9wD" id="DG1-tk-ueW"/>
                                 </connections>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a07-Ec-gnE">
@@ -824,6 +825,9 @@
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                    <connections>
+                                        <binding destination="XfG-lQ-9wD" name="value" keyPath="phrasedString" id="6vQ-PO-REY"/>
+                                    </connections>
                                 </textFieldCell>
                             </textField>
                             <matrix verticalHuggingPriority="750" fixedFrame="YES" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tov-xD-HMJ">
@@ -861,6 +865,17 @@
                                     </column>
                                 </cells>
                             </matrix>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A4O-Dd-nKd">
+                                <rect key="frame" x="138" y="109" width="71" height="44"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="へぇ" id="gyC-Y4-ajg">
+                                    <font key="font" metaFont="system" size="27"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <binding destination="XfG-lQ-9wD" name="value" keyPath="pronouncingString" id="r4c-Ge-5IU"/>
+                                </connections>
+                            </textField>
                         </subviews>
                     </view>
                     <connections>
