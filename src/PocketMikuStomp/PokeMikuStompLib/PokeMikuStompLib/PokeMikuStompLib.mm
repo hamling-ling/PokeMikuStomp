@@ -12,7 +12,9 @@
 #include <SoundCapture.h>
 #include <PMMiku.h>
 #include "StopWatch.h"
-#include <StaticVoiceController.h>
+#include <MappedVoiceController.h>
+#include <DoremiVoiceController.h>
+#include <mutex>
 
 using namespace std;
 
@@ -30,15 +32,18 @@ static const shared_ptr<SoundCapture> nullCap;
     PMMiku* _miku;
     shared_ptr<PitchDetector> _det;
     shared_ptr<SoundCapture> _cap;
-    shared_ptr<StaticVoiceController> _voice;
+    shared_ptr<VoiceController> _voice;
     AppData _app;
     PitchInfo _pitch;
+    NSString* _currentPhrase;
+    PokeMikuStompLibVoiceMode _voiceMode;
+    std::recursive_mutex _voiceMutex;
 }
 
 @property (atomic, readwrite, assign) int inputLevel;
 @property (atomic, readwrite, assign) int midiNote;
 @property (atomic, readwrite, strong) NSString* noteString;
-@property (atomic, readwrite, strong) NSString* pronoString;
+@property (atomic, readwrite, strong) NSString* pronouncingString;
 
 - (void) captureEventNotifiedFrom:(SoundCapture*)sc notification:(SoundCaptureNotification&)note;
 - (bool)noteOff;
@@ -78,13 +83,57 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
         _app.context = NULL;
         _app.buf = NULL;
         _app.miku = NULL;
-        _levelThreshold = kDefaultLevelThreshold;
+        _OffToOnThreshold = VoiceController::kDefaultOffToOnThreshold;
+        _OnToOffThreshold = VoiceController::kDefaultOnToOffThreshold;
     }
     return self;
 }
 
 - (void)dealloc {
     [self teardown];
+}
+
+#pragma Properties
+
+- (void)setCurrentPhrase:(NSString *)currentPhrase {
+    if(_voice) {
+        if(!currentPhrase) {
+            currentPhrase = @"ら";
+        }
+        std::string phrase([currentPhrase UTF8String]);
+        _voice->SetPhrase(phrase);
+        std::string resultPhrase = _voice->GetPhrase();
+        _currentPhrase = [NSString stringWithUTF8String:resultPhrase.c_str()];
+    }
+}
+
+- (NSString*)currentPhrase {
+    return _currentPhrase;
+}
+
+- (void)setVoiceMode:(PokeMikuStompLibVoiceMode)voiceMode {
+    if(_voice) {
+        if(_voiceMode == voiceMode) {
+            return;
+        }
+    }
+    std::lock_guard<std::recursive_mutex> lock(_voiceMutex);
+    
+    if(kPokeMikuStompLibVoiceModeUserPhrase == voiceMode) {
+        shared_ptr<MappedVoiceController> ptr = make_shared<MappedVoiceController>();
+        ptr->SetThreshold((int)self.OffToOnThreshold, (int)self.OnToOffThreshold);
+        
+        NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+        NSString* path = [bundle pathForResource:@"pm-char-map" ofType:@"txt"];
+        ptr->SetMap([path UTF8String]);
+        
+        _voice = dynamic_pointer_cast<VoiceController>(ptr);
+    } else {
+        shared_ptr<DoremiVoiceController> ptr = make_shared<DoremiVoiceController>();
+        _voice = dynamic_pointer_cast<VoiceController>(ptr);
+    }
+    
+    _voiceMode = voiceMode;
 }
 
 #pragma Public Interface
@@ -128,13 +177,8 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
         return kPokeMikuStompLibErrorInternalError;
     }
     
-    shared_ptr<StaticVoiceController> voice = make_shared<StaticVoiceController>();
-    voice->SetThreshold(kDefaultLevelThreshold);
-    string phrase("らりるれろ");
-    
-    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    NSString* path = [bundle pathForResource:@"pm-char-map" ofType:@"txt"];
-    voice->SetPhrase(phrase, [path UTF8String]);
+    self.voiceMode = kPokeMikuStompLibVoiceModeDoremi;
+    self.currentPhrase = @"どれみ";
     
     _miku = [[PMMiku alloc] init];
     if(!_miku) {
@@ -143,7 +187,6 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
     
     _det = det;
     _cap = cap;
-    _voice = voice;
     _app.det = _det;
     _app.context = (__bridge void*)self;
     _app.buf = new float[samplingSize];
@@ -270,6 +313,7 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
     [_miku noteOff];
     self.midiNote = -1;
     self.noteString = @"";
+    self.pronouncingString = @"";
     
     return YES;
 }
@@ -281,7 +325,7 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
     
     NSString* nspro = [NSString stringWithUTF8String:pro.c_str()];
     [_miku noteOnWithKey:midiNote velocity:level pronunciation:nspro];
-    self.pronoString = nspro;
+    self.pronouncingString = nspro;
     
     self.midiNote = (int)midiNote;
     NSLog(@"start pronounce level=%d, note=%d", level, _midiNote);
@@ -334,6 +378,9 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
     }
 	
     _det->GetPiatch(_pitch);
+    
+    _voice->SetThreshold(self.OffToOnThreshold, self.OnToOffThreshold);
+    
     VoiceControllerNotification notif;
     unsigned int midiNote = _pitch.error ? VoiceController::kNoMidiNote : _pitch.midi;
     if(_voice->Input(level, midiNote, notif)) {

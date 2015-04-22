@@ -27,6 +27,11 @@ Phrase::~Phrase()
     
 }
 
+std::string Phrase::GetPhraseString()
+{
+    return ws2s(_phraseString);
+}
+
 string Phrase::Next()
 {
     if(_phraseIt == _phraseString.end()) {

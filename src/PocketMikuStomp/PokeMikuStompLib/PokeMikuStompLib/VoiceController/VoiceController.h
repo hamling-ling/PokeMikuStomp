@@ -13,6 +13,7 @@
 #include <string>
 #include <memory>
 #include <functional>
+#include <mutex>
 
 typedef enum _VoiceControllerNotificationType {
     VoiceControllerNotificationTypePronounceStarted,
@@ -32,24 +33,32 @@ class Phrase;
 class VoiceController
 {
 public:
-    static const int kDefaultThreshold = 20;;
+    static const int kDefaultOffToOnThreshold = 10;
+    static const int kDefaultOnToOffThreshold = 5;
     static const unsigned int kNoMidiNote = 0xFFFFFFFF;
     
     VoiceController();
     virtual ~VoiceController();
     virtual bool Input(int level, unsigned int note, VoiceControllerNotification& notif);
-    virtual void SetPhrase(std::string& phrase);
-    virtual void SetThreshold(int threshold);
+    virtual bool SetPhrase(std::string& phrase);
+    virtual std::string GetPhrase();
+    virtual void SetThreshold(int offToOn, int onToOff);
 
 protected:
     std::shared_ptr<Phrase> _phrase;
     // last notified note. keep same no matter input level changed.
     unsigned int _currentNote;
     int _currentInputLevel;
+    std::string _currentPronounciation;
     void* _userInfo;
-    int _threshold;
+    int _offToOnThreshold;
+    int _onToOffThreshold;
+    std::recursive_mutex _phraseMutex;
     
-    virtual bool IsOffLevel();
+    virtual bool IsBelowOnToOff();
+    virtual bool IsAboveOffToOn();
+    
+    bool HandleInputLevelToOff(int level, VoiceControllerNotification& notif);
     
     virtual VoiceControllerNotification MakeStartedNotification();
     
@@ -57,12 +66,11 @@ protected:
     
     virtual VoiceControllerNotification MakeChangedNotification();
 
-private:
-    VoiceControllerNotification MakeNotification(
-                                             VoiceControllerNotificationType type,
-                                             unsigned int midiNote,
-                                             const std::string& pronounciation
-                                             );
+    virtual VoiceControllerNotification MakeNotification(
+                                                         VoiceControllerNotificationType type,
+                                                         unsigned int midiNote,
+                                                         const std::string& pronounciation
+                                                         );
 };
 
 #endif /* defined(__PokeMikuStompLib__VoiceController__) */

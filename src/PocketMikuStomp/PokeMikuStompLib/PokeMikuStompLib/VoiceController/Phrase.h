@@ -17,6 +17,7 @@ public:
     Phrase();
     Phrase(std::string& phraseString);
     virtual ~Phrase();
+    virtual std::string GetPhraseString();
     virtual std::string Next();
     virtual void ResetPos();
     virtual void SetCirculation(bool circulate);
