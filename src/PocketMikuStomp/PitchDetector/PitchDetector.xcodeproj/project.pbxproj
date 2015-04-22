@@ -12,6 +12,11 @@
 		67B9BEEB1AD4C0E300834753 /* guitar_low_E.csv in Resources */ = {isa = PBXBuildFile; fileRef = 67B9BEEA1AD4C0E300834753 /* guitar_low_E.csv */; };
 		67B9BEED1AD4C17600834753 /* PitchDetectionTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 67B9BEEC1AD4C17600834753 /* PitchDetectionTest.mm */; };
 		67B9BEFD1AD4D5D500834753 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C267C72F1AD2F297003071E8 /* Accelerate.framework */; };
+		C260CBFA1AE7EAAE00515DB3 /* trumpet_low_Bb.csv in Resources */ = {isa = PBXBuildFile; fileRef = C260CBF91AE7EAAE00515DB3 /* trumpet_low_Bb.csv */; };
+		C260CBFF1AE7EC0600515DB3 /* trumpet_mid_Bb.csv in Resources */ = {isa = PBXBuildFile; fileRef = C260CBFB1AE7EC0600515DB3 /* trumpet_mid_Bb.csv */; };
+		C260CC001AE7EC0600515DB3 /* trumpet_mid_F.csv in Resources */ = {isa = PBXBuildFile; fileRef = C260CBFC1AE7EC0600515DB3 /* trumpet_mid_F.csv */; };
+		C260CC011AE7EC0600515DB3 /* trumpet_upper_D.csv in Resources */ = {isa = PBXBuildFile; fileRef = C260CBFD1AE7EC0600515DB3 /* trumpet_upper_D.csv */; };
+		C260CC021AE7EC0600515DB3 /* trumpet_upper_F.csv in Resources */ = {isa = PBXBuildFile; fileRef = C260CBFE1AE7EC0600515DB3 /* trumpet_upper_F.csv */; };
 		C267C7301AD2F297003071E8 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C267C72F1AD2F297003071E8 /* Accelerate.framework */; };
 		C27D9B6D1ADA9A1A0014C3F3 /* piano_mid_A.csv in Resources */ = {isa = PBXBuildFile; fileRef = C27D9B6C1ADA9A1A0014C3F3 /* piano_mid_A.csv */; };
 		C27EAB801ACD6CFC00148297 /* PitchDetector.h in Headers */ = {isa = PBXBuildFile; fileRef = C27EAB7F1ACD6CFC00148297 /* PitchDetector.h */; };
@@ -56,6 +61,11 @@
 		67677FC41AD26AC900A91434 /* StopWatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StopWatch.h; sourceTree = "<group>"; };
 		67B9BEEA1AD4C0E300834753 /* guitar_low_E.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = guitar_low_E.csv; sourceTree = "<group>"; };
 		67B9BEEC1AD4C17600834753 /* PitchDetectionTest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PitchDetectionTest.mm; sourceTree = "<group>"; };
+		C260CBF91AE7EAAE00515DB3 /* trumpet_low_Bb.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trumpet_low_Bb.csv; sourceTree = "<group>"; };
+		C260CBFB1AE7EC0600515DB3 /* trumpet_mid_Bb.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trumpet_mid_Bb.csv; sourceTree = "<group>"; };
+		C260CBFC1AE7EC0600515DB3 /* trumpet_mid_F.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trumpet_mid_F.csv; sourceTree = "<group>"; };
+		C260CBFD1AE7EC0600515DB3 /* trumpet_upper_D.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trumpet_upper_D.csv; sourceTree = "<group>"; };
+		C260CBFE1AE7EC0600515DB3 /* trumpet_upper_F.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trumpet_upper_F.csv; sourceTree = "<group>"; };
 		C267C72F1AD2F297003071E8 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		C27D9B6C1ADA9A1A0014C3F3 /* piano_mid_A.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = piano_mid_A.csv; sourceTree = "<group>"; };
 		C27EAB7C1ACD6CFC00148297 /* libPitchDetector.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPitchDetector.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -156,6 +166,11 @@
 		C27EAB8C1ACD6CFC00148297 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C260CBF91AE7EAAE00515DB3 /* trumpet_low_Bb.csv */,
+				C260CBFC1AE7EC0600515DB3 /* trumpet_mid_F.csv */,
+				C260CBFB1AE7EC0600515DB3 /* trumpet_mid_Bb.csv */,
+				C260CBFD1AE7EC0600515DB3 /* trumpet_upper_D.csv */,
+				C260CBFE1AE7EC0600515DB3 /* trumpet_upper_F.csv */,
 				C27D9B6C1ADA9A1A0014C3F3 /* piano_mid_A.csv */,
 				67B9BEEA1AD4C0E300834753 /* guitar_low_E.csv */,
 				C27EAB8D1ACD6CFC00148297 /* Info.plist */,
@@ -306,8 +321,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C260CC011AE7EC0600515DB3 /* trumpet_upper_D.csv in Resources */,
 				67B9BEEB1AD4C0E300834753 /* guitar_low_E.csv in Resources */,
+				C260CBFF1AE7EC0600515DB3 /* trumpet_mid_Bb.csv in Resources */,
+				C260CBFA1AE7EAAE00515DB3 /* trumpet_low_Bb.csv in Resources */,
+				C260CC001AE7EC0600515DB3 /* trumpet_mid_F.csv in Resources */,
 				C27D9B6D1ADA9A1A0014C3F3 /* piano_mid_A.csv in Resources */,
+				C260CC021AE7EC0600515DB3 /* trumpet_upper_F.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

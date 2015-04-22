@@ -15,9 +15,12 @@
 
 using namespace std;
 
+static NSString* const kKeyFilename = @"fileName";
+static NSString* const kKeyRate = @"rate";
+static NSString* const kKeySampleNum = @"sampleNum";
+static NSString* const kKeyNote = @"note";
+
 @interface PitchDetectionTest : XCTestCase
-{
-}
 @end
 
 @implementation PitchDetectionTest
@@ -31,36 +34,46 @@ using namespace std;
     [super tearDown];
 }
 
-- (void)testWithPianoMidA {
-    NSString* fileName = @"piano_mid_A";
-	
-    PitchInfo pitch;
-    [self testWithFileName:fileName rate:8000 sampleNum:1024 pitch:pitch];
-
-	if(pitch.error) {
-		XCTAssertFalse(pitch.error);
-		return;
-	}
-	
-    XCTAssertTrue(pitch.midi == 57);
+- (void)testTable {
+    NSArray* testTable = @[@{kKeyFilename:@"piano_mid_A",  kKeyRate:@(8000),  kKeySampleNum:@(1024), kKeyNote:@(57)},
+                         @{kKeyFilename:@"guitar_low_E",   kKeyRate:@(22050), kKeySampleNum:@(1024), kKeyNote:@(40)},
+                         @{kKeyFilename:@"trumpet_low_Bb", kKeyRate:@(22050), kKeySampleNum:@(1024), kKeyNote:@(58)},
+                         @{kKeyFilename:@"trumpet_mid_F",  kKeyRate:@(22050), kKeySampleNum:@(1024), kKeyNote:@(65)},
+                         @{kKeyFilename:@"trumpet_mid_Bb", kKeyRate:@(22050), kKeySampleNum:@(1024), kKeyNote:@(70)},
+                         @{kKeyFilename:@"trumpet_upper_D",kKeyRate:@(22050), kKeySampleNum:@(1024), kKeyNote:@(74)},
+                         @{kKeyFilename:@"trumpet_upper_F",kKeyRate:@(22050), kKeySampleNum:@(1024), kKeyNote:@(77)}
+                            ];
     
-    [self printPitch:pitch];
+    for(NSDictionary* dict in testTable) {
+        [self testWithTableDict:dict];
+    }
 }
 
-- (void)testWithGuiterLowE {
-    NSString* fileName = @"guitar_low_E";
+- (bool)testWithTableDict:(NSDictionary*)dict {
+    NSString* fileName = dict[kKeyFilename];
+    int rate = [dict[kKeyRate] intValue];
+    int sampleNum = [dict[kKeySampleNum] intValue];
+    int note = [dict[kKeyNote] intValue];
     
     PitchInfo pitch;
-    [self testWithFileName:fileName rate:22050 sampleNum:1024 pitch:pitch];
-    
-    if(pitch.error) {
-        XCTAssertFalse(pitch.error);
-        return;
+    if(![self testWithFileName:fileName rate:rate sampleNum:sampleNum pitch:pitch]) {
+        NSLog(@"test for %@ failed!", fileName);
+        return false;
     }
     
-    XCTAssertTrue(pitch.midi == 40);
+    if(pitch.error) {
+        NSLog(@"test for %@ failed!", fileName);
+        XCTAssertFalse(pitch.error);
+        return false;
+    }
+    
+    if(pitch.midi != note) {
+        NSLog(@"test for %@ failed!", fileName);
+        XCTAssertTrue(pitch.midi == note);
+    }
     
     [self printPitch:pitch];
+    return true;
 }
 
 - (void)testPerformanceExample {
@@ -94,17 +107,20 @@ using namespace std;
     file.close();
 }
 
-- (void)testWithFileName:(NSString*)fileName rate:(const int)rate sampleNum:(int)sampleNum pitch:(PitchInfo&)pitch {
+- (bool)testWithFileName:(NSString*)fileName rate:(const int)rate sampleNum:(int)sampleNum pitch:(PitchInfo&)pitch {
     float* data = new float[sampleNum];
     memset(data, 0, sizeof(float) * sampleNum);
     
-    [self loadData:fileName into:data len:sampleNum];
+    if(![self loadData:fileName into:data len:sampleNum]) {
+        return false;
+    }
     
     PitchDetector detector(rate, sampleNum);
     XCTAssertTrue(detector.Initialize());
     XCTAssertTrue(detector.Detect(data));
     
     detector.GetPiatch(pitch);
+    return true;
 }
 
 - (void)printPitch:(PitchInfo&)pitch {
