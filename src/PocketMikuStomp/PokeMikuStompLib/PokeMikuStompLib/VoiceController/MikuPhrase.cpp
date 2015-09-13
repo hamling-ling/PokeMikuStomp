@@ -8,14 +8,14 @@
 
 #include "MikuPhrase.h"
 #include "Utilities.h"
+#include "PronouncableLetterMap.h"
 #include <iostream>
 
 using namespace std;
 
-MikuPhrase::MikuPhrase(std::string& phraseString, std::map<std::wstring, int>& charMap)
+MikuPhrase::MikuPhrase(std::string& phraseString)
 :
-Phrase(phraseString),
-_charMap(charMap)
+Phrase(phraseString)
 {
     MakePronounciations();
     ResetPos();
@@ -36,11 +36,12 @@ std::string MikuPhrase::GetPhraseString()
 
 void MikuPhrase::MakePronounciations()
 {
+    PronouncableLetterMap& map = PronouncableLetterMap::Instance();
     std::wstring::const_iterator it = _phraseString.begin();
     while(it != _phraseString.end()) {
         
         wchar_t letters[3] = {0};
-        if(!IsPronounsableLetter(*it)) {
+        if(!map.IsPronounsableLetter(*it)) {
             it++;
             continue;
         }
@@ -48,10 +49,10 @@ void MikuPhrase::MakePronounciations()
         letters[0] = *it;
         it++;
         if(it != _phraseString.end()) {
-            if(IsSmallVowel(*it)) {
+            if(PronouncableLetterMap::IsSmallVowel(*it)) {
                 letters[1] = *it;
                 wstring wsCandLetters(letters);
-                if(_charMap.find(wsCandLetters) != _charMap.end()) {
+                if(map.Contains(wsCandLetters)) {
                     it++;
                 } else {
                     letters[1] = static_cast<wchar_t>(0);

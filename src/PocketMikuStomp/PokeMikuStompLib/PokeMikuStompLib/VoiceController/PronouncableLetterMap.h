@@ -11,6 +11,7 @@
 
 #include <map>
 #include <string>
+#include <mutex>
 #include "Singleton.h"
 
 class PronouncableLetterMap : public Singleton<PronouncableLetterMap>
@@ -18,10 +19,16 @@ class PronouncableLetterMap : public Singleton<PronouncableLetterMap>
 public:
     ~PronouncableLetterMap();
     bool Initialize(const char* path);
+    bool IsInitialized();
     bool IsPronounsableLetter(wchar_t letter);
-    bool IsSmallVowel(wchar_t letter);
+    bool IsPronounsableLetter(const std::wstring& pron);
+    static bool IsSmallVowel(wchar_t letter);
+    static bool IsSmallVowel(const std::wstring& pron);
+    bool Contains(const std::wstring& str);
 private:
+    std::mutex _mapMutex;
     std::map<std::wstring, int> _proMap;
+    bool _initialized;
     friend class Singleton<PronouncableLetterMap>;
     PronouncableLetterMap();
 };

@@ -16,7 +16,7 @@
 class MikuPhrase : public Phrase
 {
 public:
-    MikuPhrase(std::string& phraseString, std::map<std::wstring, int>& charMap);
+    MikuPhrase(std::string& phraseString);
     virtual ~MikuPhrase();
     std::string GetPhraseString();
     virtual std::string Next();
@@ -24,11 +24,8 @@ public:
 private:
     std::vector<std::string> _pronounciations;
     std::vector<std::string>::const_iterator _proIt;
-    std::map<std::wstring, int>& _charMap;
     
     void MakePronounciations();
-    bool IsPronounsableLetter(wchar_t letter);
-    bool IsSmallVowel(wchar_t letter);
 };
 
 #endif /* defined(__PokeMikuStompLib__MikuPhrase__) */

@@ -17,6 +17,7 @@ class MappedVoiceController : public VoiceController
 public:
     MappedVoiceController();
     ~MappedVoiceController();
+    virtual bool SetPhrase(std::string& phrase);
 };
 
 #endif /* defined(__PokeMikuStompLib__MappedVoiceController__) */

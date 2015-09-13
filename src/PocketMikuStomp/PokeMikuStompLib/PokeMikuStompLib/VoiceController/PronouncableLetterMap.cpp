@@ -12,7 +12,7 @@
 
 using namespace std;
 
-PronouncableLetterMap::PronouncableLetterMap()
+PronouncableLetterMap::PronouncableLetterMap() : _initialized(false)
 {
 }
 
@@ -35,15 +35,31 @@ bool PronouncableLetterMap::Initialize(const char* path) {
     }
     file.close();
     
+    _initialized = !_proMap.empty();
+    
     return true;
+}
+
+bool PronouncableLetterMap::IsInitialized()
+{
+    return _initialized;
 }
 
 bool PronouncableLetterMap::IsPronounsableLetter(wchar_t letter)
 {
     wchar_t letters[2] = {letter, 0};
     wstring wsLetter(letters);
+    
+    std::lock_guard<std::mutex> lock(_mapMutex);
     return (_proMap.find(wsLetter) != _proMap.end());
 }
+
+bool PronouncableLetterMap::IsPronounsableLetter(const std::wstring& pron)
+{
+    std::lock_guard<std::mutex> lock(_mapMutex);
+    return (_proMap.find(pron) != _proMap.end());
+}
+
 
 bool PronouncableLetterMap::IsSmallVowel(wchar_t letter)
 {
@@ -65,3 +81,13 @@ bool PronouncableLetterMap::IsSmallVowel(wchar_t letter)
     return isSmallVowel;
 }
 
+bool PronouncableLetterMap::IsSmallVowel(const std::wstring& pron)
+{
+    return IsSmallVowel(pron[0]);
+}
+
+bool PronouncableLetterMap::Contains(const std::wstring& str)
+{
+    std::lock_guard<std::mutex> lock(_mapMutex);
+    return _proMap.find(str) != _proMap.end();
+}
