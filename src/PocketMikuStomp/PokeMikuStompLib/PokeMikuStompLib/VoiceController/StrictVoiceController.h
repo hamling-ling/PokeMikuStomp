@@ -20,11 +20,7 @@ public:
     virtual bool SetPhrase(std::string& phrase);
 private:
     std::list<unsigned int> _transConditions;
-    
-    bool SplitPhrase(const std::string& phrase, std::list<unsigned int>& conds, std::string& splitPhrase);
-    bool IsMusicAlpha(const wchar_t letter);
-    bool IsSharp(const wchar_t legger);
-    bool IsFlat(const wchar_t legger);
+
 };
 
 #endif /* defined(__PokeMikuStompLib__StrictVoiceController__) */

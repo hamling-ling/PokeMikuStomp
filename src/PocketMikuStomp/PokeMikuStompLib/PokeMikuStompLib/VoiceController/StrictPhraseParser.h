@@ -20,8 +20,10 @@ public:
     ~StrictPhraseParser();
     bool TrySplit(const std::wstring& phrase,
                   std::list<unsigned int>& conds,
-                  std::string& splitPhrase
+                  std::list<std::wstring>& splitPhrase
                   );
+private:
+    bool ShouldIgnore(wchar_t letter);
 };
 
 #endif /* defined(__PokeMikuStompLib__StrictPhraseParser__) */

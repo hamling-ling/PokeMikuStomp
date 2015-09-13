@@ -7,7 +7,7 @@
 //
 
 #include "StrictPhraseParser.h"
-#include <algorithm>
+#include "StrictPhraseStateMachine.h"
 
 using namespace std;
 
@@ -19,15 +19,42 @@ StrictPhraseParser::~StrictPhraseParser()
 {
 }
 
-bool StrictPhraseParser::TrySplit(const std::wstring& phrase,
-              std::list<unsigned int>& conds,
-              std::string& splitPhrase
-              )
+bool StrictPhraseParser::TrySplit(
+                                  const std::wstring& phrase,
+                                  list<unsigned int>& conds,
+                                  list<std::wstring>& splitPhrase)
 {
+    StrictPhraseStateMachine sm;
+    
     std::wstring::const_iterator it = phrase.begin();
     while(it != phrase.end()) {
-
+        if(ShouldIgnore(*it)) {
+            continue;
+        }
+        
+        if( PhraseStateMachineNoError != sm.Input(*it)) {
+            return false;
+        }
+        
         it++;
     }
+    
+    
+    
     return true;
+}
+
+bool StrictPhraseParser::ShouldIgnore(wchar_t letter)
+{
+    bool shouldIgnore = true;
+    switch(letter) {
+        case L'\n':
+        case L'\r':
+        case L' ':
+        case L'\t':
+            break;
+        default:
+            break;
+    }
+    return shouldIgnore;
 }

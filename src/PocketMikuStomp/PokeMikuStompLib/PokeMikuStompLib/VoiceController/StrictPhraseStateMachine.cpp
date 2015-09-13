@@ -54,3 +54,11 @@ PhraseStateMachineError StrictPhraseStateMachine::Input(wchar_t letter)
     return PhraseStateMachineNoError;
 }
 
+void StrictPhraseStateMachine::GetResult(std::list<unsigned int> notes, std::list<std::wstring> pros)
+{
+    notes.clear();
+    notes.assign(_ctx.notes.begin(), _ctx.notes.end());
+    
+    pros.clear();
+    pros.assign(_ctx.pronounces.begin(), _ctx.pronounces.end());
+}
