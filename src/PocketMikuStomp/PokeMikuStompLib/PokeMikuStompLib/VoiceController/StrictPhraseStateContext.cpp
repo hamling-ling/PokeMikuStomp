@@ -9,6 +9,9 @@
 #include "StrictPhraseStateContext.h"
 #include "PronouncableLetterMap.h"
 #include <cassert>
+#include <string>
+
+using namespace std;
 
 StrictPhraseStateContext::StrictPhraseStateContext() : note(kNoMidiNote), mod(0), letter(0), small(0) {}
 
@@ -16,12 +19,37 @@ bool StrictPhraseStateContext::IsValid() {
     if(!PronouncableLetterMap::Instance().IsPronounsableLetter(letter)) {
         return false;
     }
-    if(small != 0) {
-        if(!PronouncableLetterMap::Instance().IsSmallVowel(letter)) {
+    if(L'\0' != small) {
+        if(!PronouncableLetterMap::Instance().IsSmallVowel(small)) {
             return false;
         }
     }
+    
+    wchar_t proArr[3] = {letter, small, L'\0'};
+    std::wstring pro(proArr);
+    if(!PronouncableLetterMap::Instance().IsPronounsableLetter(pro)) {
+        return false;
+    }
+    
     if(mod < -2 || 2 < mod) {
+        return false;
+    }
+    return true;
+}
+
+bool StrictPhraseStateContext::IsAppendableSmallVowel(wchar_t smallVowel)
+{
+    if(L'\0' == letter) {
+        return false;
+    }
+    
+    if(L'\0' == smallVowel) {
+        return false;
+    }
+    
+    wchar_t proArr[3] = {letter, smallVowel, L'\0'};
+    std::wstring pro(proArr);
+    if(!PronouncableLetterMap::Instance().IsPronounsableLetter(pro)) {
         return false;
     }
     return true;

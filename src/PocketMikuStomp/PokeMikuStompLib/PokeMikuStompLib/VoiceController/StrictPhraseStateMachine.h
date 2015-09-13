@@ -26,11 +26,11 @@ enum PhraseStateMachineError {
  *  state EOF   :end of input string.
  *                  state
  *                  note    mod     letter  svowel  err
- *  note evt        note    err     note    err     err
+ *  note evt        note    err     note    note    err
  *  sharp evt       mod     mod     err     err     err
  *  flat evt        mod     mod     err     err     err
- *  letter evt      letter  letter  letter  err     err
- *  small vowel evt err     err     svowel  svowel  err
+ *  letter evt      letter  letter  letter  letter  err
+ *  small vowel evt note    err     svowel  svowel  err
  *  EOF             err     err     note    note    err
  *
  */

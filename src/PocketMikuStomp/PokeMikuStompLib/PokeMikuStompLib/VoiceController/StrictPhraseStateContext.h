@@ -24,6 +24,7 @@ public:
     
     StrictPhraseStateContext();
     bool IsValid();
+    bool IsAppendableSmallVowel(wchar_t letter);
     unsigned int GetMidiNote();
     bool Push();
     static unsigned int NoteFromLetter(wchar_t letter);

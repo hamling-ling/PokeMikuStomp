@@ -44,12 +44,19 @@ StrictPhraseState* StrictPhraseState::OnFlatEvt(StrictPhraseStateContext& pro, w
 }
 
 StrictPhraseState* StrictPhraseState::OnLetterEvt(StrictPhraseStateContext& pro, wchar_t letter) {
+    
+    if(pro.IsValid()) {
+        pro.Push();
+    }
+    
     pro.letter = letter;
     return _allStates[StrictPhraseStateIdLetter];
 }
 
 StrictPhraseState* StrictPhraseState::OnSvowelEvt(StrictPhraseStateContext& pro, wchar_t letter) {
-    pro.small = letter;
+    if(pro.IsAppendableSmallVowel(letter)) {
+        pro.small = letter;
+    }
     return _allStates[StrictPhraseStateIdSvowel];
 }
 
@@ -70,8 +77,16 @@ NoteState::NoteState(){}
 
 NoteState::~NoteState(){}
 
+StrictPhraseState* NoteState::OnSvowelEvt(StrictPhraseStateContext& pro, wchar_t letter) {
+    return this;
+}
+
 StrictPhraseState* NoteState::OnEofEvt(StrictPhraseStateContext& pro, wchar_t letter) {
-    pro.Push();
+    
+    if(pro.IsValid()) {
+        pro.Push();
+    }
+    
     return _allStates[StrictPhraseStateIdError];
 }
 
@@ -118,10 +133,6 @@ StrictPhraseState* LetterState::OnFlatEvt(StrictPhraseStateContext& pro, wchar_t
 SvState::SvState(){}
 
 SvState::~SvState(){}
-
-StrictPhraseState* SvState::OnNoteEvt(StrictPhraseStateContext& pro, wchar_t letter) {
-    return _allStates[StrictPhraseStateIdError];
-}
 
 StrictPhraseState* SvState::OnSharpEvt(StrictPhraseStateContext& pro, wchar_t letter) {
     return _allStates[StrictPhraseStateIdError];

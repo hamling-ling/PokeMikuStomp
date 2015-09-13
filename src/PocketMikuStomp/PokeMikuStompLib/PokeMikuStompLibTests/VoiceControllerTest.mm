@@ -14,6 +14,8 @@
 #include "StrictVoiceController.h"
 #include "PronouncableLetterMap.h"
 #include "StrictPhraseParser.h"
+#include "Utilities.h"
+#include <vector>
 
 using namespace std;
 
@@ -184,7 +186,41 @@ using namespace std;
 }
 
 - (void)testStrictPhraseParser {
-    wstring input = L"cどdれeみ";
+    vector<wstring> inputPron = {L"ど",L"ど",L"れ",L"れ",L"み",L"ふぁ",L"ふぁ",L"そ",L"そ",L"ら",L"ら",L"し",L"ど"};
+    vector<wstring> inputNote = {L"c",L"c#",L"c##",L"d#",L"e",L"f",L"f#",L"g",L"a♭",L"b♭♭",L"b♭",L"c♭",L"c"};
+
+    wstring input;
+    for(int i = 0; i < inputPron.size(); i++ ) {
+        input += inputNote[i] + inputPron[i];
+    }
+    
+    StrictPhraseParser parser;
+    list<unsigned int> conds;
+    list<std::wstring> split;
+
+    
+    if(!parser.TrySplit(input, conds, split)) {
+        XCTFail("parse failed");
+    }
+    
+    list<unsigned int>::const_iterator conds_it = conds.begin();
+    list<std::wstring>::const_iterator split_it = split.begin();
+    
+    unsigned int counter = 0;
+    while(conds_it != conds.end() && conds_it != conds.end()) {
+        XCTAssertTrue(*conds_it == counter%12, @"*conds_it=%o expected=%o", *conds_it, counter%12);
+        XCTAssertTrue(split_it->compare(inputPron[counter]) == 0, @"*split_it=%@, exptected=%@",
+                      [NSString stringWithUTF8String:ws2s(*split_it).c_str()],
+                      [NSString stringWithUTF8String:ws2s(inputPron[counter]).c_str()]);
+        
+        conds_it++;
+        split_it++;
+        counter++;
+    }
+}
+
+- (void)testStrictPhraseParserSkipSpace {
+    wstring input = L" \nふぁ F ふぁ Gそ\tひゃ\r\n";
     StrictPhraseParser parser;
     list<unsigned int> conds;
     list<unsigned int>::const_iterator conds_it;
@@ -198,22 +234,36 @@ using namespace std;
     conds_it = conds.begin();
     split_it = split.begin();
     
-    XCTAssertTrue(*conds_it == 0);
-    XCTAssertTrue(split_it->compare(L"ど") == 0);
+    XCTAssertTrue(*conds_it == kNoMidiNote);
+    XCTAssertTrue(split_it->compare(L"ふぁ") == 0);
     
     conds_it++;
     split_it++;
-    XCTAssertTrue(*conds_it == 2);
-    XCTAssertTrue(split_it->compare(L"れ") == 0);
+    XCTAssertTrue(*conds_it == 5);
+    XCTAssertTrue(split_it->compare(L"ふぁ") == 0);
     
     conds_it++;
     split_it++;
-    XCTAssertTrue(*conds_it == 4);
-    XCTAssertTrue(split_it->compare(L"み") == 0);
+    XCTAssertTrue(*conds_it == 7);
+    XCTAssertTrue(split_it->compare(L"そ") == 0);
 }
 
 - (void)testStrictVoiceControllerStartedEvent {
-    // t.b.d
+    string input = "ぅcいeあぁgえ";
+    StrictVoiceController vc;
+    VoiceControllerNotification notif;
+    
+    XCTAssertFalse(!PronouncableLetterMap::Instance().IsInitialized());
+    vc.SetPhrase(input);
+    vc.SetThreshold(10, 10);
+    notif.type = VoiceControllerNotificationTypePronounceFinished;
+    
+    vc.Input(20,48,notif);
+    // callback expected
+    XCTAssertTrue(notif.type == VoiceControllerNotificationTypePronounceStarted);
+    XCTAssertTrue(notif.level == 20);
+    XCTAssertTrue(notif.note == 48);
+    XCTAssertTrue(notif.pronounciation == "い");
 }
 
 - (void)testPerformanceExample {
