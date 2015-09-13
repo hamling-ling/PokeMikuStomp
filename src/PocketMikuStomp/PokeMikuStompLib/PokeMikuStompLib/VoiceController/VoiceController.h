@@ -49,7 +49,7 @@ protected:
     // last notified note. keep same no matter input level changed.
     unsigned int _currentNote;
     int _currentInputLevel;
-    std::string _currentPronounciation;
+    std::wstring _currentPronounciation;
     void* _userInfo;
     int _offToOnThreshold;
     int _onToOffThreshold;
@@ -69,7 +69,7 @@ protected:
     virtual VoiceControllerNotification MakeNotification(
                                                          VoiceControllerNotificationType type,
                                                          unsigned int midiNote,
-                                                         const std::string& pronounciation
+                                                         const std::wstring& pronounciation
                                                          );
 };
 

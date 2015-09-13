@@ -15,10 +15,10 @@ Phrase::Phrase()
     ResetPos();
 }
 
-Phrase::Phrase(std::string& phraseString)
+Phrase::Phrase(std::wstring& phraseString)
 : _circulate(true)
 {
-    _phraseString = s2ws(phraseString);
+    _phraseString = phraseString;
     ResetPos();
 }
 
@@ -27,18 +27,18 @@ Phrase::~Phrase()
     
 }
 
-std::string Phrase::GetPhraseString()
+wstring Phrase::GetPhraseString()
 {
-    return ws2s(_phraseString);
+    return _phraseString;
 }
 
-string Phrase::Next()
+wstring Phrase::Next()
 {
     if(_phraseIt == _phraseString.end()) {
         if(_circulate) {
             _phraseIt = _phraseString.begin();
         } else {
-            return "";
+            return L"";
         }
     }
     
@@ -47,7 +47,7 @@ string Phrase::Next()
     wchar_t letters[3] = {letter, (wchar_t)0};
     wstring wsLetter(letters);
     
-    return ws2s(wsLetter);
+    return wsLetter;
 }
 
 void Phrase::ResetPos()

@@ -13,7 +13,12 @@
 
 using namespace std;
 
-MikuPhrase::MikuPhrase(std::string& phraseString)
+MikuPhrase::MikuPhrase()
+{
+    ResetPos();
+}
+
+MikuPhrase::MikuPhrase(std::wstring& phraseString)
 :
 Phrase(phraseString)
 {
@@ -25,9 +30,9 @@ MikuPhrase::~MikuPhrase()
 {
 }
 
-std::string MikuPhrase::GetPhraseString()
+wstring MikuPhrase::GetPhraseString()
 {
-    string phrase;
+    wstring phrase;
     for (auto item : _pronounciations) {
         phrase += item;
     }
@@ -60,22 +65,28 @@ void MikuPhrase::MakePronounciations()
             }
         }
         wstring wsLetters(letters);
-        string sLetters = ws2s(wsLetters);
-        _pronounciations.push_back(sLetters);
+        _pronounciations.push_back(letters);
     }
 }
 
-string MikuPhrase::Next()
+void MikuPhrase::SetPronounciatins(const std::list<std::wstring> &pros)
+{
+    _pronounciations.clear();
+    _pronounciations.assign(pros.begin(), pros.end());
+    ResetPos();
+}
+
+wstring MikuPhrase::Next()
 {
     if(_proIt == _pronounciations.end()) {
         if(_circulate) {
         _proIt = _pronounciations.begin();
         } else {
-            return "";
+            return L"";
         }
     }
 
-    const string& pro = *_proIt;
+    const wstring& pro = *_proIt;
     _proIt++;
     return pro;
 }

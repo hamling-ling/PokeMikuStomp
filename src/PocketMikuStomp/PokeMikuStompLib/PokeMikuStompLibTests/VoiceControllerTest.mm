@@ -11,6 +11,7 @@
 #include "MikuPhrase.h"
 #include "VoiceController.h"
 #include "MappedVoiceController.h"
+#include "StrictVoiceController.h"
 #include "PronouncableLetterMap.h"
 
 using namespace std;
@@ -42,66 +43,66 @@ using namespace std;
 
 - (void)testNormalPhrasing {
     
-    string input = "あいうえお";
+    wstring input = L"あいうえお";
     XCTAssertFalse(!PronouncableLetterMap::Instance().IsInitialized());
     MikuPhrase mp(input);
-    string letters;
+    wstring letters;
     
     letters = mp.Next();
-    XCTAssertTrue(letters.compare("あ") == 0);
+    XCTAssertTrue(letters.compare(L"あ") == 0);
     letters = mp.Next();
-    XCTAssertTrue(letters.compare("い") == 0);
+    XCTAssertTrue(letters.compare(L"い") == 0);
     letters = mp.Next();
-    XCTAssertTrue(letters.compare("う") == 0);
+    XCTAssertTrue(letters.compare(L"う") == 0);
     letters = mp.Next();
-    XCTAssertTrue(letters.compare("え") == 0);
+    XCTAssertTrue(letters.compare(L"え") == 0);
     letters = mp.Next();
-    XCTAssertTrue(letters.compare("お") == 0);
+    XCTAssertTrue(letters.compare(L"お") == 0);
 }
 
 - (void)testNormalNonCirculatePhraseEnding {
-    string input = "あ";
+    wstring input = L"あ";
     XCTAssertFalse(!PronouncableLetterMap::Instance().IsInitialized());
     MikuPhrase mp(input);
     mp.SetCirculation(false);
-    string letters;
+    wstring letters;
     
     letters = mp.Next();
-    XCTAssertTrue(letters.compare("あ") == 0);
+    XCTAssertTrue(letters.compare(L"あ") == 0);
     letters = mp.Next();
-    XCTAssertTrue(letters.compare("") == 0);
+    XCTAssertTrue(letters.compare(L"") == 0);
 }
 
 - (void)testNormalCirculatePhraseEnding {
-    string input = "あい";
+    wstring input = L"あい";
     XCTAssertFalse(!PronouncableLetterMap::Instance().IsInitialized());
     MikuPhrase mp(input);
     mp.SetCirculation(true);
-    string letters;
+    wstring letters;
     
     letters = mp.Next();
-    XCTAssertTrue(letters.compare("あ") == 0);
+    XCTAssertTrue(letters.compare(L"あ") == 0);
     letters = mp.Next();
-    XCTAssertTrue(letters.compare("い") == 0);
+    XCTAssertTrue(letters.compare(L"い") == 0);
     letters = mp.Next();
-    XCTAssertTrue(letters.compare("あ") == 0);
+    XCTAssertTrue(letters.compare(L"あ") == 0);
 }
 
 - (void)testVowelPhrasing {
-    string input = "あぁきゃぇ";
+    wstring input = L"あぁきゃぇ";
     XCTAssertFalse(!PronouncableLetterMap::Instance().IsInitialized());
     MikuPhrase mp(input);
-    string letters;
+    wstring letters;
     
     letters = mp.Next();
-    XCTAssertTrue(letters.compare("あ") == 0);
+    XCTAssertTrue(letters.compare(L"あ") == 0);
     letters = mp.Next();
-    XCTAssertTrue(letters.compare("きゃ") == 0);
+    XCTAssertTrue(letters.compare(L"きゃ") == 0);
     letters = mp.Next();
-    XCTAssertTrue(letters.compare("あ") == 0);
+    XCTAssertTrue(letters.compare(L"あ") == 0);
 }
 
-- (void)testStaticVoiceControllerStartedEvent {
+- (void)testMappedVoiceControllerStartedEvent {
     string input = "ぅいあぁえ";
     MappedVoiceController vc;
     VoiceControllerNotification notif;
@@ -119,7 +120,7 @@ using namespace std;
     XCTAssertTrue(notif.pronounciation == "い");
 }
 
-- (void)testStaticVoiceControllerFinishEvent {
+- (void)testMappedVoiceControllerFinishEvent {
     string input = "ぅいあぁえ";
     MappedVoiceController vc;
     VoiceControllerNotification notif;
@@ -140,7 +141,7 @@ using namespace std;
     XCTAssertTrue(notif.pronounciation == "");
 }
 
-- (void)testStaticVoiceControllerChangeEvent {
+- (void)testMappedVoiceControllerChangeEvent {
     string input = "ぅいあぁえ";
     MappedVoiceController vc;
     VoiceControllerNotification notif;
@@ -159,7 +160,7 @@ using namespace std;
     XCTAssertTrue(notif.pronounciation == "あ");// "あぁ" is not pronouncable
 }
 
-- (void)testStaticVoiceControllerNoEventAfterNoteOffEvenLevelIncrease {
+- (void)testMappedoiceControllerNoEventAfterNoteOffEvenLevelIncrease {
     string input = "ぅいあぁえ";
     MappedVoiceController vc;
     VoiceControllerNotification notif;
@@ -179,6 +180,10 @@ using namespace std;
     
     vc.Input(20, VoiceController::kNoMidiNote,notif);
     XCTAssertTrue(notif.type == VoiceControllerNotificationTypePronounceFinished);
+}
+
+- (void)testStrictVoiceControllerStartedEvent {
+    // t.b.d
 }
 
 - (void)testPerformanceExample {

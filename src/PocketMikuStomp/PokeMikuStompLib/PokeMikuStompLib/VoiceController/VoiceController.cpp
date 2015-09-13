@@ -27,14 +27,17 @@ VoiceController::~VoiceController()
 
 bool VoiceController::SetPhrase(std::string& phrase)
 {
-    std::lock_guard<std::recursive_mutex> lock(_phraseMutex);
-    _phrase = make_shared<Phrase>(phrase);
+    lock_guard<std::recursive_mutex> lock(_phraseMutex);
+    
+    wstring phraseW = s2ws(phrase);
+    _phrase = make_shared<Phrase>(phraseW);
     return true;
 }
 
 std::string VoiceController::GetPhrase()
 {
-    return _phrase->GetPhraseString();
+    wstring str = _phrase->GetPhraseString();
+    return ws2s(str);
 }
 
 void VoiceController::SetThreshold(int offToOn, int onToOff)
@@ -104,7 +107,7 @@ VoiceControllerNotification VoiceController::MakeStartedNotification() {
 }
 
 VoiceControllerNotification VoiceController::MakeFinishedNotification() {
-    std::string pro("");
+    std::wstring pro(L"");
     return MakeNotification( VoiceControllerNotificationTypePronounceFinished, kNoMidiNote, pro);
 }
 
@@ -118,13 +121,13 @@ VoiceControllerNotification VoiceController::MakeChangedNotification() {
 VoiceControllerNotification VoiceController::MakeNotification (
                                         VoiceControllerNotificationType type,
                                         unsigned int midiNote,
-                                        const std::string& pronounciation
+                                        const std::wstring& pronounciation
                                         ) {
     _currentPronounciation = pronounciation;
     
     VoiceControllerNotification notif {
         .type = type,
-        .pronounciation = pronounciation,
+        .pronounciation = ws2s(pronounciation),
         .note = midiNote,
         .level = _currentInputLevel
     };

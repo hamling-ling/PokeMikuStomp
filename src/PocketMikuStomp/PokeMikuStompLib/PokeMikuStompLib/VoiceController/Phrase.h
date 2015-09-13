@@ -15,10 +15,10 @@ class Phrase
 {
 public:
     Phrase();
-    Phrase(std::string& phraseString);
+    Phrase(std::wstring& phraseString);
     virtual ~Phrase();
-    virtual std::string GetPhraseString();
-    virtual std::string Next();
+    virtual std::wstring GetPhraseString();
+    virtual std::wstring Next();
     virtual void ResetPos();
     virtual void SetCirculation(bool circulate);
 protected:

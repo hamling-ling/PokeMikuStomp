@@ -10,7 +10,7 @@
 
 using namespace std;
 
-static const string kNoteProStrings[] = {"ど", "ど", "れ", "れ", "み", "ふぁ", "ふぁ", "そ", "そ", "ら", "ら", "し"};
+static const wstring kNoteProStrings[] = {L"ど", L"ど", L"れ", L"れ", L"み", L"ふぁ", L"ふぁ", L"そ", L"そ", L"ら", L"ら", L"し"};
 
 DoremiVoiceController::DoremiVoiceController()
 {

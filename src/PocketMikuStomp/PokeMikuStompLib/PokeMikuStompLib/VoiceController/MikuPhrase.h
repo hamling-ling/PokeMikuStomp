@@ -10,20 +10,22 @@
 #define __PokeMikuStompLib__MikuPhrase__
 
 #include "Phrase.h"
-#include <vector>
+#include <list>
 #include <map>
 
 class MikuPhrase : public Phrase
 {
 public:
-    MikuPhrase(std::string& phraseString);
+    MikuPhrase();
+    MikuPhrase(std::wstring& phraseString);
     virtual ~MikuPhrase();
-    std::string GetPhraseString();
-    virtual std::string Next();
+    std::wstring GetPhraseString();
+    virtual std::wstring Next();
     virtual void ResetPos();
+    virtual void SetPronounciatins(const std::list<std::wstring> &pros);
 private:
-    std::vector<std::string> _pronounciations;
-    std::vector<std::string>::const_iterator _proIt;
+    std::list<std::wstring> _pronounciations;
+    std::list<std::wstring>::const_iterator _proIt;
     
     void MakePronounciations();
 };

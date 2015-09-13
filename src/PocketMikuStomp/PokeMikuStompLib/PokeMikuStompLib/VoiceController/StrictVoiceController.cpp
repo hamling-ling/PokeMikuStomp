@@ -27,12 +27,17 @@ bool StrictVoiceController::SetPhrase(string& phrase)
     
     StrictPhraseParser parser;
     list<std::wstring> splitPhrase;
-    if(parser.TrySplit(phraseW, _transConditions, splitPhrase)) {
-        
+    if(!parser.TrySplit(phraseW, _transConditions, splitPhrase)) {
+        return false;
     }
     
-    // t.b.d
-    string str;
-    return MappedVoiceController::SetPhrase(str);
+    shared_ptr<MikuPhrase> mikuPhrase = make_shared<MikuPhrase>();
+    
+    std::lock_guard<std::recursive_mutex> lock(_phraseMutex);
+    mikuPhrase->SetPronounciatins(splitPhrase);
+    
+    _phrase = std::dynamic_pointer_cast<Phrase>(mikuPhrase);
+    
+    return true;
 }
 

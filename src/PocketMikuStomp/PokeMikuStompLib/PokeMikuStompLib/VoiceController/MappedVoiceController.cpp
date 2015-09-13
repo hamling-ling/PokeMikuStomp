@@ -9,6 +9,7 @@
 #include "MappedVoiceController.h"
 #include "MikuPhrase.h"
 #include "PronouncableLetterMap.h"
+#include "Utilities.h"
 
 using namespace std;
 
@@ -24,7 +25,8 @@ bool MappedVoiceController::SetPhrase(std::string& phrase)
 {
     std::lock_guard<std::recursive_mutex> lock(_phraseMutex);
     
-    shared_ptr<MikuPhrase> mikuPhrase = make_shared<MikuPhrase>(phrase);
+    wstring phraseW = s2ws(phrase);
+    shared_ptr<MikuPhrase> mikuPhrase = make_shared<MikuPhrase>(phraseW);
     _phrase = std::dynamic_pointer_cast<Phrase>(mikuPhrase);
     
     return true;
