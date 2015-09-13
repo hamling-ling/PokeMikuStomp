@@ -83,29 +83,3 @@ void MikuPhrase::ResetPos()
 {
     _proIt = _pronounciations.begin();
 }
-bool MikuPhrase::IsPronounsableLetter(wchar_t letter)
-{
-    wchar_t letters[2] = {letter, 0};
-    wstring wsLetter(letters);
-    return (_charMap.find(wsLetter) != _charMap.end());
-}
-
-bool MikuPhrase::IsSmallVowel(wchar_t letter)
-{
-    bool isSmallVowel = false;
-    switch (letter) {
-        case L'ぁ':
-        case L'ぃ':
-        case L'ぅ':
-        case L'ぇ':
-        case L'ぉ':
-        case L'ゃ':
-        case L'ゅ':
-        case L'ょ':
-            isSmallVowel = true;
-            break;
-        default:
-            break;
-    }
-    return isSmallVowel;
-}

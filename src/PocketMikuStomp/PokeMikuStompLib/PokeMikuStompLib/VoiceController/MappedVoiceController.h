@@ -10,21 +10,13 @@
 #define __PokeMikuStompLib__MappedVoiceController__
 
 #include "VoiceController.h"
-#include <map>
+#include "PronouncableLetterMap.h"
 
 class MappedVoiceController : public VoiceController
 {
 public:
     MappedVoiceController();
     ~MappedVoiceController();
-    static bool MakePronounceStringMap(const char* path, std::map<std::wstring, int>& map);
-    virtual bool SetMap(const char* mapPath);
-    virtual bool SetPhrase(std::string& phrase);
-    
-private:
-    std::map<std::wstring, int> _proMap;
-    
-    bool MakeMap(const char* mapPath);
 };
 
 #endif /* defined(__PokeMikuStompLib__MappedVoiceController__) */

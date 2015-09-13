@@ -28,6 +28,19 @@
 		C2BCFD981AD8CF1B00326ECB /* MikuPhrase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2BCFD961AD8CF1B00326ECB /* MikuPhrase.cpp */; };
 		C2BCFD991AD8CF1B00326ECB /* MikuPhrase.h in Headers */ = {isa = PBXBuildFile; fileRef = C2BCFD971AD8CF1B00326ECB /* MikuPhrase.h */; };
 		C2BCFD9B1AD8D84800326ECB /* VoiceControllerTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = C2BCFD9A1AD8D84800326ECB /* VoiceControllerTest.mm */; };
+		C2EFBB881BA44B7000F0F3F2 /* StrictVoiceController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2EFBB861BA44B7000F0F3F2 /* StrictVoiceController.cpp */; };
+		C2EFBB891BA44B7000F0F3F2 /* StrictVoiceController.h in Headers */ = {isa = PBXBuildFile; fileRef = C2EFBB871BA44B7000F0F3F2 /* StrictVoiceController.h */; };
+		C2EFBB901BA4576100F0F3F2 /* StrictPhraseParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2EFBB8E1BA4576100F0F3F2 /* StrictPhraseParser.cpp */; };
+		C2EFBB911BA4576100F0F3F2 /* StrictPhraseParser.h in Headers */ = {isa = PBXBuildFile; fileRef = C2EFBB8F1BA4576100F0F3F2 /* StrictPhraseParser.h */; };
+		C2EFBB981BA4603B00F0F3F2 /* PronouncableLetterMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2EFBB961BA4603B00F0F3F2 /* PronouncableLetterMap.cpp */; };
+		C2EFBB991BA4603B00F0F3F2 /* PronouncableLetterMap.h in Headers */ = {isa = PBXBuildFile; fileRef = C2EFBB971BA4603B00F0F3F2 /* PronouncableLetterMap.h */; };
+		C2EFBB9D1BA4619900F0F3F2 /* Singleton.h in Headers */ = {isa = PBXBuildFile; fileRef = C2EFBB9B1BA4619900F0F3F2 /* Singleton.h */; };
+		C2EFBBA01BA4742900F0F3F2 /* StrictPhraseStateMachine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2EFBB9E1BA4742900F0F3F2 /* StrictPhraseStateMachine.cpp */; };
+		C2EFBBA11BA4742900F0F3F2 /* StrictPhraseStateMachine.h in Headers */ = {isa = PBXBuildFile; fileRef = C2EFBB9F1BA4742900F0F3F2 /* StrictPhraseStateMachine.h */; };
+		C2EFBBA41BA47FB600F0F3F2 /* StrictPhraseState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2EFBBA21BA47FB600F0F3F2 /* StrictPhraseState.cpp */; };
+		C2EFBBA51BA47FB600F0F3F2 /* StrictPhraseState.h in Headers */ = {isa = PBXBuildFile; fileRef = C2EFBBA31BA47FB600F0F3F2 /* StrictPhraseState.h */; };
+		C2EFBBA91BA5658500F0F3F2 /* StrictPhraseStateContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2EFBBA71BA5658500F0F3F2 /* StrictPhraseStateContext.cpp */; };
+		C2EFBBAA1BA5658500F0F3F2 /* StrictPhraseStateContext.h in Headers */ = {isa = PBXBuildFile; fileRef = C2EFBBA81BA5658500F0F3F2 /* StrictPhraseStateContext.h */; };
 		EEBBE10BD05A3B045D78E0CA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FE027E889037045845A8820A /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -124,6 +137,19 @@
 		C2BCFD961AD8CF1B00326ECB /* MikuPhrase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MikuPhrase.cpp; path = VoiceController/MikuPhrase.cpp; sourceTree = "<group>"; };
 		C2BCFD971AD8CF1B00326ECB /* MikuPhrase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MikuPhrase.h; path = VoiceController/MikuPhrase.h; sourceTree = "<group>"; };
 		C2BCFD9A1AD8D84800326ECB /* VoiceControllerTest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = VoiceControllerTest.mm; sourceTree = "<group>"; };
+		C2EFBB861BA44B7000F0F3F2 /* StrictVoiceController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StrictVoiceController.cpp; path = VoiceController/StrictVoiceController.cpp; sourceTree = "<group>"; };
+		C2EFBB871BA44B7000F0F3F2 /* StrictVoiceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StrictVoiceController.h; path = VoiceController/StrictVoiceController.h; sourceTree = "<group>"; };
+		C2EFBB8E1BA4576100F0F3F2 /* StrictPhraseParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StrictPhraseParser.cpp; path = VoiceController/StrictPhraseParser.cpp; sourceTree = "<group>"; };
+		C2EFBB8F1BA4576100F0F3F2 /* StrictPhraseParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StrictPhraseParser.h; path = VoiceController/StrictPhraseParser.h; sourceTree = "<group>"; };
+		C2EFBB961BA4603B00F0F3F2 /* PronouncableLetterMap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PronouncableLetterMap.cpp; path = VoiceController/PronouncableLetterMap.cpp; sourceTree = "<group>"; };
+		C2EFBB971BA4603B00F0F3F2 /* PronouncableLetterMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PronouncableLetterMap.h; path = VoiceController/PronouncableLetterMap.h; sourceTree = "<group>"; };
+		C2EFBB9B1BA4619900F0F3F2 /* Singleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Singleton.h; path = VoiceController/Singleton.h; sourceTree = "<group>"; };
+		C2EFBB9E1BA4742900F0F3F2 /* StrictPhraseStateMachine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StrictPhraseStateMachine.cpp; path = VoiceController/StrictPhraseStateMachine.cpp; sourceTree = "<group>"; };
+		C2EFBB9F1BA4742900F0F3F2 /* StrictPhraseStateMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StrictPhraseStateMachine.h; path = VoiceController/StrictPhraseStateMachine.h; sourceTree = "<group>"; };
+		C2EFBBA21BA47FB600F0F3F2 /* StrictPhraseState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StrictPhraseState.cpp; path = VoiceController/StrictPhraseState.cpp; sourceTree = "<group>"; };
+		C2EFBBA31BA47FB600F0F3F2 /* StrictPhraseState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StrictPhraseState.h; path = VoiceController/StrictPhraseState.h; sourceTree = "<group>"; };
+		C2EFBBA71BA5658500F0F3F2 /* StrictPhraseStateContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = StrictPhraseStateContext.cpp; path = VoiceController/StrictPhraseStateContext.cpp; sourceTree = "<group>"; };
+		C2EFBBA81BA5658500F0F3F2 /* StrictPhraseStateContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StrictPhraseStateContext.h; path = VoiceController/StrictPhraseStateContext.h; sourceTree = "<group>"; };
 		FE027E889037045845A8820A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -242,20 +268,41 @@
 		C2BCFD7D1AD8BAD400326ECB /* VoiceController */ = {
 			isa = PBXGroup;
 			children = (
+				C2EFBBA61BA54C1700F0F3F2 /* StrictPhraseParser */,
 				C2BCFD831AD8BAFD00326ECB /* VoiceController.h */,
 				C2BCFD821AD8BAFD00326ECB /* VoiceController.cpp */,
 				C2BCFD871AD8BB1300326ECB /* MappedVoiceController.h */,
 				C2BCFD861AD8BB1300326ECB /* MappedVoiceController.cpp */,
 				C29BFDDE1ADEC66E00393D2E /* DoremiVoiceController.h */,
 				C29BFDDD1ADEC66E00393D2E /* DoremiVoiceController.cpp */,
+				C2EFBB871BA44B7000F0F3F2 /* StrictVoiceController.h */,
+				C2EFBB861BA44B7000F0F3F2 /* StrictVoiceController.cpp */,
 				C2BCFD8A1AD8C6D600326ECB /* Utilities.cpp */,
 				C2BCFD8B1AD8C6D600326ECB /* Utilities.h */,
 				C2BCFD8E1AD8CA9300326ECB /* Phrase.cpp */,
 				C2BCFD8F1AD8CA9300326ECB /* Phrase.h */,
 				C2BCFD961AD8CF1B00326ECB /* MikuPhrase.cpp */,
 				C2BCFD971AD8CF1B00326ECB /* MikuPhrase.h */,
+				C2EFBB961BA4603B00F0F3F2 /* PronouncableLetterMap.cpp */,
+				C2EFBB971BA4603B00F0F3F2 /* PronouncableLetterMap.h */,
+				C2EFBB9B1BA4619900F0F3F2 /* Singleton.h */,
 			);
 			name = VoiceController;
+			sourceTree = "<group>";
+		};
+		C2EFBBA61BA54C1700F0F3F2 /* StrictPhraseParser */ = {
+			isa = PBXGroup;
+			children = (
+				C2EFBB8F1BA4576100F0F3F2 /* StrictPhraseParser.h */,
+				C2EFBB8E1BA4576100F0F3F2 /* StrictPhraseParser.cpp */,
+				C2EFBB9E1BA4742900F0F3F2 /* StrictPhraseStateMachine.cpp */,
+				C2EFBB9F1BA4742900F0F3F2 /* StrictPhraseStateMachine.h */,
+				C2EFBBA21BA47FB600F0F3F2 /* StrictPhraseState.cpp */,
+				C2EFBBA31BA47FB600F0F3F2 /* StrictPhraseState.h */,
+				C2EFBBA71BA5658500F0F3F2 /* StrictPhraseStateContext.cpp */,
+				C2EFBBA81BA5658500F0F3F2 /* StrictPhraseStateContext.h */,
+			);
+			name = StrictPhraseParser;
 			sourceTree = "<group>";
 		};
 		FE4E56E9CFAC2F21E4C10743 /* Frameworks */ = {
@@ -274,13 +321,20 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2EFBB891BA44B7000F0F3F2 /* StrictVoiceController.h in Headers */,
 				C2BCFD891AD8BB1300326ECB /* MappedVoiceController.h in Headers */,
 				C29BFDE01ADEC66E00393D2E /* DoremiVoiceController.h in Headers */,
+				C2EFBB911BA4576100F0F3F2 /* StrictPhraseParser.h in Headers */,
+				C2EFBBA51BA47FB600F0F3F2 /* StrictPhraseState.h in Headers */,
+				C2EFBB9D1BA4619900F0F3F2 /* Singleton.h in Headers */,
 				C2BCFD8D1AD8C6D600326ECB /* Utilities.h in Headers */,
 				C2BCFD991AD8CF1B00326ECB /* MikuPhrase.h in Headers */,
 				C27EABD31ACD6E4700148297 /* PokeMikuStompLib.h in Headers */,
 				C2BCFD851AD8BAFD00326ECB /* VoiceController.h in Headers */,
+				C2EFBBAA1BA5658500F0F3F2 /* StrictPhraseStateContext.h in Headers */,
 				C2BCFD911AD8CA9300326ECB /* Phrase.h in Headers */,
+				C2EFBBA11BA4742900F0F3F2 /* StrictPhraseStateMachine.h in Headers */,
+				C2EFBB991BA4603B00F0F3F2 /* PronouncableLetterMap.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -474,8 +528,14 @@
 				C29BFDDF1ADEC66E00393D2E /* DoremiVoiceController.cpp in Sources */,
 				C27EABD51ACD6E4700148297 /* PokeMikuStompLib.mm in Sources */,
 				C2BCFD881AD8BB1300326ECB /* MappedVoiceController.cpp in Sources */,
+				C2EFBBA91BA5658500F0F3F2 /* StrictPhraseStateContext.cpp in Sources */,
+				C2EFBB881BA44B7000F0F3F2 /* StrictVoiceController.cpp in Sources */,
+				C2EFBB981BA4603B00F0F3F2 /* PronouncableLetterMap.cpp in Sources */,
+				C2EFBB901BA4576100F0F3F2 /* StrictPhraseParser.cpp in Sources */,
+				C2EFBBA01BA4742900F0F3F2 /* StrictPhraseStateMachine.cpp in Sources */,
 				C2BCFD901AD8CA9300326ECB /* Phrase.cpp in Sources */,
 				C2BCFD981AD8CF1B00326ECB /* MikuPhrase.cpp in Sources */,
+				C2EFBBA41BA47FB600F0F3F2 /* StrictPhraseState.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

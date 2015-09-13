@@ -15,6 +15,7 @@
 #include <MappedVoiceController.h>
 #include <DoremiVoiceController.h>
 #include <mutex>
+#include <PronouncableLetterMap.h>
 
 using namespace std;
 
@@ -85,6 +86,10 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
         _app.miku = NULL;
         _OffToOnThreshold = VoiceController::kDefaultOffToOnThreshold;
         _OnToOffThreshold = VoiceController::kDefaultOnToOffThreshold;
+        
+        NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+        NSString* path = [bundle pathForResource:@"pm-char-map" ofType:@"txt"];
+        PronouncableLetterMap::Instance().Initialize([path UTF8String]);
     }
     return self;
 }
@@ -122,10 +127,6 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
     if(kPokeMikuStompLibVoiceModeUserPhrase == voiceMode) {
         shared_ptr<MappedVoiceController> ptr = make_shared<MappedVoiceController>();
         ptr->SetThreshold((int)self.OffToOnThreshold, (int)self.OnToOffThreshold);
-        
-        NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-        NSString* path = [bundle pathForResource:@"pm-char-map" ofType:@"txt"];
-        ptr->SetMap([path UTF8String]);
         
         _voice = dynamic_pointer_cast<VoiceController>(ptr);
     } else {
