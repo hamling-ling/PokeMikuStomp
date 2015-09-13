@@ -13,6 +13,8 @@ using namespace std;
 
 
 StrictPhraseStateMachine::StrictPhraseStateMachine() {
+    memset(&states[0], NULL, sizeof(states));
+    
     states[StrictPhraseStateIdNote] = new NoteState();
     states[StrictPhraseStateIdMod] = new ModState();
     states[StrictPhraseStateIdLetter] = new LetterState();
@@ -22,19 +24,23 @@ StrictPhraseStateMachine::StrictPhraseStateMachine() {
     for(int i = 0; i < StrictPhraseStateIdMax; i++) {
         states[i]->SetAllStates(&(states[0]));
     }
+    
+    _state = states[0];
 }
 
 StrictPhraseStateMachine::~StrictPhraseStateMachine() {
     for(int i = 0; i < StrictPhraseStateIdMax; i++) {
-        delete states[i];
+        StrictPhraseState* state = states[i];
         states[i] = NULL;
+        delete state;
     }
+    _state = NULL;
 }
 
 PhraseStateMachineError StrictPhraseStateMachine::Input(wchar_t letter)
 {
     PronouncableLetterMap &map = PronouncableLetterMap::Instance();
-    if(IsNote(letter)) {
+    if(StrictPhraseStateContext::IsNote(letter)) {
         _state = _state->OnNoteEvt(_ctx, letter);
     } else if(L'#' == letter) {
         _state = _state->OnSharpEvt(_ctx, letter);
@@ -54,7 +60,7 @@ PhraseStateMachineError StrictPhraseStateMachine::Input(wchar_t letter)
     return PhraseStateMachineNoError;
 }
 
-void StrictPhraseStateMachine::GetResult(std::list<unsigned int> notes, std::list<std::wstring> pros)
+void StrictPhraseStateMachine::GetResult(list<unsigned int>& notes, list<std::wstring>& pros)
 {
     notes.clear();
     notes.assign(_ctx.notes.begin(), _ctx.notes.end());

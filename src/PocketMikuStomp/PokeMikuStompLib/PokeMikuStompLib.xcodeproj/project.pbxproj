@@ -15,6 +15,7 @@
 		C27EAC001ACD6EC700148297 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C27EABFF1ACD6EC700148297 /* OpenAL.framework */; };
 		C27EAC011ACD6ECE00148297 /* libPitchDetector.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C27EABEF1ACD6E8E00148297 /* libPitchDetector.a */; };
 		C27EAC021ACD6ECE00148297 /* libSoundCapture.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C27EABF81ACD6E9C00148297 /* libSoundCapture.a */; };
+		C280E6721BA5973300655E38 /* VoiceControllerCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = C280E66C1BA5965E00655E38 /* VoiceControllerCommon.h */; };
 		C29BFDDF1ADEC66E00393D2E /* DoremiVoiceController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C29BFDDD1ADEC66E00393D2E /* DoremiVoiceController.cpp */; };
 		C29BFDE01ADEC66E00393D2E /* DoremiVoiceController.h in Headers */ = {isa = PBXBuildFile; fileRef = C29BFDDE1ADEC66E00393D2E /* DoremiVoiceController.h */; };
 		C2BCFD841AD8BAFD00326ECB /* VoiceController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2BCFD821AD8BAFD00326ECB /* VoiceController.cpp */; };
@@ -124,6 +125,7 @@
 		C27EABF21ACD6E9C00148297 /* SoundCapture.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SoundCapture.xcodeproj; path = ../SoundCapture/SoundCapture.xcodeproj; sourceTree = "<group>"; };
 		C27EABFF1ACD6EC700148297 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		C27EAC121ACD728800148297 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = Pods/Pods.xcodeproj; sourceTree = "<group>"; };
+		C280E66C1BA5965E00655E38 /* VoiceControllerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceControllerCommon.h; sourceTree = "<group>"; };
 		C29BFDDD1ADEC66E00393D2E /* DoremiVoiceController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DoremiVoiceController.cpp; path = VoiceController/DoremiVoiceController.cpp; sourceTree = "<group>"; };
 		C29BFDDE1ADEC66E00393D2E /* DoremiVoiceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DoremiVoiceController.h; path = VoiceController/DoremiVoiceController.h; sourceTree = "<group>"; };
 		C2BCFD821AD8BAFD00326ECB /* VoiceController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VoiceController.cpp; path = VoiceController/VoiceController.cpp; sourceTree = "<group>"; };
@@ -286,6 +288,7 @@
 				C2EFBB961BA4603B00F0F3F2 /* PronouncableLetterMap.cpp */,
 				C2EFBB971BA4603B00F0F3F2 /* PronouncableLetterMap.h */,
 				C2EFBB9B1BA4619900F0F3F2 /* Singleton.h */,
+				C280E66C1BA5965E00655E38 /* VoiceControllerCommon.h */,
 			);
 			name = VoiceController;
 			sourceTree = "<group>";
@@ -295,12 +298,12 @@
 			children = (
 				C2EFBB8F1BA4576100F0F3F2 /* StrictPhraseParser.h */,
 				C2EFBB8E1BA4576100F0F3F2 /* StrictPhraseParser.cpp */,
-				C2EFBB9E1BA4742900F0F3F2 /* StrictPhraseStateMachine.cpp */,
 				C2EFBB9F1BA4742900F0F3F2 /* StrictPhraseStateMachine.h */,
-				C2EFBBA21BA47FB600F0F3F2 /* StrictPhraseState.cpp */,
+				C2EFBB9E1BA4742900F0F3F2 /* StrictPhraseStateMachine.cpp */,
 				C2EFBBA31BA47FB600F0F3F2 /* StrictPhraseState.h */,
-				C2EFBBA71BA5658500F0F3F2 /* StrictPhraseStateContext.cpp */,
+				C2EFBBA21BA47FB600F0F3F2 /* StrictPhraseState.cpp */,
 				C2EFBBA81BA5658500F0F3F2 /* StrictPhraseStateContext.h */,
+				C2EFBBA71BA5658500F0F3F2 /* StrictPhraseStateContext.cpp */,
 			);
 			name = StrictPhraseParser;
 			sourceTree = "<group>";
@@ -322,6 +325,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2EFBB891BA44B7000F0F3F2 /* StrictVoiceController.h in Headers */,
+				C280E6721BA5973300655E38 /* VoiceControllerCommon.h in Headers */,
 				C2BCFD891AD8BB1300326ECB /* MappedVoiceController.h in Headers */,
 				C29BFDE01ADEC66E00393D2E /* DoremiVoiceController.h in Headers */,
 				C2EFBB911BA4576100F0F3F2 /* StrictPhraseParser.h in Headers */,

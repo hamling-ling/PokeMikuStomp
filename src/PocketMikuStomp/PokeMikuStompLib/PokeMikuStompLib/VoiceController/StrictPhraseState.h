@@ -20,12 +20,11 @@ enum StrictPhraseStateId {
     StrictPhraseStateIdMax,
 };
 
-
-
 struct StrictPhraseState
 {
 public:
     StrictPhraseState();
+    virtual ~StrictPhraseState();
     virtual bool IsError();
     virtual StrictPhraseState* OnNoteEvt(StrictPhraseStateContext& pro, wchar_t letter);
     virtual StrictPhraseState* OnSharpEvt(StrictPhraseStateContext& pro, wchar_t letter);
@@ -42,6 +41,7 @@ struct NoteState : public StrictPhraseState
 {
 public:
     NoteState();
+    virtual ~NoteState();
     virtual StrictPhraseState* OnEofEvt(StrictPhraseStateContext& pro, wchar_t letter);
 };
 
@@ -49,6 +49,7 @@ struct ModState : public StrictPhraseState
 {
 public:
     ModState();
+    virtual ~ModState();
     virtual StrictPhraseState* OnNoteEvt(StrictPhraseStateContext& pro, wchar_t letter);
     virtual StrictPhraseState* OnSvowelEvt(StrictPhraseStateContext& pro, wchar_t letter);
     virtual StrictPhraseState* OnEofEvt(StrictPhraseStateContext& pro, wchar_t letter);
@@ -58,6 +59,7 @@ struct LetterState : public StrictPhraseState
 {
 public:
     LetterState();
+    virtual ~LetterState();
     virtual StrictPhraseState* OnSharpEvt(StrictPhraseStateContext& pro, wchar_t letter);
     virtual StrictPhraseState* OnFlatEvt(StrictPhraseStateContext& pro, wchar_t letter);
 };
@@ -66,6 +68,7 @@ struct SvState : public StrictPhraseState
 {
 public:
     SvState();
+    virtual ~SvState();
     virtual StrictPhraseState* OnNoteEvt(StrictPhraseStateContext& pro, wchar_t letter);
     virtual StrictPhraseState* OnSharpEvt(StrictPhraseStateContext& pro, wchar_t letter);
     virtual StrictPhraseState* OnFlatEvt(StrictPhraseStateContext& pro, wchar_t letter);
@@ -76,6 +79,7 @@ struct ErrState : public StrictPhraseState
 {
 public:
     ErrState();
+    virtual ~ErrState();
     virtual bool IsError();
     virtual StrictPhraseState* OnNoteEvt(StrictPhraseStateContext& pro, wchar_t letter);
     virtual StrictPhraseState* OnSharpEvt(StrictPhraseStateContext& pro, wchar_t letter);

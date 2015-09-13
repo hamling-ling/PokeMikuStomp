@@ -40,7 +40,7 @@ public:
     StrictPhraseStateMachine();
     ~StrictPhraseStateMachine();
     PhraseStateMachineError Input(wchar_t letter);
-    void GetResult(std::list<unsigned int> notes, std::list<std::wstring> pros);
+    void GetResult(std::list<unsigned int>& notes, std::list<std::wstring>& pros);
 private:
     StrictPhraseStateContext _ctx;
     StrictPhraseState* states[StrictPhraseStateIdMax];

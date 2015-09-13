@@ -15,7 +15,20 @@ using namespace std;
 // StrictPhraseState
 //
 
+StrictPhraseState::StrictPhraseState(){}
+
+StrictPhraseState::~StrictPhraseState(){}
+
+bool StrictPhraseState::IsError() {
+    return false;
+}
+
 StrictPhraseState* StrictPhraseState::OnNoteEvt(StrictPhraseStateContext& pro, wchar_t letter) {
+    
+    if(pro.IsValid()) {
+        pro.Push();
+    }
+    
     pro.note  = StrictPhraseStateContext::NoteFromLetter(letter);
     return _allStates[StrictPhraseStateIdNote];
 }
@@ -46,12 +59,16 @@ StrictPhraseState* StrictPhraseState::OnEofEvt(StrictPhraseStateContext& pro, wc
 }
 
 void StrictPhraseState::SetAllStates(StrictPhraseState* states[StrictPhraseStateIdMax]) {
-    memcpy(_allStates, states, sizeof(StrictPhraseState) * StrictPhraseStateIdMax);
+    memcpy(_allStates, states, sizeof(StrictPhraseState*) * StrictPhraseStateIdMax);
 }
 
 //
 // NoteState
 //
+
+NoteState::NoteState(){}
+
+NoteState::~NoteState(){}
 
 StrictPhraseState* NoteState::OnEofEvt(StrictPhraseStateContext& pro, wchar_t letter) {
     pro.Push();
@@ -61,6 +78,10 @@ StrictPhraseState* NoteState::OnEofEvt(StrictPhraseStateContext& pro, wchar_t le
 //
 // ModState
 //
+
+ModState::ModState(){}
+
+ModState::~ModState(){}
 
 StrictPhraseState* ModState::OnNoteEvt(StrictPhraseStateContext& pro, wchar_t letter) {
     return _allStates[StrictPhraseStateIdError];
@@ -78,6 +99,10 @@ StrictPhraseState* ModState::OnEofEvt(StrictPhraseStateContext& pro, wchar_t let
 // LetterState
 //
 
+LetterState::LetterState(){}
+
+LetterState::~LetterState(){}
+
 StrictPhraseState* LetterState::OnSharpEvt(StrictPhraseStateContext& pro, wchar_t letter) {
     return _allStates[StrictPhraseStateIdError];
 }
@@ -89,6 +114,10 @@ StrictPhraseState* LetterState::OnFlatEvt(StrictPhraseStateContext& pro, wchar_t
 //
 // SvState
 //
+
+SvState::SvState(){}
+
+SvState::~SvState(){}
 
 StrictPhraseState* SvState::OnNoteEvt(StrictPhraseStateContext& pro, wchar_t letter) {
     return _allStates[StrictPhraseStateIdError];
@@ -109,6 +138,10 @@ StrictPhraseState* SvState::OnLetterEvt(StrictPhraseStateContext& pro, wchar_t l
 //
 // ErrState
 //
+
+ErrState::ErrState(){}
+
+ErrState::~ErrState(){}
 
 bool ErrState::IsError() {
     return true;

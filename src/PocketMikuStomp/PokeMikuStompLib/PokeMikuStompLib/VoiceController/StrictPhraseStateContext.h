@@ -11,8 +11,7 @@
 
 #include <list>
 #include <string>
-
-#define kStrictNoNote   0xFFFFFFFF
+#include "VoiceControllerCommon.h"
 
 struct StrictPhraseStateContext {
 public:

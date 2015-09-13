@@ -14,6 +14,7 @@
 #include <memory>
 #include <functional>
 #include <mutex>
+#include "VoiceControllerCommon.h"
 
 typedef enum _VoiceControllerNotificationType {
     VoiceControllerNotificationTypePronounceStarted,
@@ -35,7 +36,6 @@ class VoiceController
 public:
     static const int kDefaultOffToOnThreshold = 10;
     static const int kDefaultOnToOffThreshold = 5;
-    static const unsigned int kNoMidiNote = 0xFFFFFFFF;
     
     VoiceController();
     virtual ~VoiceController();

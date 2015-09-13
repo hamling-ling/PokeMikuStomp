@@ -383,7 +383,7 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
     _voice->SetThreshold(self.OffToOnThreshold, self.OnToOffThreshold);
     
     VoiceControllerNotification notif;
-    unsigned int midiNote = _pitch.error ? VoiceController::kNoMidiNote : _pitch.midi;
+    unsigned int midiNote = _pitch.error ? kNoMidiNote : _pitch.midi;
     if(_voice->Input(level, midiNote, notif)) {
         [self handleVoiceControllerNotification:notif];
     }

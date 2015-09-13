@@ -13,6 +13,7 @@
 #include "MappedVoiceController.h"
 #include "StrictVoiceController.h"
 #include "PronouncableLetterMap.h"
+#include "StrictPhraseParser.h"
 
 using namespace std;
 
@@ -137,7 +138,7 @@ using namespace std;
     // callback expected
     XCTAssertTrue(notif.type == VoiceControllerNotificationTypePronounceFinished);
     XCTAssertTrue(notif.level == 9);
-    XCTAssertTrue(notif.note == VoiceController::kNoMidiNote);
+    XCTAssertTrue(notif.note == kNoMidiNote);
     XCTAssertTrue(notif.pronounciation == "");
 }
 
@@ -175,11 +176,40 @@ using namespace std;
     vc.Input(9,0,notif);
     XCTAssertTrue(notif.type == VoiceControllerNotificationTypePronounceFinished);
     XCTAssertTrue(notif.level == 9);
-    XCTAssertTrue(notif.note == VoiceController::kNoMidiNote);
+    XCTAssertTrue(notif.note == kNoMidiNote);
     XCTAssertTrue(notif.pronounciation == "");
     
-    vc.Input(20, VoiceController::kNoMidiNote,notif);
+    vc.Input(20, kNoMidiNote,notif);
     XCTAssertTrue(notif.type == VoiceControllerNotificationTypePronounceFinished);
+}
+
+- (void)testStrictPhraseParser {
+    wstring input = L"cどdれeみ";
+    StrictPhraseParser parser;
+    list<unsigned int> conds;
+    list<unsigned int>::const_iterator conds_it;
+    list<std::wstring> split;
+    list<std::wstring>::const_iterator split_it;
+    
+    if(!parser.TrySplit(input, conds, split)) {
+        XCTFail("parse failed");
+    }
+    
+    conds_it = conds.begin();
+    split_it = split.begin();
+    
+    XCTAssertTrue(*conds_it == 0);
+    XCTAssertTrue(split_it->compare(L"ど") == 0);
+    
+    conds_it++;
+    split_it++;
+    XCTAssertTrue(*conds_it == 2);
+    XCTAssertTrue(split_it->compare(L"れ") == 0);
+    
+    conds_it++;
+    split_it++;
+    XCTAssertTrue(*conds_it == 4);
+    XCTAssertTrue(split_it->compare(L"み") == 0);
 }
 
 - (void)testStrictVoiceControllerStartedEvent {

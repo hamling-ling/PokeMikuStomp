@@ -28,7 +28,9 @@ bool StrictPhraseParser::TrySplit(
     
     std::wstring::const_iterator it = phrase.begin();
     while(it != phrase.end()) {
+        
         if(ShouldIgnore(*it)) {
+            it++;
             continue;
         }
         
@@ -39,7 +41,8 @@ bool StrictPhraseParser::TrySplit(
         it++;
     }
     
-    
+    sm.Input(L'\0');
+    sm.GetResult(conds, splitPhrase);
     
     return true;
 }
@@ -54,6 +57,7 @@ bool StrictPhraseParser::ShouldIgnore(wchar_t letter)
         case L'\t':
             break;
         default:
+            shouldIgnore = false;
             break;
     }
     return shouldIgnore;

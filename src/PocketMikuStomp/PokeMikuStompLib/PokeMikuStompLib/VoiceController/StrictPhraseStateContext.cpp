@@ -10,7 +10,7 @@
 #include "PronouncableLetterMap.h"
 #include <cassert>
 
-StrictPhraseStateContext::StrictPhraseStateContext() : note(kStrictNoNote), mod(0), letter(0) {}
+StrictPhraseStateContext::StrictPhraseStateContext() : note(kNoMidiNote), mod(0), letter(0), small(0) {}
 
 bool StrictPhraseStateContext::IsValid() {
     if(!PronouncableLetterMap::Instance().IsPronounsableLetter(letter)) {
@@ -28,11 +28,11 @@ bool StrictPhraseStateContext::IsValid() {
 }
 
 unsigned int StrictPhraseStateContext::GetMidiNote() {
-    if(note == kStrictNoNote) {
+    if(note == kNoMidiNote) {
         return note;
     }
     
-    return ((note + 12) + mod) % 13;
+    return ((note + 12) + mod) % 12;
 }
 
 bool StrictPhraseStateContext::Push() {
@@ -43,9 +43,10 @@ bool StrictPhraseStateContext::Push() {
     wchar_t strarr[3] = {letter, small, L'\0'};
     pronounces.push_back(strarr);
     
-    note = kStrictNoNote;
+    note = kNoMidiNote;
     mod = 0;
     letter = L'\0';
+    small = L'\0';
     
     return true;
 }
