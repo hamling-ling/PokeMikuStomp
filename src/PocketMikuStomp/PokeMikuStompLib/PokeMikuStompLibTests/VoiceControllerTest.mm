@@ -185,7 +185,22 @@ using namespace std;
     XCTAssertTrue(notif.type == VoiceControllerNotificationTypePronounceFinished);
 }
 
-- (void)testStrictPhraseParser {
+
+- (void)testStrictPhraseParserNoNote {
+    wstring input = L"どれみふぁそ";
+    
+    StrictPhraseParser parser;
+    list<unsigned int> conds;
+    list<std::wstring> split;
+    
+    if(!parser.TrySplit(input, conds, split)) {
+        XCTFail("parse failed");
+    }
+    XCTAssertTrue(conds.size() == 5);
+    XCTAssertTrue(split.size() == 5);
+}
+
+- (void)testStrictPhraseParserShartFlat {
     vector<wstring> inputPron = {L"ど",L"ど",L"れ",L"れ",L"み",L"ふぁ",L"ふぁ",L"そ",L"そ",L"ら",L"ら",L"し",L"ど"};
     vector<wstring> inputNote = {L"c",L"c#",L"c##",L"d#",L"e",L"f",L"f#",L"g",L"a♭",L"b♭♭",L"b♭",L"c♭",L"c"};
 
@@ -197,7 +212,6 @@ using namespace std;
     StrictPhraseParser parser;
     list<unsigned int> conds;
     list<std::wstring> split;
-
     
     if(!parser.TrySplit(input, conds, split)) {
         XCTFail("parse failed");

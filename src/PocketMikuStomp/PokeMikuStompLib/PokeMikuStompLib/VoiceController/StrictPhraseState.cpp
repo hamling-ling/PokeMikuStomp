@@ -142,10 +142,6 @@ StrictPhraseState* SvState::OnFlatEvt(StrictPhraseStateContext& pro, wchar_t let
     return _allStates[StrictPhraseStateIdError];
 }
 
-StrictPhraseState* SvState::OnLetterEvt(StrictPhraseStateContext& pro, wchar_t letter) {
-    return _allStates[StrictPhraseStateIdError];
-}
-
 //
 // ErrState
 //

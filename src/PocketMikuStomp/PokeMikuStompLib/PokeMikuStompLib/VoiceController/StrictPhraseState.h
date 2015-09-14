@@ -72,7 +72,6 @@ public:
     virtual ~SvState();
     virtual StrictPhraseState* OnSharpEvt(StrictPhraseStateContext& pro, wchar_t letter);
     virtual StrictPhraseState* OnFlatEvt(StrictPhraseStateContext& pro, wchar_t letter);
-    virtual StrictPhraseState* OnLetterEvt(StrictPhraseStateContext& pro, wchar_t letter);
 };
 
 struct ErrState : public StrictPhraseState
