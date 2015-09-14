@@ -18,10 +18,12 @@ public:
     StrictVoiceController();
     ~StrictVoiceController();
     virtual bool SetPhrase(std::string& phrase);
+    virtual std::string GetPhrase();
     virtual bool Input(int level, unsigned int note, VoiceControllerNotification& notif);
 private:
     std::list<unsigned int> _transConditions;
     std::list<unsigned int>::const_iterator trIt;
+    void LoadNextConditon();
 };
 
 #endif /* defined(__PokeMikuStompLib__StrictVoiceController__) */

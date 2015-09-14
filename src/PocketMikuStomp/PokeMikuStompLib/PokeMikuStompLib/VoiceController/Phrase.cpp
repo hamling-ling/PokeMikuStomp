@@ -32,6 +32,17 @@ wstring Phrase::GetPhraseString()
     return _phraseString;
 }
 
+list<wstring> Phrase::GetPronounciations()
+{
+    list<wstring> pros;
+    for(auto wc : _phraseString) {
+        wchar_t arr[2] = {wc, L'\0'};
+        pros.push_back(wstring(arr));
+    }
+
+    return pros;
+}
+
 wstring Phrase::Next()
 {
     if(_phraseIt == _phraseString.end()) {
@@ -59,4 +70,9 @@ void Phrase::SetCirculation(bool circulate)
 {
     _circulate = circulate;
     ResetPos();
+}
+
+bool Phrase::GetCirculation()
+{
+    return _circulate;
 }

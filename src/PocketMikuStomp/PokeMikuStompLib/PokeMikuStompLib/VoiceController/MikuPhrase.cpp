@@ -39,6 +39,11 @@ wstring MikuPhrase::GetPhraseString()
     return phrase;
 }
 
+list<wstring> MikuPhrase::GetPronounciations()
+{
+    return _pronounciations;
+}
+
 void MikuPhrase::MakePronounciations()
 {
     PronouncableLetterMap& map = PronouncableLetterMap::Instance();

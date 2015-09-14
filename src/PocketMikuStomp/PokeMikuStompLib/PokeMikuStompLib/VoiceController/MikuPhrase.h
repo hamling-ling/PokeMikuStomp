@@ -19,7 +19,8 @@ public:
     MikuPhrase();
     MikuPhrase(std::wstring& phraseString);
     virtual ~MikuPhrase();
-    std::wstring GetPhraseString();
+    virtual std::wstring GetPhraseString();
+    virtual std::list<std::wstring> GetPronounciations();
     virtual std::wstring Next();
     virtual void ResetPos();
     virtual void SetPronounciatins(const std::list<std::wstring> &pros);

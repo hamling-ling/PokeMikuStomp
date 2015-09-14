@@ -40,6 +40,28 @@ bool StrictVoiceController::SetPhrase(string& phrase)
     return true;
 }
 
+std::string StrictVoiceController::GetPhrase()
+{
+    wstring phrase;
+    list<wstring> pros = _phrase->GetPronounciations();
+    list<wstring>::const_iterator proIt = pros.begin();
+    list<unsigned int>::const_iterator cndIt = _transConditions.begin();
+    
+    static const wstring noteTable[] = {L"C",L"C#",L"D",L"D#",L"E",L"F",L"F#",L"G",L"G#",L"A",L"B♭",L"B"};
+    while (proIt != pros.end() && cndIt != _transConditions.end()) {
+        wstring note;
+        if(*cndIt != kNoMidiNote) {
+            note = noteTable[*cndIt];
+        }
+        phrase += note + *proIt;
+        
+        proIt++;
+        cndIt++;
+    }
+    
+    return ws2s(phrase);
+}
+
 bool StrictVoiceController::Input(int level, unsigned int note, VoiceControllerNotification& notif)
 {
     if(HandleInputLevelToOff(level, notif)) {
@@ -55,7 +77,7 @@ bool StrictVoiceController::Input(int level, unsigned int note, VoiceControllerN
     }
     
     if(*trIt != kNoMidiNote) {
-        if(*trIt == note) {
+        if(*trIt != note%12) {
             return false;
         }
     }
@@ -63,14 +85,26 @@ bool StrictVoiceController::Input(int level, unsigned int note, VoiceControllerN
     if(_currentNote == kNoMidiNote) {
         _currentNote = note;
         notif = MakeStartedNotification();
+        LoadNextConditon();
         return true;
     }
     
     if(_currentNote != note) {
         _currentNote = note;
         notif = MakeChangedNotification();
+        LoadNextConditon();
         return true;
     }
     
     return false;
+}
+
+void StrictVoiceController::LoadNextConditon()
+{
+    trIt++;
+    if(trIt == _transConditions.end()) {
+        if(_phrase->GetCirculation()) {
+            trIt = _transConditions.begin();
+        }
+    }
 }
