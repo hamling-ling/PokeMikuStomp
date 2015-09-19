@@ -22,9 +22,7 @@ public:
     
 protected:
     
-    virtual VoiceControllerNotification MakeStartedNotification();
-    
-    virtual VoiceControllerNotification MakeChangedNotification();
+    virtual std::wstring GetNextPronounciation(int level, unsigned int note);
 };
 
 #endif /* defined(__PokeMikuStompLib__DoremiVoiceController__) */

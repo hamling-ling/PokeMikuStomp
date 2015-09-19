@@ -34,7 +34,7 @@ bool OnOffThreshouldVoiceController::IsBelowOnToOff(int level) {
 }
 
 bool OnOffThreshouldVoiceController::IsAboveOffToOn(int level) {
-    return (level <= _currentInputLevel);
+    return (_offToOnThreshold <= level);
 }
 
 bool OnOffThreshouldVoiceController::ShouldStop(int level, unsigned int note, VoiceControllerNotification& notif)
@@ -54,8 +54,6 @@ bool OnOffThreshouldVoiceController::ShouldStop(int level, unsigned int note, Vo
 
 bool OnOffThreshouldVoiceController::ShouldStart(int level, unsigned int note, VoiceControllerNotification& notif)
 {
-    assert(kNoMidiNote != _currentNote);
-    
     if(note == kNoMidiNote) {
         return false;
     }
@@ -72,8 +70,6 @@ bool OnOffThreshouldVoiceController::ShouldStart(int level, unsigned int note, V
 
 bool OnOffThreshouldVoiceController::ShouldChange(int level, unsigned int note, VoiceControllerNotification& notif)
 {
-    assert(kNoMidiNote != _currentNote);
-    
     if(note == kNoMidiNote) {
         return false;
     }
@@ -83,8 +79,8 @@ bool OnOffThreshouldVoiceController::ShouldChange(int level, unsigned int note, 
     }
     
     if( IsBelowOnToOff(level)) {
-        return true;
+        return false;
     }
     
-    return false;
+    return true;
 }

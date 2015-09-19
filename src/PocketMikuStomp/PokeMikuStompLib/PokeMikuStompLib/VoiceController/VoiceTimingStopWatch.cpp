@@ -35,8 +35,6 @@ unsigned long long VoiceTimingStopWatch::Time()
     unsigned long long time = fp_microsec(endTime - _startTime).count();
     
     return time;
-    
-    return 0;
 }
 
 void VoiceTimingStopWatch::Reset(unsigned int interval)
@@ -45,6 +43,7 @@ void VoiceTimingStopWatch::Reset(unsigned int interval)
     
     _startTime = system_clock::now();
     _interval = interval;
+    _isRunning = true;
 }
 
 bool VoiceTimingStopWatch::IsEllapsed()
@@ -53,7 +52,7 @@ bool VoiceTimingStopWatch::IsEllapsed()
     
     unsigned long long time = Time();
     if(_interval < time) {
-        return false;
+        return true;
     }
-    return true;
+    return false;
 }

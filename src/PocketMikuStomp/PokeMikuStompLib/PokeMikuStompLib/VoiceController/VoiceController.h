@@ -55,15 +55,17 @@ protected:
     virtual bool ShouldStart(int level, unsigned int note, VoiceControllerNotification& notif) = 0;
     // check if voice should change. called after ShouldStart
     virtual bool ShouldChange(int level, unsigned int note, VoiceControllerNotification& notif) = 0;
-    
-    virtual VoiceControllerNotification MakeStartedNotification();
-    virtual VoiceControllerNotification MakeFinishedNotification();
-    virtual VoiceControllerNotification MakeChangedNotification();
+    virtual VoiceControllerNotification StartedPronounce(int level, unsigned int note);
+    virtual VoiceControllerNotification StopPronounce(int level);
+    virtual VoiceControllerNotification ChangePronounce(int level, unsigned int note);
+    virtual void UpdateInternalState(int level, unsigned int note, const std::wstring& pro);
     virtual VoiceControllerNotification MakeNotification(
                                                          VoiceControllerNotificationType type,
+                                                         int level,
                                                          unsigned int midiNote,
                                                          const std::wstring& pronounciation
                                                          );
+    virtual std::wstring GetNextPronounciation(int level, unsigned int note);
 };
 
 #endif /* defined(__PokeMikuStompLib__VoiceController__) */

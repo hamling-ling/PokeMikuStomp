@@ -32,15 +32,8 @@ std::string DoremiVoiceController::GetPhrase()
     return "どれみ";
 }
 
-VoiceControllerNotification DoremiVoiceController::MakeStartedNotification() {
-    return MakeNotification( VoiceControllerNotificationTypePronounceStarted,
-                            _currentNote,
-                            kNoteProStrings[_currentNote%12]);
-}
-
-VoiceControllerNotification DoremiVoiceController::MakeChangedNotification() {
-    return MakeNotification( VoiceControllerNotificationTypePronounceChanged,
-                            _currentNote,
-                            kNoteProStrings[_currentNote%12]);
+wstring DoremiVoiceController::GetNextPronounciation(int level, unsigned int note)
+{
+    return kNoteProStrings[_currentNote%12];
 }
 

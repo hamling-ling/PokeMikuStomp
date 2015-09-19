@@ -9,10 +9,10 @@
 #ifndef __PokeMikuStompLib__AvoidTooShortVoiceController__
 #define __PokeMikuStompLib__AvoidTooShortVoiceController__
 
-#include "OnOffThreshouldVoiceController.h"
+#include "StrictVoiceController.h"
 #include "VoiceTimingStopWatch.h"
 
-class AvoidTooShortVoiceController : public OnOffThreshouldVoiceController
+class AvoidTooShortVoiceController : public StrictVoiceController
 {
 public:
     AvoidTooShortVoiceController();
@@ -24,6 +24,7 @@ protected:
     VoiceTimingStopWatch _stopWatch;
     
     virtual bool ShouldStop(int level, unsigned int note, VoiceControllerNotification& notif);
+    virtual bool ShouldStart(int level, unsigned int note, VoiceControllerNotification& notif);
     virtual bool ShouldChange(int level, unsigned int note, VoiceControllerNotification& notif);
 };
 

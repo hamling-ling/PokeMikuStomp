@@ -38,6 +38,15 @@ bool AvoidTooShortVoiceController::ShouldStop(int level, unsigned int note, Voic
     return result;
 }
 
+bool AvoidTooShortVoiceController::ShouldStart(int level, unsigned int note, VoiceControllerNotification& notif)
+{
+    bool result = OnOffThreshouldVoiceController::ShouldStart(level, note, notif);
+    if(result) {
+        _stopWatch.Reset(_minVoiceLen);
+    }
+    return result;
+}
+
 bool AvoidTooShortVoiceController::ShouldChange(int level, unsigned int note, VoiceControllerNotification& notif)
 {
     if(!_stopWatch.IsEllapsed()) {

@@ -9,9 +9,9 @@
 #import <Cocoa/Cocoa.h>
 #import <XCTest/XCTest.h>
 #include "MikuPhrase.h"
-#include "VoiceController.h"
 #include "MappedVoiceController.h"
 #include "StrictVoiceController.h"
+#include "AvoidTooShortVoiceController.h"
 #include "PronouncableLetterMap.h"
 #include "StrictPhraseParser.h"
 #include "Utilities.h"
@@ -278,6 +278,74 @@ using namespace std;
     XCTAssertTrue(notif.level == 20);
     XCTAssertTrue(notif.note == 48);
     XCTAssertTrue(notif.pronounciation == "い");
+}
+
+- (void)testAvoidTooShortVoiceControllerFinishEvent {
+    string input = "ぅいあぁえ";
+    AvoidTooShortVoiceController vc;
+    VoiceControllerNotification notif;
+    bool responded = false;
+    
+    XCTAssertFalse(!PronouncableLetterMap::Instance().IsInitialized());
+    vc.SetMinimumVoiceLength(200);//200ms
+    vc.SetPhrase(input);
+    vc.SetThreshold(10, 10);
+    notif.type = VoiceControllerNotificationTypePronounceFinished;
+    
+    responded = vc.Input(20,50,notif);
+    XCTAssertTrue(responded);
+    XCTAssertTrue(notif.type == VoiceControllerNotificationTypePronounceStarted);
+    XCTAssertTrue(notif.level == 20);
+    XCTAssertTrue(notif.note == 50);
+    XCTAssertTrue(notif.pronounciation == "い");
+    
+    responded = vc.Input(0,kNoMidiNote, notif);
+    XCTAssertFalse(responded);//should not respoind to short on->off
+    
+    usleep(210*1000);
+    responded = vc.Input(0,kNoMidiNote, notif);
+    XCTAssertTrue(responded);// should respond
+    XCTAssertTrue(notif.type == VoiceControllerNotificationTypePronounceFinished);
+    XCTAssertTrue(notif.level == 0);
+    XCTAssertTrue(notif.note == kNoMidiNote);
+    XCTAssertTrue(notif.pronounciation == "");
+    
+    responded = vc.Input(9,10,notif);
+    XCTAssertFalse(responded);//should not respoind since not enough level
+}
+
+- (void)testAvoidTooShortVoiceControllerChangeEvent {
+    string input = "ぅいあぁえ";
+    AvoidTooShortVoiceController vc;
+    VoiceControllerNotification notif;
+    bool responded = false;
+    
+    XCTAssertFalse(!PronouncableLetterMap::Instance().IsInitialized());
+    vc.SetMinimumVoiceLength(200);//200ms
+    vc.SetPhrase(input);
+    vc.SetThreshold(10, 10);
+    notif.type = VoiceControllerNotificationTypePronounceFinished;
+    
+    responded = vc.Input(20,50,notif);
+    XCTAssertTrue(responded);
+    XCTAssertTrue(notif.type == VoiceControllerNotificationTypePronounceStarted);
+    XCTAssertTrue(notif.level == 20);
+    XCTAssertTrue(notif.note == 50);
+    XCTAssertTrue(notif.pronounciation == "い");
+    
+    responded = vc.Input(20,52, notif);
+    XCTAssertFalse(responded);//should not respoind since to shoort to change
+    
+    usleep(210*1000);
+    responded = vc.Input(20,54, notif);
+    XCTAssertTrue(responded);// should respond
+    XCTAssertTrue(notif.type == VoiceControllerNotificationTypePronounceChanged);
+    XCTAssertTrue(notif.level == 20);
+    XCTAssertTrue(notif.note == 54);
+    XCTAssertTrue(notif.pronounciation == "あ");
+    
+    responded = vc.Input(9,10,notif);
+    XCTAssertFalse(responded);//should not respoind since not enough level
 }
 
 - (void)testPerformanceExample {

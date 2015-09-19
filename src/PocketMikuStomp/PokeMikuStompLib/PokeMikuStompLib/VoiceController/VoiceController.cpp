@@ -41,68 +41,85 @@ std::string VoiceController::GetPhrase()
 bool VoiceController::Input(int level, unsigned int note, VoiceControllerNotification& notif)
 {
     bool result = false;
+    bool isOn = (kNoMidiNote != _currentNote);
     
-    if(ShouldStop(level, note, notif)) {
-        _currentNote = kNoMidiNote;
-        // note off
-        notif = MakeFinishedNotification();
-        result = true;
-        goto FINALY;
+    if(isOn) {
+        if(ShouldStop(level, note, notif)) {
+            notif = StopPronounce(level);
+            result = true;
+            goto FINALY;
+        }
+        if(ShouldChange(level, note, notif)) {
+            notif = ChangePronounce(level, note);
+            result = true;
+            goto FINALY;
+        }
+    } else {
+        if(ShouldStart(level, note, notif)) {
+            notif = StartedPronounce(level, note);
+            result = true;
+            goto FINALY;
+        }
     }
-    
-    if(ShouldStart(level, note, notif)) {
-        _currentNote = note;
-        notif = MakeStartedNotification();
-        result = true;
-        goto FINALY;
-    }
-    
-    if(ShouldChange(level, note, notif)) {
-        _currentNote = note;
-        notif = MakeChangedNotification();
-        result = true;
-        goto FINALY;
-    }
-    
+
 FINALY:
     // update level
     _currentInputLevel = level;
     
-    return false;
+    return result;
 }
 
-VoiceControllerNotification VoiceController::MakeStartedNotification() {
-    std::lock_guard<std::recursive_mutex> lock(_phraseMutex);
-    return MakeNotification( VoiceControllerNotificationTypePronounceStarted,
-                      _currentNote,
-                      _phrase->Next());
+VoiceControllerNotification VoiceController::StartedPronounce(int level, unsigned int note) {
+    const std::wstring& pro = GetNextPronounciation(level, note);
+    UpdateInternalState(level, note, pro);
+    
+    return MakeNotification(VoiceControllerNotificationTypePronounceStarted,
+                            level,
+                            note,
+                            pro);
 }
 
-VoiceControllerNotification VoiceController::MakeFinishedNotification() {
-    std::wstring pro(L"");
-    return MakeNotification( VoiceControllerNotificationTypePronounceFinished, kNoMidiNote, pro);
+VoiceControllerNotification VoiceController::StopPronounce(int level) {
+    const std::wstring pro(L"");
+    UpdateInternalState(level, kNoMidiNote, pro);
+    return MakeNotification( VoiceControllerNotificationTypePronounceFinished, level, kNoMidiNote, pro);
 }
 
-VoiceControllerNotification VoiceController::MakeChangedNotification() {
-    std::lock_guard<std::recursive_mutex> lock(_phraseMutex);
-    return MakeNotification( VoiceControllerNotificationTypePronounceChanged,
-                      _currentNote,
-                      _phrase->Next());
+VoiceControllerNotification VoiceController::ChangePronounce(int level, unsigned int note) {
+    const std::wstring& pro = GetNextPronounciation(level, note);
+    UpdateInternalState(level, note, pro);
+    
+    return MakeNotification(VoiceControllerNotificationTypePronounceChanged,
+                            level,
+                            note,
+                            pro);
+}
+
+void VoiceController::UpdateInternalState(int level, unsigned int note, const wstring& pro)
+{
+    _currentInputLevel = level;
+    _currentNote = note;
+    _currentPronounciation = pro;
 }
 
 VoiceControllerNotification VoiceController::MakeNotification (
                                         VoiceControllerNotificationType type,
+                                        int level,
                                         unsigned int midiNote,
                                         const std::wstring& pronounciation
                                         ) {
-    _currentPronounciation = pronounciation;
-    
     VoiceControllerNotification notif {
         .type = type,
         .pronounciation = ws2s(pronounciation),
         .note = midiNote,
-        .level = _currentInputLevel
+        .level = level
     };
     
     return notif;
+}
+
+wstring VoiceController::GetNextPronounciation(int level, unsigned int note)
+{
+    std::lock_guard<std::recursive_mutex> lock(_phraseMutex);
+    return _phrase->Next();
 }
