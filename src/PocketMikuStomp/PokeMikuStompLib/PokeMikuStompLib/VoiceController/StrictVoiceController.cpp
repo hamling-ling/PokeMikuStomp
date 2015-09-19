@@ -62,41 +62,34 @@ std::string StrictVoiceController::GetPhrase()
     return ws2s(phrase);
 }
 
-bool StrictVoiceController::Input(int level, unsigned int note, VoiceControllerNotification& notif)
+bool StrictVoiceController::ShouldStart(int level, unsigned int note, VoiceControllerNotification& notif)
 {
-    if(HandleInputLevelToOff(level, notif)) {
-        return true;
-    }
-    
-    if(note == kNoMidiNote) {
-        return false;
-    }
-    
-    if(!IsAboveOffToOn()) {
-        return false;
-    }
-    
     if(*trIt != kNoMidiNote) {
         if(*trIt != note%12) {
             return false;
         }
     }
     
-    if(_currentNote == kNoMidiNote) {
-        _currentNote = note;
-        notif = MakeStartedNotification();
+    bool result = OnOffThreshouldVoiceController::ShouldStart(level, note, notif);
+    if(result) {
         LoadNextConditon();
-        return true;
+    }
+    return result;
+}
+
+bool StrictVoiceController::ShouldChange(int level, unsigned int note, VoiceControllerNotification& notif)
+{
+    if(*trIt != kNoMidiNote) {
+        if(*trIt != note%12) {
+            return false;
+        }
     }
     
-    if(_currentNote != note) {
-        _currentNote = note;
-        notif = MakeChangedNotification();
+    bool result = OnOffThreshouldVoiceController::ShouldChange(level, note, notif);
+    if(result) {
         LoadNextConditon();
-        return true;
     }
-    
-    return false;
+    return result;
 }
 
 void StrictVoiceController::LoadNextConditon()

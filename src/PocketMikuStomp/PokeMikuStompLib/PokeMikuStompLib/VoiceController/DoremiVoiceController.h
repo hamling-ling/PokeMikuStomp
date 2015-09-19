@@ -9,9 +9,9 @@
 #ifndef __PokeMikuStompLib__DoremiVoiceController__
 #define __PokeMikuStompLib__DoremiVoiceController__
 
-#include "VoiceController.h"
+#include "OnOffThreshouldVoiceController.h"
 
-class DoremiVoiceController : public VoiceController
+class DoremiVoiceController : public OnOffThreshouldVoiceController
 {
 public:
     DoremiVoiceController();

@@ -33,7 +33,7 @@ static const shared_ptr<SoundCapture> nullCap;
     PMMiku* _miku;
     shared_ptr<PitchDetector> _det;
     shared_ptr<SoundCapture> _cap;
-    shared_ptr<VoiceController> _voice;
+    shared_ptr<OnOffThreshouldVoiceController> _voice;
     AppData _app;
     PitchInfo _pitch;
     NSString* _currentPhrase;
@@ -84,8 +84,8 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
         _app.context = NULL;
         _app.buf = NULL;
         _app.miku = NULL;
-        _OffToOnThreshold = VoiceController::kDefaultOffToOnThreshold;
-        _OnToOffThreshold = VoiceController::kDefaultOnToOffThreshold;
+        _OffToOnThreshold = DoremiVoiceController::kDefaultOffToOnThreshold;
+        _OnToOffThreshold = DoremiVoiceController::kDefaultOnToOffThreshold;
         
         NSBundle *bundle = [NSBundle bundleForClass:[self class]];
         NSString* path = [bundle pathForResource:@"pm-char-map" ofType:@"txt"];
@@ -128,10 +128,10 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
         shared_ptr<StrictVoiceController> ptr = make_shared<StrictVoiceController>();
         ptr->SetThreshold((int)self.OffToOnThreshold, (int)self.OnToOffThreshold);
         
-        _voice = dynamic_pointer_cast<VoiceController>(ptr);
+        _voice = dynamic_pointer_cast<OnOffThreshouldVoiceController>(ptr);
     } else {
         shared_ptr<DoremiVoiceController> ptr = make_shared<DoremiVoiceController>();
-        _voice = dynamic_pointer_cast<VoiceController>(ptr);
+        _voice = dynamic_pointer_cast<OnOffThreshouldVoiceController>(ptr);
     }
     
     _voiceMode = voiceMode;

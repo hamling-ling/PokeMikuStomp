@@ -18,6 +18,12 @@
 		C280E6721BA5973300655E38 /* VoiceControllerCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = C280E66C1BA5965E00655E38 /* VoiceControllerCommon.h */; };
 		C29BFDDF1ADEC66E00393D2E /* DoremiVoiceController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C29BFDDD1ADEC66E00393D2E /* DoremiVoiceController.cpp */; };
 		C29BFDE01ADEC66E00393D2E /* DoremiVoiceController.h in Headers */ = {isa = PBXBuildFile; fileRef = C29BFDDE1ADEC66E00393D2E /* DoremiVoiceController.h */; };
+		C2AC01D71BAC0B7800CFB100 /* VoiceTimingStopWatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2AC01D51BAC0B7800CFB100 /* VoiceTimingStopWatch.cpp */; };
+		C2AC01D81BAC0B7800CFB100 /* VoiceTimingStopWatch.h in Headers */ = {isa = PBXBuildFile; fileRef = C2AC01D61BAC0B7800CFB100 /* VoiceTimingStopWatch.h */; };
+		C2AC01DF1BAC125B00CFB100 /* OnOffThreshouldVoiceController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2AC01DD1BAC125B00CFB100 /* OnOffThreshouldVoiceController.cpp */; };
+		C2AC01E01BAC125B00CFB100 /* OnOffThreshouldVoiceController.h in Headers */ = {isa = PBXBuildFile; fileRef = C2AC01DE1BAC125B00CFB100 /* OnOffThreshouldVoiceController.h */; };
+		C2AC01E31BAC1E8600CFB100 /* AvoidTooShortVoiceController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2AC01E11BAC1E8600CFB100 /* AvoidTooShortVoiceController.cpp */; };
+		C2AC01E41BAC1E8600CFB100 /* AvoidTooShortVoiceController.h in Headers */ = {isa = PBXBuildFile; fileRef = C2AC01E21BAC1E8600CFB100 /* AvoidTooShortVoiceController.h */; };
 		C2BCFD841AD8BAFD00326ECB /* VoiceController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2BCFD821AD8BAFD00326ECB /* VoiceController.cpp */; };
 		C2BCFD851AD8BAFD00326ECB /* VoiceController.h in Headers */ = {isa = PBXBuildFile; fileRef = C2BCFD831AD8BAFD00326ECB /* VoiceController.h */; };
 		C2BCFD881AD8BB1300326ECB /* MappedVoiceController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C2BCFD861AD8BB1300326ECB /* MappedVoiceController.cpp */; };
@@ -128,6 +134,12 @@
 		C280E66C1BA5965E00655E38 /* VoiceControllerCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceControllerCommon.h; sourceTree = "<group>"; };
 		C29BFDDD1ADEC66E00393D2E /* DoremiVoiceController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DoremiVoiceController.cpp; path = VoiceController/DoremiVoiceController.cpp; sourceTree = "<group>"; };
 		C29BFDDE1ADEC66E00393D2E /* DoremiVoiceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DoremiVoiceController.h; path = VoiceController/DoremiVoiceController.h; sourceTree = "<group>"; };
+		C2AC01D51BAC0B7800CFB100 /* VoiceTimingStopWatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VoiceTimingStopWatch.cpp; path = VoiceController/VoiceTimingStopWatch.cpp; sourceTree = "<group>"; };
+		C2AC01D61BAC0B7800CFB100 /* VoiceTimingStopWatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VoiceTimingStopWatch.h; path = VoiceController/VoiceTimingStopWatch.h; sourceTree = "<group>"; };
+		C2AC01DD1BAC125B00CFB100 /* OnOffThreshouldVoiceController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OnOffThreshouldVoiceController.cpp; sourceTree = "<group>"; };
+		C2AC01DE1BAC125B00CFB100 /* OnOffThreshouldVoiceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnOffThreshouldVoiceController.h; sourceTree = "<group>"; };
+		C2AC01E11BAC1E8600CFB100 /* AvoidTooShortVoiceController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AvoidTooShortVoiceController.cpp; path = VoiceController/AvoidTooShortVoiceController.cpp; sourceTree = "<group>"; };
+		C2AC01E21BAC1E8600CFB100 /* AvoidTooShortVoiceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AvoidTooShortVoiceController.h; path = VoiceController/AvoidTooShortVoiceController.h; sourceTree = "<group>"; };
 		C2BCFD821AD8BAFD00326ECB /* VoiceController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VoiceController.cpp; path = VoiceController/VoiceController.cpp; sourceTree = "<group>"; };
 		C2BCFD831AD8BAFD00326ECB /* VoiceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VoiceController.h; path = VoiceController/VoiceController.h; sourceTree = "<group>"; };
 		C2BCFD861AD8BB1300326ECB /* MappedVoiceController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MappedVoiceController.cpp; path = VoiceController/MappedVoiceController.cpp; sourceTree = "<group>"; };
@@ -289,6 +301,12 @@
 				C2EFBB971BA4603B00F0F3F2 /* PronouncableLetterMap.h */,
 				C2EFBB9B1BA4619900F0F3F2 /* Singleton.h */,
 				C280E66C1BA5965E00655E38 /* VoiceControllerCommon.h */,
+				C2AC01D51BAC0B7800CFB100 /* VoiceTimingStopWatch.cpp */,
+				C2AC01D61BAC0B7800CFB100 /* VoiceTimingStopWatch.h */,
+				C2AC01DD1BAC125B00CFB100 /* OnOffThreshouldVoiceController.cpp */,
+				C2AC01DE1BAC125B00CFB100 /* OnOffThreshouldVoiceController.h */,
+				C2AC01E11BAC1E8600CFB100 /* AvoidTooShortVoiceController.cpp */,
+				C2AC01E21BAC1E8600CFB100 /* AvoidTooShortVoiceController.h */,
 			);
 			name = VoiceController;
 			sourceTree = "<group>";
@@ -328,15 +346,18 @@
 				C280E6721BA5973300655E38 /* VoiceControllerCommon.h in Headers */,
 				C2BCFD891AD8BB1300326ECB /* MappedVoiceController.h in Headers */,
 				C29BFDE01ADEC66E00393D2E /* DoremiVoiceController.h in Headers */,
+				C2AC01E01BAC125B00CFB100 /* OnOffThreshouldVoiceController.h in Headers */,
 				C2EFBB911BA4576100F0F3F2 /* StrictPhraseParser.h in Headers */,
 				C2EFBBA51BA47FB600F0F3F2 /* StrictPhraseState.h in Headers */,
 				C2EFBB9D1BA4619900F0F3F2 /* Singleton.h in Headers */,
+				C2AC01D81BAC0B7800CFB100 /* VoiceTimingStopWatch.h in Headers */,
 				C2BCFD8D1AD8C6D600326ECB /* Utilities.h in Headers */,
 				C2BCFD991AD8CF1B00326ECB /* MikuPhrase.h in Headers */,
 				C27EABD31ACD6E4700148297 /* PokeMikuStompLib.h in Headers */,
 				C2BCFD851AD8BAFD00326ECB /* VoiceController.h in Headers */,
 				C2EFBBAA1BA5658500F0F3F2 /* StrictPhraseStateContext.h in Headers */,
 				C2BCFD911AD8CA9300326ECB /* Phrase.h in Headers */,
+				C2AC01E41BAC1E8600CFB100 /* AvoidTooShortVoiceController.h in Headers */,
 				C2EFBBA11BA4742900F0F3F2 /* StrictPhraseStateMachine.h in Headers */,
 				C2EFBB991BA4603B00F0F3F2 /* PronouncableLetterMap.h in Headers */,
 			);
@@ -527,15 +548,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C2AC01E31BAC1E8600CFB100 /* AvoidTooShortVoiceController.cpp in Sources */,
 				C2BCFD8C1AD8C6D600326ECB /* Utilities.cpp in Sources */,
 				C2BCFD841AD8BAFD00326ECB /* VoiceController.cpp in Sources */,
 				C29BFDDF1ADEC66E00393D2E /* DoremiVoiceController.cpp in Sources */,
 				C27EABD51ACD6E4700148297 /* PokeMikuStompLib.mm in Sources */,
+				C2AC01D71BAC0B7800CFB100 /* VoiceTimingStopWatch.cpp in Sources */,
 				C2BCFD881AD8BB1300326ECB /* MappedVoiceController.cpp in Sources */,
 				C2EFBBA91BA5658500F0F3F2 /* StrictPhraseStateContext.cpp in Sources */,
 				C2EFBB881BA44B7000F0F3F2 /* StrictVoiceController.cpp in Sources */,
 				C2EFBB981BA4603B00F0F3F2 /* PronouncableLetterMap.cpp in Sources */,
 				C2EFBB901BA4576100F0F3F2 /* StrictPhraseParser.cpp in Sources */,
+				C2AC01DF1BAC125B00CFB100 /* OnOffThreshouldVoiceController.cpp in Sources */,
 				C2EFBBA01BA4742900F0F3F2 /* StrictPhraseStateMachine.cpp in Sources */,
 				C2BCFD901AD8CA9300326ECB /* Phrase.cpp in Sources */,
 				C2BCFD981AD8CF1B00326ECB /* MikuPhrase.cpp in Sources */,

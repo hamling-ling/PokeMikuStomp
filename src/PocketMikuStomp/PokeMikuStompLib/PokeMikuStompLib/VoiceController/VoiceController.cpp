@@ -13,8 +13,6 @@
 using namespace std;
 
 VoiceController::VoiceController() :
-_offToOnThreshold(kDefaultOffToOnThreshold),
-_onToOffThreshold(kDefaultOffToOnThreshold),
 _currentNote(kNoMidiNote)
 {
     
@@ -40,61 +38,35 @@ std::string VoiceController::GetPhrase()
     return ws2s(str);
 }
 
-void VoiceController::SetThreshold(int offToOn, int onToOff)
+bool VoiceController::Input(int level, unsigned int note, VoiceControllerNotification& notif)
 {
-    _offToOnThreshold = offToOn;
-    _onToOffThreshold = onToOff;
-}
-
-bool VoiceController::IsBelowOnToOff() {
-    return (_currentInputLevel < _onToOffThreshold);
-}
-
-bool VoiceController::IsAboveOffToOn() {
-    return (_offToOnThreshold <= _currentInputLevel);
-}
-
-bool VoiceController::HandleInputLevelToOff(int level, VoiceControllerNotification& notif)
-{
-    bool isOn = (kNoMidiNote != _currentNote);
-    // update level
-    _currentInputLevel = level;
+    bool result = false;
     
-    if( isOn && IsBelowOnToOff()) {
+    if(ShouldStop(level, note, notif)) {
         _currentNote = kNoMidiNote;
         // note off
         notif = MakeFinishedNotification();
-        return true;
+        result = true;
+        goto FINALY;
     }
     
-    return false;
-}
-
-bool VoiceController::Input(int level, unsigned int note, VoiceControllerNotification& notif)
-{
-    if(HandleInputLevelToOff(level, notif)) {
-        return true;
-    }
-    
-    if(note == kNoMidiNote) {
-        return false;
-    }
-    
-    if(!IsAboveOffToOn()) {
-        return false;
-    }
-    
-    if(_currentNote == kNoMidiNote) {
+    if(ShouldStart(level, note, notif)) {
         _currentNote = note;
         notif = MakeStartedNotification();
-        return true;
+        result = true;
+        goto FINALY;
     }
     
-    if(_currentNote != note) {
+    if(ShouldChange(level, note, notif)) {
         _currentNote = note;
         notif = MakeChangedNotification();
-        return true;
+        result = true;
+        goto FINALY;
     }
+    
+FINALY:
+    // update level
+    _currentInputLevel = level;
     
     return false;
 }

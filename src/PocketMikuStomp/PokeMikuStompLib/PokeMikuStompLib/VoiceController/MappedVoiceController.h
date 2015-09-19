@@ -9,10 +9,10 @@
 #ifndef __PokeMikuStompLib__MappedVoiceController__
 #define __PokeMikuStompLib__MappedVoiceController__
 
-#include "VoiceController.h"
+#include "OnOffThreshouldVoiceController.h"
 #include "PronouncableLetterMap.h"
 
-class MappedVoiceController : public VoiceController
+class MappedVoiceController : public OnOffThreshouldVoiceController
 {
 public:
     MappedVoiceController();
