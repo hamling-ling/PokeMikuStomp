@@ -31,7 +31,7 @@ bool AvoidTooShortVoiceController::ShouldStop(int level, unsigned int note, Voic
         return false;
     }
     
-    bool result = OnOffThreshouldVoiceController::ShouldStop(level, note, notif);
+    bool result = StrictVoiceController::ShouldStop(level, note, notif);
     if(result) {
         // anything to do?
     }
@@ -40,7 +40,7 @@ bool AvoidTooShortVoiceController::ShouldStop(int level, unsigned int note, Voic
 
 bool AvoidTooShortVoiceController::ShouldStart(int level, unsigned int note, VoiceControllerNotification& notif)
 {
-    bool result = OnOffThreshouldVoiceController::ShouldStart(level, note, notif);
+    bool result = StrictVoiceController::ShouldStart(level, note, notif);
     if(result) {
         _stopWatch.Reset(_minVoiceLen);
     }
@@ -53,7 +53,7 @@ bool AvoidTooShortVoiceController::ShouldChange(int level, unsigned int note, Vo
         return false;
     }
     
-    bool result = OnOffThreshouldVoiceController::ShouldChange(level, note, notif);
+    bool result = StrictVoiceController::ShouldChange(level, note, notif);
     if(result) {
         // anything to do?
         _stopWatch.Reset(_minVoiceLen);

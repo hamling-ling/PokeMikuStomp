@@ -34,6 +34,6 @@ std::string DoremiVoiceController::GetPhrase()
 
 wstring DoremiVoiceController::GetNextPronounciation(int level, unsigned int note)
 {
-    return kNoteProStrings[_currentNote%12];
+    return kNoteProStrings[note%12];
 }
 

@@ -21,7 +21,7 @@ public:
     void Reset(unsigned int);
     bool IsEllapsed();
 private:
-    std::chrono::system_clock::time_point _startTime;
+    std::chrono::time_point<std::chrono::system_clock> _startTime;
     std::recursive_mutex _mutex;
     bool _isRunning;
     unsigned int _interval;

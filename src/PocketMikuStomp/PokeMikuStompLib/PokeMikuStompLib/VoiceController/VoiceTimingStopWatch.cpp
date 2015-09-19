@@ -30,9 +30,10 @@ unsigned long long VoiceTimingStopWatch::Time()
         return 0;
     }
     
-    auto endTime = system_clock::now();
-    typedef duration<unsigned long long, microseconds::period> fp_microsec;
-    unsigned long long time = fp_microsec(endTime - _startTime).count();
+    std::chrono::time_point<std::chrono::system_clock> endTime = system_clock::now();
+    std::chrono::duration<double> duration = endTime - _startTime;
+    double durW = duration.count();
+    unsigned long long time = static_cast<double>(1000.0 * duration.count());
     
     return time;
 }

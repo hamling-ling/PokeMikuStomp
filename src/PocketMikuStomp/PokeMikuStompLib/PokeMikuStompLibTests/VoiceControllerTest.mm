@@ -12,6 +12,7 @@
 #include "MappedVoiceController.h"
 #include "StrictVoiceController.h"
 #include "AvoidTooShortVoiceController.h"
+#include "VoiceTimingStopWatch.h"
 #include "PronouncableLetterMap.h"
 #include "StrictPhraseParser.h"
 #include "Utilities.h"
@@ -262,6 +263,14 @@ using namespace std;
     XCTAssertTrue(split_it->compare(L"そ") == 0);
 }
 
+- (void)testVoiceTimingStopWatch {
+    VoiceTimingStopWatch sw;
+    sw.Reset(100);
+    XCTAssertFalse(sw.IsEllapsed());
+    usleep(2000 * 1000);
+    XCTAssertTrue(sw.IsEllapsed());
+}
+
 - (void)testStrictVoiceControllerStartedEvent {
     string input = "ぅcいeあぁgえ";
     StrictVoiceController vc;
@@ -302,7 +311,7 @@ using namespace std;
     responded = vc.Input(0,kNoMidiNote, notif);
     XCTAssertFalse(responded);//should not respoind to short on->off
     
-    usleep(210*1000);
+    usleep(210*1000);// sleep 210ms
     responded = vc.Input(0,kNoMidiNote, notif);
     XCTAssertTrue(responded);// should respond
     XCTAssertTrue(notif.type == VoiceControllerNotificationTypePronounceFinished);

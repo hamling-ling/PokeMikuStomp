@@ -12,7 +12,7 @@
 #include <SoundCapture.h>
 #include <PMMiku.h>
 #include "StopWatch.h"
-#include <StrictVoiceController.h>
+#include <AvoidTooShortVoiceController.h>
 #include <DoremiVoiceController.h>
 #include <mutex>
 #include <PronouncableLetterMap.h>
@@ -125,9 +125,9 @@ static void SoundCapEvent(SoundCapture* sc, SoundCaptureNotification note)
     std::lock_guard<std::recursive_mutex> lock(_voiceMutex);
     
     if(kPokeMikuStompLibVoiceModeUserPhrase == voiceMode) {
-        shared_ptr<StrictVoiceController> ptr = make_shared<StrictVoiceController>();
+        shared_ptr<AvoidTooShortVoiceController> ptr = make_shared<AvoidTooShortVoiceController>();
         ptr->SetThreshold((int)self.OffToOnThreshold, (int)self.OnToOffThreshold);
-        
+        ptr->SetMinimumVoiceLength(300);
         _voice = dynamic_pointer_cast<OnOffThreshouldVoiceController>(ptr);
     } else {
         shared_ptr<DoremiVoiceController> ptr = make_shared<DoremiVoiceController>();
