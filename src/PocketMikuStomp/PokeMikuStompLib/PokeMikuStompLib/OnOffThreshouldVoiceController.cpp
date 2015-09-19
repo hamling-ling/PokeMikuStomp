@@ -82,5 +82,9 @@ bool OnOffThreshouldVoiceController::ShouldChange(int level, unsigned int note, 
         return false;
     }
     
+    if(_currentNote == note) {
+        return false;
+    }
+    
     return true;
 }
